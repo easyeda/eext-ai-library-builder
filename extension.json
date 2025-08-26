@@ -1,0 +1,66 @@
+{
+	"name": "ai-library-building-helper",
+	"uuid": "d2d0caf8ebc4449cb71ebed875826d0c",
+	"displayName": "AI 智能建库",
+	"description": "基于大模型的符号封装生成器",
+	"version": "1.0.11",
+	"publisher": "JLCEDA <support@lceda.cn>",
+	"engines": {
+		"eda": "^2.3.0"
+	},
+	"license": "Apache-2.0",
+	"repository": {
+		"type": "extension-store",
+		"url": ""
+	},
+	"categories": "Other",
+	"keywords": [
+		"SDK"
+	],
+	"images": {
+		"logo": "./images/logo.png"
+	},
+	"homepage": "https://pro.lceda.cn",
+	"bugs": "https://lceda.cn/page/feedback?originPage=other",
+	"activationEvents": {},
+	"entry": "./dist/index",
+	"dependentExtensions": {},
+	"headerMenus": {
+		"symbol": [
+			{
+				"id": "fuhao",
+				"title": "智能建库",
+				"menuItems": [
+					{
+						"id": "symbol",
+						"title": "创建符号...",
+						"registerFn": "symbol"
+					},
+					{
+						"id": "symbolShow",
+						"title": "继续创建...",
+						"registerFn": "symbolShow"
+					}
+				]
+			}
+		],
+		"footprint": [
+			{
+				"id": "fenzhuang",
+				"title": "智能建库",
+				"menuItems": [
+					{
+						"id": "footprint",
+						"title": "创建封装...",
+						"registerFn": "footprint"
+					},
+										{
+						"id": "footprintShow",
+						"title": "继续创建...",
+						"registerFn": "footprintShow"
+					}
+				]
+			}
+		]
+	}
+}

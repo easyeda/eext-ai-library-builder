@@ -1,0 +1,4228 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="/iframe/assets/jszip.min.js"></script>
+		<script src="/iframe/assets/pdf.min.js"></script>
+		<title>符号提取助手</title>
+		<style>
+			body {
+				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+				margin: 0;
+				padding: 0;
+				background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+				height: 100vh;
+				overflow: hidden;
+				color: #495057;
+			}
+			.container {
+				display: flex;
+				height: 100vh;
+				background-color: #ffffff;
+				box-shadow: 0 0 20px rgba(0,0,0,0.1);
+			}
+			.header {
+				display: none;
+			}
+			h1 {
+				margin: 0;
+				font-size: 20px;
+				font-weight: 600;
+				color: #343a40;
+				letter-spacing: -0.5px;
+			}
+			.settings-btn {
+				background: #e3f2fd;
+				color: #1976d2;
+				border: 1px solid #bbdefb;
+				border-radius: 4px;
+				padding: 0 16px;
+				cursor: pointer;
+				font-size: 14px;
+				font-weight: 400;
+				transition: background-color 0.2s ease;
+				display: flex;
+				align-items: center;
+				gap: 6px;
+				height: 24px;
+				line-height: 24px;
+				min-width: 24px;
+			}
+			.settings-btn:hover {
+				background: #bbdefb;
+			}
+			.settings-modal {
+				display: none;
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: rgba(0,0,0,0.5);
+				z-index: 1000;
+				align-items: center;
+				justify-content: center;
+			}
+			.settings-content {
+				background: white;
+				border-radius: 12px;
+				padding: 24px;
+				width: 400px;
+				max-width: 90vw;
+				box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+			}
+			.settings-header {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: 20px;
+			}
+			.settings-title {
+				font-size: 18px;
+				font-weight: 600;
+				color: #343a40;
+				margin: 0;
+			}
+			.close-btn {
+				background: none;
+				border: none;
+				font-size: 24px;
+				cursor: pointer;
+				color: #6c757d;
+				padding: 0;
+				width: 24px;
+				height: 24px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				border-radius: 6px;
+				transition: all 0.2s ease;
+				line-height: 24px;
+				min-width: 24px;
+			}
+			.close-btn:hover {
+				background: #f8f9fa;
+				color: #495057;
+			}
+			.left-panel {
+				flex: 1;
+				border-right: 1px solid #e9ecef;
+				display: flex;
+				flex-direction: column;
+				background: #ffffff;
+			}
+			.right-panel {
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+				background: #ffffff;
+			}
+			.form-group {
+				margin-bottom: 20px;
+			}
+			label {
+				display: block;
+				margin-bottom: 8px;
+				font-weight: 500;
+				color: #495057;
+				font-size: 14px;
+			}
+			input[type='text'],
+			select {
+				width: 100%;
+				padding: 12px 16px;
+				border: 2px solid #e9ecef;
+				border-radius: 8px;
+				font-size: 14px;
+				transition: all 0.3s ease;
+				background: #ffffff;
+				box-sizing: border-box;
+			}
+			input[type='text']:focus,
+			select:focus {
+				outline: none;
+				border-color: #6c757d;
+				box-shadow: 0 0 0 3px rgba(108, 117, 125, 0.1);
+			}
+			.upload-section {
+				display: none;
+			}
+			.upload-area {
+				border: 2px dashed #ced4da;
+				border-radius: 8px;
+				padding: 20px 16px;
+				text-align: center;
+				margin-bottom: 12px;
+				cursor: pointer;
+				transition: all 0.3s ease;
+				background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+			}
+			.upload-area:hover {
+				border-color: #6c757d;
+				background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+				transform: translateY(-2px);
+				box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+			}
+			.upload-area.highlight {
+				border-color: #6c757d;
+				background: linear-gradient(135deg, #e9ecef 0%, #f8f9fa 100%);
+				box-shadow: 0 0 0 3px rgba(108, 117, 125, 0.1);
+			}
+			.upload-area p {
+				color: #6c757d;
+				margin: 0;
+				font-size: 14px;
+				font-weight: 500;
+			}
+			.image-display {
+				flex: 1;
+				position: relative;
+				overflow: hidden;
+				background: #f9f9f9;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				border: 2px dashed #ced4da;
+				cursor: pointer;
+				transition: all 0.3s ease;
+			}
+			.image-display:hover {
+				border-color: #6c757d;
+				background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+			}
+			.image-display.highlight {
+				border-color: #6c757d;
+				background: linear-gradient(135deg, #e9ecef 0%, #f8f9fa 100%);
+				box-shadow: 0 0 0 3px rgba(108, 117, 125, 0.1);
+			}
+			.image-container {
+				position: relative;
+				width: 100%;
+				height: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			.image-container img {
+				max-width: 100%;
+				max-height: 100%;
+				object-fit: contain;
+				display: block;
+				user-select: none;
+				-webkit-user-drag: none;
+				-khtml-user-drag: none;
+				-moz-user-drag: none;
+				-o-user-drag: none;
+				user-drag: none;
+				pointer-events: none;
+			}
+			.selection-box {
+				position: absolute;
+				border: 2px solid #2f8ae0;
+				background: rgba(47, 138, 224, 0.1);
+				pointer-events: none;
+				display: block;
+				z-index: 15;
+				box-sizing: border-box;
+				min-width: 1px;
+				min-height: 1px;
+			}
+			.controls-section {
+				padding: 12px 16px;
+				border-bottom: 1px solid #e9ecef;
+				background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+				box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+			}
+			.control-row {
+				display: flex;
+				gap: 6px;
+				margin-bottom: 8px;
+				align-items: center;
+				flex-wrap: wrap;
+			}
+			.control-row.single-row {
+				flex-wrap: nowrap;
+				gap: 4px;
+				justify-content: space-between;
+			}
+			.control-buttons {
+				display: flex;
+				gap: 4px;
+			}
+			.coordinate-display {
+				font-size: 12px;
+				color: #666;
+				margin-top: 5px;
+			}
+			.progress-container {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				margin-top: 5px;
+			}
+			.progress-bar {
+				flex: 1;
+				height: 6px;
+				background-color: #e9ecef;
+				border-radius: 3px;
+				overflow: hidden;
+				display: none;
+			}
+			.progress-fill {
+				height: 100%;
+				background-color: #007bff;
+				transition: width 0.3s ease;
+				width: 0%;
+			}
+			.progress-text {
+				font-size: 11px;
+				color: #666;
+				white-space: nowrap;
+				display: none;
+			}
+			.preview-container {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+				gap: 15px;
+				margin-bottom: 20px;
+			}
+			.preview-item {
+				border: 1px solid #eee;
+				border-radius: 4px;
+				padding: 10px;
+				position: relative;
+			}
+			.preview-item img {
+				max-width: 100%;
+				height: auto;
+				border-radius: 4px;
+			}
+			.preview-item-info {
+				margin-top: 8px;
+				font-size: 12px;
+			}
+			.preview-item-name {
+				font-weight: bold;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+			.preview-item-size {
+				color: #888;
+			}
+			.preview-item-remove {
+				position: absolute;
+				top: 5px;
+				right: 5px;
+				background: none;
+				border: none;
+				font-size: 16px;
+				cursor: pointer;
+				color: #999;
+			}
+			.controls {
+				display: flex;
+				justify-content: space-between;
+				margin-bottom: 20px;
+			}
+			.control-group {
+				display: flex;
+				gap: 10px;
+			}
+			button {
+				padding: 0 8px;
+				background: white;
+				color: #2196f3;
+				border: 1px solid #2196f3;
+				border-radius: 3px;
+				cursor: pointer;
+				font-size: 11px;
+				font-weight: 400;
+				transition: all 0.2s ease;
+				height: 24px;
+				line-height: 24px;
+				min-width: 24px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			button:hover {
+				background: #2196f3;
+				color: white;
+			}
+			button:active {
+				background: #1976d2;
+				color: white;
+			}
+			button:disabled {
+				background: #f5f5f5;
+				color: #9e9e9e;
+				border-color: #e0e0e0;
+				cursor: not-allowed;
+			}
+			.btn-primary {
+				background: #2196f3;
+				color: white;
+				border-color: #2196f3;
+			}
+			.btn-primary:hover {
+				background: #1976d2;
+				border-color: #1976d2;
+			}
+			.btn-success {
+				background: white;
+				color: #2196f3;
+				border-color: #2196f3;
+			}
+			.btn-success:hover {
+				background: #2196f3;
+				color: white;
+				border-color: #2196f3;
+			}
+			.btn-secondary {
+				background: white;
+				color: #6c757d;
+				border-color: #6c757d;
+			}
+			.btn-secondary:hover {
+				background: #6c757d;
+				color: white;
+				border-color: #6c757d;
+			}
+			.detection-box {
+				position: absolute;
+				border: 2px solid #e74c3c;
+				background: rgba(231, 76, 60, 0.2);
+				pointer-events: none;
+				box-sizing: border-box;
+			}
+			.detection-label {
+				position: absolute;
+				top: -25px;
+				left: 0;
+				background: #e74c3c;
+				color: white;
+				padding: 2px 6px;
+				font-size: 12px;
+				border-radius: 3px;
+				white-space: nowrap;
+			}
+			.image-viewer.selecting {
+				cursor: crosshair;
+			}
+			.image-viewer.selecting .selection-overlay {
+				pointer-events: all;
+			}
+			.selection-overlay {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				pointer-events: none;
+				z-index: 10;
+			}
+			.results-container {
+				border-top: 1px solid #eee;
+				padding-top: 20px;
+			}
+			.results-header {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: 15px;
+			}
+			.results-count {
+				font-weight: bold;
+			}
+			.results-controls {
+				display: flex;
+				gap: 15px;
+			}
+			select {
+				padding: 5px;
+				border-radius: 4px;
+				border: 1px solid #ccc;
+			}
+			.results-list {
+				max-height: 600px;
+				overflow-y: auto;
+			}
+			.result-item {
+				border-bottom: 1px solid #eee;
+				padding: 15px 0;
+			}
+			.result-item-header {
+				display: flex;
+				align-items: center;
+				margin-bottom: 10px;
+			}
+			.result-item-header img {
+				width: 40px;
+				height: 40px;
+				object-fit: cover;
+				border-radius: 4px;
+				margin-right: 10px;
+			}
+			.result-item-title {
+				font-weight: bold;
+				flex: 1;
+			}
+			.result-item-status {
+				color: #4885e0;
+			}
+			.result-item-content {
+				white-space: pre-wrap;
+				line-height: 1.5;
+			}
+			.result-item-footer {
+				display: flex;
+				gap: 10px;
+				margin-top: 10px;
+			}
+			.result-item.error .result-item-status {
+				color: #f44336;
+			}
+			.cost-container {
+				margin-top: 20px;
+				padding: 10px;
+				background-color: #f9f9f9;
+				border-radius: 4px;
+			}
+			.cost-container div {
+				margin: 5px 0;
+				display: flex;
+				justify-content: space-between;
+			}
+			.scroll-indicator {
+				text-align: center;
+				padding: 10px;
+				background-color: #f0f0f0;
+				color: #666;
+				display: none;
+			}
+			.dark-mode {
+				background-color: #333;
+				color: #fff;
+			}
+			.dark-mode .container {
+				background-color: #222;
+				color: #fff;
+				box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+			}
+			.dark-mode .upload-area {
+				border-color: #555;
+			}
+			.dark-mode .preview-item {
+				border-color: #444;
+			}
+			.dark-mode .results-list {
+				border-color: #444;
+			}
+			.dark-mode .result-item.error .result-item-status {
+				color: #ff5555;
+			}
+			.dark-mode .cost-container {
+				background-color: #333;
+			}
+			.progress-container {
+				margin: 20px 0;
+				display: none;
+			}
+			.progress-bar-container {
+				height: 20px;
+				background-color: #f0f0f0;
+				border-radius: 10px;
+				overflow: hidden;
+			}
+			#progress-bar {
+				height: 100%;
+				background-color: #2f8ae0;
+				width: 0%;
+			}
+			.timer-container {
+				text-align: center;
+				margin-top: 10px;
+				font-weight: bold;
+			}
+			.result-card {
+				border: 1px solid #eee;
+				border-radius: 6px;
+				padding: 12px;
+				margin-bottom: 10px;
+				cursor: pointer;
+				transition: all 0.3s;
+			}
+			.result-card:hover {
+				box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+			}
+			.result-card-header {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				margin-bottom: 8px;
+			}
+			.result-card-title {
+				font-weight: bold;
+			}
+			.result-card-content {
+				display: none;
+				white-space: pre-wrap;
+				line-height: 1.4;
+				font-size: 13px;
+				max-height: 200px;
+				overflow-y: auto;
+			}
+			.result-card-footer {
+				display: flex;
+				justify-content: flex-end;
+				margin-top: 8px;
+				gap: 6px;
+			}
+			.result-card-footer button {
+				padding: 4px 8px;
+				background-color: #f0f0f0;
+				color: #333;
+				border: none;
+				border-radius: 4px;
+				cursor: pointer;
+				font-size: 12px;
+			}
+			.top-right-button {
+				background-color: #4caf50;
+			}
+			.top-right-button:hover {
+				background-color: #45a049;
+			}
+			.pin-table-section {
+				flex: 1;
+				padding: 0;
+				overflow: auto;
+				display: flex;
+				flex-direction: column;
+			}
+			.pin-table-content {
+				flex: 1;
+				padding: 5px;
+				overflow: auto;
+			}
+			.pin-table {
+				width: 100%;
+				border-collapse: collapse;
+				margin-top: 10px;
+				font-size: 11px;
+				table-layout: fixed;
+			}
+			.pin-table th,
+			.pin-table td {
+				border: 1px solid #ddd;
+				padding: 4px 6px;
+				text-align: left;
+			}
+			.pin-table th:nth-child(1),
+			.pin-table td:nth-child(1) {
+				width: 60px;
+			}
+			.pin-table th:nth-child(4),
+			.pin-table td:nth-child(4) {
+				width: 60px;
+				text-align: center;
+			}
+			.pin-table button {
+				padding: 0 8px;
+				font-size: 10px;
+				border-radius: 3px;
+				background: #f1848e;
+				color: white;
+				border: none;
+				cursor: pointer;
+				width: auto;
+				min-width: 40px;
+				height: 24px;
+				line-height: 24px;
+			}
+			.pin-table button:hover {
+				background: #c82333;
+			}
+			.pin-table th {
+				background-color: #f5f5f5;
+				font-weight: bold;
+				font-size: 10px;
+			}
+			.pin-table tr:nth-child(even) {
+				background-color: #f9f9f9;
+			}
+			.pin-table tr:hover {
+				background-color: #e3f2fd;
+			}
+			.pin-table input {
+				width: 100%;
+				border: none;
+				padding: 4px;
+				background: transparent;
+			}
+			.pin-table input:focus {
+				outline: 1px solid #2f8ae0;
+				background: white;
+			}
+			.table-controls {
+				display: flex;
+				gap: 6px;
+				padding: 12px 16px;
+				border-bottom: 1px solid #e9ecef;
+				background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+				box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+			}
+			.table-controls button {
+				padding: 0 6px;
+				font-size: 10px;
+				height: 24px;
+				line-height: 24px;
+			}
+			.empty-state {
+				text-align: center;
+				color: #999;
+				padding: 40px;
+				font-style: italic;
+			}
+			.pin-table-content .empty-state {
+				padding: 40px 20px;
+				margin: 0;
+				font-size: 14px;
+			}
+			.image-navigation {
+				padding: 12px 20px;
+				border-top: 1px solid #e9ecef;
+				background: #f8f9fa;
+			}
+			.nav-controls {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 8px;
+				margin-bottom: 8px;
+			}
+			.nav-btn {
+				padding: 0 8px;
+				font-size: 12px;
+				min-width: 60px;
+				height: 24px;
+				line-height: 24px;
+			}
+			.nav-btn:disabled {
+				opacity: 0.5;
+				cursor: not-allowed;
+			}
+			.image-counter {
+				font-weight: 500;
+				color: #495057;
+				font-size: 12px;
+				min-width: 50px;
+				text-align: center;
+				cursor: pointer;
+				padding: 4px 8px;
+				border-radius: 4px;
+				transition: background-color 0.2s ease;
+				position: relative;
+			}
+			.image-counter:hover {
+				background-color: #f8f9fa;
+			}
+			.image-counter::before {
+				content: '📄';
+				position: absolute;
+				left: -18px;
+				top: 50%;
+				transform: translateY(-50%);
+				font-size: 10px;
+				opacity: 0.7;
+			}
+
+
+			.image-info {
+				text-align: center;
+				font-size: 12px;
+				color: #6c757d;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+			.timing-display {
+				font-size: 11px;
+				color: #6c757d;
+				padding: 4px 8px;
+				border: 1px solid #e9ecef;
+				border-radius: 3px;
+				background: #f8f9fa;
+				white-space: nowrap;
+				min-width: 80px;
+				text-align: center;
+				flex-shrink: 0;
+				margin-left: auto;
+			}
+			
+			/* 图片预览模态框样式 */
+			.image-preview-modal {
+				display: none;
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: rgba(0, 0, 0, 0.9);
+				z-index: 2000;
+				align-items: center;
+				justify-content: center;
+				cursor: pointer;
+			}
+			
+			.image-preview-content {
+				position: relative;
+				max-width: 90vw;
+				max-height: 90vh;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			
+			.image-preview-content img {
+				max-width: 100%;
+				max-height: 100%;
+				object-fit: contain;
+				border-radius: 8px;
+				box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+				cursor: default;
+			}
+			
+			.image-preview-close {
+				position: absolute;
+				top: 20px;
+				right: 20px;
+				background: rgba(255, 255, 255, 0.9);
+				border: none;
+				border-radius: 50%;
+				width: 50px;
+				height: 50px;
+				font-size: 24px;
+				cursor: pointer;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				transition: all 0.2s ease;
+				color: #333;
+				line-height: 50px;
+				font-weight: bold;
+				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+			}
+			
+			.image-preview-close:hover {
+				background: rgba(255, 255, 255, 1);
+				transform: scale(1.1);
+				box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+			}
+			
+			.image-preview-info {
+				position: absolute;
+				bottom: 20px;
+				left: 50%;
+				transform: translateX(-50%);
+				background: rgba(0, 0, 0, 0.7);
+				color: white;
+				padding: 8px 16px;
+				border-radius: 20px;
+				font-size: 14px;
+				white-space: nowrap;
+			}
+
+			/* 图片左上角替换PDF按钮 */
+			.replace-pdf-overlay {
+				position: absolute;
+				top: 10px;
+				left: 10px;
+				z-index: 15;
+				display: none;
+			}
+
+			.replace-pdf-overlay button {
+				background: rgba(0, 0, 0, 0.7);
+				color: white;
+				border: none;
+				padding: 0 12px;
+				border-radius: 4px;
+				font-size: 12px;
+				cursor: pointer;
+				transition: background-color 0.2s;
+				height: 24px;
+				line-height: 24px;
+				min-width: 24px;
+			}
+
+			.replace-pdf-overlay button:hover {
+				background: rgba(0, 0, 0, 0.9);
+			}
+		</style>
+	</head>
+	<body>
+		<!-- 图片预览模态框 -->
+		<div id="image-preview-modal" class="image-preview-modal">
+			<div class="image-preview-content">
+				<img id="preview-image" src="" alt="预览图片" />
+				<button class="image-preview-close" id="close-preview">×</button>
+				<div class="image-preview-info" id="preview-info">图片信息</div>
+			</div>
+		</div>
+		
+		<!-- 设置模态框 -->
+		<div id="settings-modal" class="settings-modal">
+			<div class="settings-content" style="width: 500px;">
+				<div class="settings-header">
+					<h3 class="settings-title">设置</h3>
+					<button class="close-btn" id="close-settings">×</button>
+				</div>
+				<div class="form-group">
+					<label for="provider-select">模型厂商</label>
+					<select id="provider-select">
+						<option value="qwen">通义千问</option>
+						<option value="zhipu">智谱AI</option>
+						<option value="custom">自定义</option>
+					</select>
+				</div>
+				<div class="form-group" id="model-group">
+					<label for="model-select">选择模型</label>
+					<select id="model-select">
+						<option value="qwen-vl-max-latest">qwen-vl-max-latest</option>
+						<option value="qwen2.5-vl-7b-instruct">qwen2.5-vl-7b-instruct</option>
+						<option value="qwen2.5-vl-72b-instruct">qwen2.5-vl-72b-instruct</option>
+						<option value="qvq-72b-preview">qvq-72b-preview</option>
+						<option value="qwen-vl-plus">qwen-vl-plus</option>
+					</select>
+				</div>
+				<div class="form-group" id="api-key-group">
+					<label for="api-key">API密钥</label>
+					<input type="text" id="api-key" placeholder="请输入您的API密钥" />
+				</div>
+				<div class="form-group" id="api-url-group" style="display: none;">
+					<label for="api-url">API地址</label>
+					<input type="text" id="api-url" placeholder="请输入API地址" />
+				</div>
+				<div class="form-group" id="custom-model-group" style="display: none;">
+					<label for="custom-model">模型名称</label>
+					<input type="text" id="custom-model" placeholder="请输入模型名称" />
+				</div>
+				<div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px;">
+					<button type="button" id="cancel-settings" style="background: #e9ecef; color: #495057;">取消</button>
+					<button type="button" id="save-settings" class="btn-primary">保存</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<!-- 左侧面板 -->
+			<div class="left-panel">
+				<!-- 控制区域 -->
+				<div class="controls-section">
+					<div class="control-row single-row">
+						<div class="control-buttons">
+							<button id="search-position" class="btn-primary" disabled>搜索符号位置</button>
+							<button id="extract-params" class="btn-success" disabled>提取参数</button>
+							<button id="clear-selection">清除框选</button>
+							<button id="manual-select">手动框选</button>
+							<button class="btn-secondary" id="hideButton">隐藏窗口</button>
+							<button class="settings-btn" id="open-settings">设置</button>
+						</div>
+						<div class="timing-display" id="timing-display">耗时: --</div>
+					</div>
+					<div class="progress-container">
+						<div class="coordinate-display" id="coordinate-display">
+							坐标信息: 未选择区域
+						</div>
+						<div class="progress-bar" id="progress-bar">
+							<div class="progress-fill" id="progress-fill"></div>
+						</div>
+						<div class="progress-text" id="progress-text"></div>
+					</div>
+				</div>
+				
+				<!-- 图片显示区域（现在也是拖拽区域） -->
+				<div class="image-display" id="image-display">
+					<div class="selection-overlay" id="selection-overlay"></div>
+					<div class="replace-pdf-overlay" id="replace-pdf-overlay">
+						<button id="replace-pdf-btn">替换PDF</button>
+					</div>
+					<div class="empty-state">拖拽PDF或图片到此处或点击上传</div>
+					<input type="file" id="file-input" multiple accept=".pdf,image/*" style="display: none" />
+				</div>
+
+			<!-- 图片导航区域 -->
+			<div class="image-navigation" id="image-navigation" style="display: none;">
+				<div class="nav-controls">
+				<button id="prev-image" class="nav-btn">‹ 上一张</button>
+					<input type="number" id="page-input" min="1" max="1" value="1" placeholder="页码" title="输入页码按回车键快速跳转到指定页面" style="width: 40px; text-align: center; border: 1px solid #ddd; background: white; font-size: 12px; font-weight: 500; color: #495057; border-radius: 3px; padding: 1px 2px;" />
+					<span> / </span>
+					<span id="total-pages">1</span>
+				</span>
+				<button id="next-image" class="nav-btn">下一张 ›</button>
+			</div>
+				<div class="image-info" id="image-info">当前图片</div>
+			</div>
+
+
+			</div>
+
+			<!-- 右侧面板 -->
+			<div class="right-panel">
+				<div class="pin-table-section">
+					<div class="table-controls">
+						<button id="add-pin">添加引脚</button>
+						<button id="clear-table">清空表格</button>
+						<button id="create-symbol" class="btn-success">创建符号</button>
+						<button id="copy-symbol-info" class="btn-secondary" disabled>复制符号信息</button>
+					</div>
+					<div class="pin-table-content">
+						<div id="pin-table-container">
+							<div class="empty-state">暂无引脚信息</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<script>
+			// 设置PDF.js的worker路径
+			pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+			// 全局变量
+			let uploadedFiles = [];
+			let currentImages = [];
+			let currentImageIndex = 0;
+			let apiKey = '';
+			let selectedModel = 'qwen-vl-max-latest';
+			let selectedProvider = 'qwen';
+			let apiUrl = '';
+			let customModel = '';
+			let isSelecting = false;
+			let selectionStart = { x: 0, y: 0 };
+			let selectionEnd = { x: 0, y: 0 };
+			let selectionBox = null;
+			let currentSelection = null;
+			let pinData = [];
+
+			// 检测是否使用特殊API格式的辅助函数
+			function isSpecialApiFormat(provider, url) {
+				return provider === 'custom' && url && url.includes('/ai-chat-api/complete');
+			}
+			let detectionResults = null;
+			let processedImages = [];
+			let imageSelections = {}; // 存储每张图片的框选状态
+			let startTime = null; // 计时开始时间
+			let timingInterval = null; // 计时器间隔
+			const modelRates = {
+				'qwen-vl-max-latest': { input: 0.003, output: 0.009 },
+				'qwen2.5-vl-7b-instruct': { input: 0.002, output: 0.005 },
+				'qwen2.5-vl-72b-instruct': { input: 0.016, output: 0.048 },
+				'qvq-72b-preview': { input: 0.012, output: 0.036 },
+				'qwen-vl-plus': { input: 0.0015, output: 0.0045 },
+			};
+
+			// 模型厂商配置
+			const providerConfigs = {
+				qwen: {
+					name: '通义千问',
+					apiUrl: 'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions',
+					models: [
+						{ value: 'qwen-vl-max-latest', name: 'qwen-vl-max-latest' },
+						{ value: 'qwen2.5-vl-7b-instruct', name: 'qwen2.5-vl-7b-instruct' },
+						{ value: 'qwen2.5-vl-72b-instruct', name: 'qwen2.5-vl-72b-instruct' },
+						{ value: 'qvq-72b-preview', name: 'qvq-72b-preview' },
+						{ value: 'qwen-vl-plus', name: 'qwen-vl-plus' }
+					],
+					requiresApiKey: true
+				},
+				zhipu: {
+					name: '智谱AI',
+					apiUrl: 'https://open.bigmodel.cn/api/paas/v4/chat/completions',
+					models: [
+						{ value: 'glm-4.5v', name: 'GLM-4.5V' }
+					],
+					requiresApiKey: true
+				},
+				custom: {
+					name: '自定义',
+					apiUrl: '',
+					models: [],
+					requiresApiKey: false
+				}
+			};
+
+			// DOM元素
+			const dropArea = document.getElementById('image-display');
+			const fileInput = document.getElementById('file-input');
+			const imageDisplay = document.getElementById('image-display');
+			const coordinateDisplay = document.getElementById('coordinate-display');
+			const clearSelectionButton = document.getElementById('clear-selection');
+			const searchPositionButton = document.getElementById('search-position');
+			const extractParamsButton = document.getElementById('extract-params');
+			const manualSelectButton = document.getElementById('manual-select');
+			const hideButton = document.getElementById('hideButton');
+			let selectionOverlay = document.getElementById('selection-overlay');
+			const settingsModal = document.getElementById('settings-modal');
+			const openSettingsBtn = document.getElementById('open-settings');
+			const closeSettingsBtn = document.getElementById('close-settings');
+			const cancelSettingsBtn = document.getElementById('cancel-settings');
+			const providerSelect = document.getElementById('provider-select');
+			const modelSelect = document.getElementById('model-select');
+			const apiKeyInput = document.getElementById('api-key');
+			const apiUrlInput = document.getElementById('api-url');
+			const customModelInput = document.getElementById('custom-model');
+			const modelGroup = document.getElementById('model-group');
+			const apiKeyGroup = document.getElementById('api-key-group');
+			const apiUrlGroup = document.getElementById('api-url-group');
+			const customModelGroup = document.getElementById('custom-model-group');
+			const saveSettingsBtn = document.getElementById('save-settings');
+			const addPinButton = document.getElementById('add-pin');
+			const clearTableButton = document.getElementById('clear-table');
+			const createSymbolButton = document.getElementById('create-symbol');
+			const copySymbolInfoButton = document.getElementById('copy-symbol-info');
+			const pinTableContainer = document.getElementById('pin-table-container');
+			const imageNavigation = document.getElementById('image-navigation');
+			const prevImageBtn = document.getElementById('prev-image');
+			const nextImageBtn = document.getElementById('next-image');
+			const imageCounter = document.getElementById('image-counter');
+			const imageInfo = document.getElementById('image-info');
+			const progressBar = document.getElementById('progress-bar');
+			const progressFill = document.getElementById('progress-fill');
+			const progressText = document.getElementById('progress-text');
+			const timingDisplay = document.getElementById('timing-display');
+
+			// 初始化
+			document.addEventListener('DOMContentLoaded', function () {
+				// EDA兼容性检查
+				if (typeof eda === 'undefined') {
+					window.eda = {
+						sys_Storage: {
+							getExtensionUserConfig: function(key) {
+								return localStorage.getItem('eda_' + key);
+							},
+							setExtensionUserConfig: function(key, value) {
+								localStorage.setItem('eda_' + key, value);
+							}
+						},
+						sch_PrimitivePin: {
+							create: function() {
+								console.log('EDA环境不可用，无法创建引脚');
+								return null;
+							}
+						}
+					};
+				}
+
+				// 初始化设置
+				loadSettings();
+
+				// 设置模态框事件处理
+				openSettingsBtn.addEventListener('click', function() {
+					settingsModal.style.display = 'flex';
+					loadSettings(); // 重新加载设置到界面
+				});
+
+				closeSettingsBtn.addEventListener('click', function() {
+					settingsModal.style.display = 'none';
+				});
+
+				cancelSettingsBtn.addEventListener('click', function() {
+					settingsModal.style.display = 'none';
+				});
+
+				saveSettingsBtn.addEventListener('click', function() {
+					saveSettings();
+					settingsModal.style.display = 'none';
+					if (typeof eda !== 'undefined' && eda.sys_ToastMessage) {
+						eda.sys_ToastMessage.showMessage('设置已保存！', 1);
+					}
+				});
+
+				// 模型厂商切换事件
+				providerSelect.addEventListener('change', updateModelOptions);
+
+				// 点击模态框外部关闭
+				window.addEventListener('click', function(event) {
+					if (event.target === settingsModal) {
+						settingsModal.style.display = 'none';
+					}
+				});
+
+				// 初始化拖放区域
+				initDropArea();
+				initButtons();
+				initImageSelection();
+				initImageNavigation();
+				initManualSelection();
+				updatePinTable();
+				updateUI();
+				updateButtons();
+			});
+
+			// 设置相关函数
+			function updateModelOptions() {
+				const provider = providerSelect.value;
+				const config = providerConfigs[provider];
+				
+				// 清空模型选项
+				modelSelect.innerHTML = '';
+				
+				if (provider === 'custom') {
+					// 自定义模式：显示API密钥、API地址、模型名称三个输入框
+					modelGroup.style.display = 'none';
+					apiKeyGroup.style.display = 'block';
+					apiUrlGroup.style.display = 'block';
+					customModelGroup.style.display = 'block';
+					
+					// 自定义模式下用户需要手动输入API地址
+				} else {
+					// 预设厂商
+					modelGroup.style.display = 'block';
+					apiKeyGroup.style.display = config.requiresApiKey ? 'block' : 'none';
+					apiUrlGroup.style.display = 'none';
+					customModelGroup.style.display = 'none';
+					
+					// 添加模型选项
+					config.models.forEach(model => {
+						const option = document.createElement('option');
+						option.value = model.value;
+						option.textContent = model.name;
+						modelSelect.appendChild(option);
+					});
+				}
+			}
+
+			function loadSettings() {
+				// 从存储中加载设置
+				const savedProvider = (typeof eda !== 'undefined' && eda.sys_Storage) ? 
+					eda.sys_Storage.getExtensionUserConfig('selected_provider') : 
+					localStorage.getItem('selectedProvider');
+				const savedApiKey = (typeof eda !== 'undefined' && eda.sys_Storage) ? 
+					eda.sys_Storage.getExtensionUserConfig('api_key') : 
+					localStorage.getItem('apiKey');
+				const savedModel = (typeof eda !== 'undefined' && eda.sys_Storage) ? 
+					eda.sys_Storage.getExtensionUserConfig('selected_model') : 
+					localStorage.getItem('selectedModel');
+				const savedApiUrl = (typeof eda !== 'undefined' && eda.sys_Storage) ? 
+					eda.sys_Storage.getExtensionUserConfig('api_url') : 
+					localStorage.getItem('apiUrl');
+				const savedCustomModel = (typeof eda !== 'undefined' && eda.sys_Storage) ? 
+					eda.sys_Storage.getExtensionUserConfig('custom_model') : 
+					localStorage.getItem('customModel');
+				
+				// 设置全局变量
+				selectedProvider = savedProvider || 'qwen';
+				apiKey = savedApiKey || '';
+				selectedModel = savedModel || 'qwen-vl-max-latest';
+				apiUrl = savedApiUrl || '';
+				customModel = savedCustomModel || '';
+				
+				// 更新界面
+				providerSelect.value = selectedProvider;
+				apiKeyInput.value = apiKey;
+				apiUrlInput.value = apiUrl;
+				customModelInput.value = customModel;
+				
+				// 更新模型选项
+				updateModelOptions();
+				
+				// 设置模型选择
+				if (selectedProvider !== 'custom' && modelSelect.querySelector(`option[value="${selectedModel}"]`)) {
+					modelSelect.value = selectedModel;
+				}
+			}
+
+			function saveSettings() {
+				// 获取界面值
+				selectedProvider = providerSelect.value;
+				apiKey = apiKeyInput.value;
+				apiUrl = apiUrlInput.value;
+				customModel = customModelInput.value;
+				
+				if (selectedProvider === 'custom') {
+					selectedModel = customModel;
+				} else {
+					selectedModel = modelSelect.value;
+				}
+				
+				// 保存到存储
+				if (typeof eda !== 'undefined' && eda.sys_Storage) {
+					eda.sys_Storage.setExtensionUserConfig('selected_provider', selectedProvider);
+					eda.sys_Storage.setExtensionUserConfig('api_key', apiKey);
+					eda.sys_Storage.setExtensionUserConfig('selected_model', selectedModel);
+					eda.sys_Storage.setExtensionUserConfig('api_url', apiUrl);
+					eda.sys_Storage.setExtensionUserConfig('custom_model', customModel);
+				} else {
+					localStorage.setItem('selectedProvider', selectedProvider);
+					localStorage.setItem('apiKey', apiKey);
+					localStorage.setItem('selectedModel', selectedModel);
+					localStorage.setItem('apiUrl', apiUrl);
+					localStorage.setItem('customModel', customModel);
+				}
+			}
+
+			/**
+			 * 通用API调用函数
+			 */
+			async function callAPI(data) {
+				const config = providerConfigs[selectedProvider];
+				const url = selectedProvider === 'custom' ? apiUrl : config.apiUrl;
+				
+				if (isSpecialApiFormat(selectedProvider, apiUrl)) {
+				// 自定义模式使用特殊API格式
+			const requestData = {
+				type: "chat.user.generic_chat",
+				context: {
+					chat: {
+						input_text: data.messages[data.messages.length - 1].content.find(c => c.type === 'text')?.text || '',
+						base64_images: data.messages[data.messages.length - 1].content
+							.filter(c => c.type === 'image_url')
+							.map(c => c.image_url.url.replace('data:image/jpeg;base64,', ''))
+					},
+					history: [],
+					messages: []
+				}
+			};
+			
+			const headers = {
+				'Content-Type': 'application/json',
+				'Accept': 'application/json'
+			};
+			
+			return await eda.sys_ClientUrl.request(
+				url,
+				'POST',
+				JSON.stringify(requestData),
+				headers
+			);
+				} else if (selectedProvider === 'zhipu') {
+					// 智谱AI使用OpenAI兼容格式
+					if (!apiKey || apiKey.trim() === '') {
+						throw new Error('智谱AI需要API密钥，请在模型设置中输入您的API Key');
+					}
+					
+					const headers = {
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${apiKey.trim()}`
+					};
+					
+					// 转换为智谱AI格式
+					const zhipuData = {
+						model: data.model,
+						messages: data.messages.map(msg => ({
+							role: msg.role,
+							content: msg.content
+						}))
+					};
+					
+					console.log('智谱AI API调用参数:', {
+						url: url,
+						headers: headers,
+						data: zhipuData
+					});
+					
+					return await eda.sys_ClientUrl.request(
+						url,
+						'POST',
+						JSON.stringify(zhipuData),
+						{ headers: headers }
+					);
+				} else if (selectedProvider === 'qwen') {
+					// 通义千问使用兼容模式格式
+					if (!apiKey || apiKey.trim() === '') {
+						throw new Error('通义千问需要API密钥，请在模型设置中输入您的API Key');
+					}
+					
+					const headers = {
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${apiKey.trim()}`
+					};
+					
+					// 转换为兼容模式格式
+					const qwenData = {
+						model: data.model,
+						messages: data.messages.map(msg => ({
+							role: msg.role,
+							content: msg.content
+						}))
+					};
+					
+					console.log('通义千问API调用参数:', {
+						url: url,
+						headers: headers,
+						data: qwenData
+					});
+					
+					return await eda.sys_ClientUrl.request(
+						url,
+						'POST',
+						JSON.stringify(qwenData),
+						{ headers: headers }
+					);
+				} else {
+					// 自定义API格式
+					const headers = {
+						'Content-Type': 'application/json'
+					};
+					
+					if (config.requiresApiKey && apiKey) {
+						headers['Authorization'] = `Bearer ${apiKey}`;
+					}
+					
+					return await eda.sys_ClientUrl.request(
+						url,
+						'POST',
+						JSON.stringify(data),
+						{ headers: headers }
+					);
+				}
+			}
+
+			/**
+			 * 初始化拖放区域的事件监听
+			 */
+			function initDropArea() {
+				['dragenter', 'dragover', 'dragleave', 'drop'].forEach((eventName) => {
+					dropArea.addEventListener(eventName, preventDefaults, false);
+				});
+
+				['dragenter', 'dragover'].forEach((eventName) => {
+					dropArea.addEventListener(eventName, highlight, false);
+				});
+
+				['dragleave', 'drop'].forEach((eventName) => {
+					dropArea.addEventListener(eventName, unhighlight, false);
+				});
+
+				dropArea.addEventListener('drop', handleDrop, false);
+				dropArea.addEventListener('click', (e) => {
+				// 只有在没有图片时才触发文件选择
+				if (currentImages.length === 0) {
+					fileInput.click();
+				}
+			});
+
+				fileInput.addEventListener('change', handleFiles, false);
+			}
+
+			/**
+			 * 阻止默认拖放行为
+			 */
+			function preventDefaults(e) {
+				e.preventDefault();
+				e.stopPropagation();
+			}
+
+			/**
+			 * 高亮显示拖放区域
+			 */
+			function highlight() {
+				dropArea.classList.add('highlight');
+			}
+
+			/**
+			 * 取消高亮显示
+			 */
+			function unhighlight() {
+				dropArea.classList.remove('highlight');
+			}
+
+			/**
+			 * 处理拖放的文件
+			 */
+			function handleDrop(e) {
+				const dt = e.dataTransfer;
+				const files = dt.files;
+				handleFiles({ target: { files } });
+			}
+
+			/**
+			 * 处理文件上传
+			 */
+			async function handleFiles(e) {
+				let files = [];
+				if (e.dataTransfer) {
+					files = e.dataTransfer.files;
+				} else if (e.target && e.target.files) {
+					files = e.target.files;
+				}
+
+				if (files.length === 0) return;
+
+				for (let i = 0; i < files.length; i++) {
+					const file = files[i];
+					
+					if (file.type === 'application/pdf') {
+						// 处理PDF文件
+						await processPDF(file);
+					} else if (file.type.match('image.*')) {
+						// 处理图片文件
+						await processImage(file);
+					} else {
+						eda.sys_ToastMessage.showMessage(`文件 "${file.name}" 格式不支持，请上传PDF或图片文件`, 2);
+						continue;
+					}
+				}
+
+				updateUI();
+			}
+
+			/**
+			 * 显示进度条
+			 */
+			function showProgress() {
+				progressBar.style.display = 'block';
+				progressText.style.display = 'block';
+			}
+
+			/**
+			 * 隐藏进度条
+			 */
+			function hideProgress() {
+				progressBar.style.display = 'none';
+				progressText.style.display = 'none';
+				progressFill.style.width = '0%';
+			}
+
+			/**
+			 * 更新进度
+			 */
+			function updateProgress(percentage, text) {
+				progressFill.style.width = percentage + '%';
+				progressText.textContent = text;
+			}
+
+			/**
+			 * 处理PDF文件
+			 */
+			async function processPDF(file) {
+				try {
+					// 重新导入PDF时清除之前的数据
+					currentImages = [];
+					imageSelections = {};
+					detectionResults = null;
+					clearSelection();
+					
+					// 显示进度条
+					showProgress();
+					updateProgress(0, '开始解析PDF...');
+					
+					const arrayBuffer = await file.arrayBuffer();
+					const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
+					
+					for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+						const progress = Math.round((pageNum / pdf.numPages) * 100);
+						updateProgress(progress, `正在转换第 ${pageNum}/${pdf.numPages} 页...`);
+						
+						const page = await pdf.getPage(pageNum);
+						const viewport = page.getViewport({ scale: 1.0 });
+						
+						const canvas = document.createElement('canvas');
+						const context = canvas.getContext('2d');
+						canvas.height = viewport.height;
+						canvas.width = viewport.width;
+						
+						await page.render({ canvasContext: context, viewport: viewport }).promise;
+						
+						const imageData = canvas.toDataURL('image/png');
+				currentImages.push({
+					src: imageData,
+					name: `${file.name} - 第${pageNum}页`,
+					type: 'pdf-page',
+					file: file
+				});
+					}
+					
+					updateProgress(100, `PDF解析完成，共${pdf.numPages}页`);
+					
+					if (currentImages.length > 0) {
+						currentImageIndex = 0;
+						displayCurrentImage();
+					}
+					
+					// 延迟隐藏进度条
+					setTimeout(() => {
+						hideProgress();
+					}, 1500);
+					
+					eda.sys_ToastMessage.showMessage(`PDF解析完成，共${pdf.numPages}页`, 1);
+				} catch (error) {
+					console.error('PDF处理失败:', error);
+					hideProgress();
+					eda.sys_ToastMessage.showMessage('PDF处理失败，请检查文件格式', 0);
+				}
+			}
+
+			/**
+			 * 处理图片文件
+			 */
+			async function processImage(file) {
+				return new Promise((resolve) => {
+					const reader = new FileReader();
+					reader.onload = function (e) {
+					currentImages.push({
+						src: e.target.result,
+						name: file.name,
+						type: 'image',
+						file: file
+					});
+						
+						if (currentImages.length === 1) {
+							currentImageIndex = 0;
+							displayCurrentImage();
+						}
+						
+						resolve();
+					};
+					reader.readAsDataURL(file);
+				});
+			}
+
+			/**
+			 * 保存当前图片的框选状态
+			 */
+			function saveCurrentImageSelection() {
+				if (currentImages.length === 0 || !selectionOverlay) return;
+				
+				const imageKey = `image_${currentImageIndex}`;
+				const selections = [];
+				
+				// 保存手动选择框
+				const selectionBoxes = selectionOverlay.querySelectorAll('.selection-box');
+				selectionBoxes.forEach(box => {
+					selections.push({
+						type: 'manual',
+						left: box.style.left,
+						top: box.style.top,
+						width: box.style.width,
+						height: box.style.height,
+						border: box.style.border,
+						backgroundColor: box.style.backgroundColor
+					});
+				});
+				
+				// 保存检测框
+				const detectionBoxes = selectionOverlay.querySelectorAll('.detection-box');
+				detectionBoxes.forEach(box => {
+					const label = box.querySelector('.detection-label');
+					selections.push({
+						type: 'detection',
+						left: box.style.left,
+						top: box.style.top,
+						width: box.style.width,
+						height: box.style.height,
+						labelText: label ? label.textContent : ''
+					});
+				});
+				
+				imageSelections[imageKey] = selections;
+				console.log(`保存图片 ${currentImageIndex + 1} 的框选状态:`, selections);
+			}
+			
+			/**
+			 * 恢复当前图片的框选状态
+			 */
+			function restoreCurrentImageSelection() {
+				if (currentImages.length === 0 || !selectionOverlay) return;
+				
+				const imageKey = `image_${currentImageIndex}`;
+				const selections = imageSelections[imageKey];
+				
+				if (!selections || selections.length === 0) {
+					console.log(`图片 ${currentImageIndex + 1} 没有保存的框选状态`);
+					return;
+				}
+				
+				console.log(`恢复图片 ${currentImageIndex + 1} 的框选状态:`, selections);
+				
+				selections.forEach(selection => {
+					if (selection.type === 'manual') {
+						// 恢复手动选择框
+						const selectionBox = document.createElement('div');
+						selectionBox.className = 'selection-box';
+						selectionBox.style.position = 'absolute';
+						selectionBox.style.left = selection.left;
+						selectionBox.style.top = selection.top;
+						selectionBox.style.width = selection.width;
+						selectionBox.style.height = selection.height;
+						selectionBox.style.border = selection.border;
+						selectionBox.style.backgroundColor = selection.backgroundColor;
+						selectionBox.style.zIndex = '12';
+						selectionOverlay.appendChild(selectionBox);
+					} else if (selection.type === 'detection') {
+						// 恢复检测框
+						const detectionBox = document.createElement('div');
+						detectionBox.className = 'detection-box';
+						detectionBox.style.position = 'absolute';
+						detectionBox.style.left = selection.left;
+						detectionBox.style.top = selection.top;
+						detectionBox.style.width = selection.width;
+						detectionBox.style.height = selection.height;
+						detectionBox.style.border = '2px solid #e74c3c';
+						detectionBox.style.backgroundColor = 'rgba(231, 76, 60, 0.2)';
+						detectionBox.style.zIndex = '11';
+						
+						if (selection.labelText) {
+							const label = document.createElement('div');
+							label.className = 'detection-label';
+							label.textContent = selection.labelText;
+							detectionBox.appendChild(label);
+						}
+						
+						selectionOverlay.appendChild(detectionBox);
+					}
+				});
+				
+				// 更新坐标显示（如果有手动选择框）
+				const manualSelections = selections.filter(s => s.type === 'manual');
+				if (manualSelections.length > 0) {
+					const lastSelection = manualSelections[manualSelections.length - 1];
+					const left = parseInt(lastSelection.left);
+					const top = parseInt(lastSelection.top);
+					const width = parseInt(lastSelection.width);
+					const height = parseInt(lastSelection.height);
+					updateCoordinateDisplay(left, top, width, height);
+				}
+				
+				// 恢复框选状态后更新按钮状态
+				updateButtons();
+			}
+			
+			/**
+			 * 显示当前图片
+			 */
+			function displayCurrentImage() {
+				// 注意：框选状态的保存现在在图片切换时进行，而不是在这里
+				
+				if (currentImages.length === 0) {
+					imageDisplay.innerHTML = '<div class="empty-state">请上传PDF或图片文件</div>';
+					imageNavigation.style.display = 'none';
+					// 恢复虚线边框
+					imageDisplay.style.border = '2px dashed #ced4da';
+					imageDisplay.style.cursor = 'pointer';
+					return;
+				}
+				
+				// 移除虚线边框，因为有图片了
+				imageDisplay.style.border = 'none';
+				imageDisplay.style.cursor = 'default';
+				
+				const currentImage = currentImages[currentImageIndex];
+				
+				// 创建图片容器
+				const imageContainer = document.createElement('div');
+				imageContainer.className = 'image-container';
+				
+				// 创建图片元素
+				const img = document.createElement('img');
+				img.src = currentImage.src;
+				img.alt = currentImage.name;
+				img.id = 'current-image';
+				
+				// 创建选择框元素
+				const selectionBox = document.createElement('div');
+				selectionBox.className = 'selection-box';
+				selectionBox.id = 'selection-box';
+				
+				// 将图片和选择框添加到容器中
+				imageContainer.appendChild(img);
+				imageContainer.appendChild(selectionBox);
+				
+				// 清空并添加新的图片容器
+				imageDisplay.innerHTML = '';
+				imageDisplay.appendChild(imageContainer);
+				
+				// 重新添加替换PDF按钮
+				const replacePdfOverlay = document.createElement('div');
+				replacePdfOverlay.className = 'replace-pdf-overlay';
+				replacePdfOverlay.id = 'replace-pdf-overlay';
+				const replacePdfBtn = document.createElement('button');
+				replacePdfBtn.id = 'replace-pdf-btn';
+				replacePdfBtn.textContent = '替换PDF';
+				replacePdfBtn.addEventListener('click', (e) => {
+					e.stopPropagation();
+					fileInput.click();
+				});
+				replacePdfOverlay.appendChild(replacePdfBtn);
+				imageDisplay.appendChild(replacePdfOverlay);
+				
+				// 显示替换PDF按钮
+				replacePdfOverlay.style.display = 'block';
+				
+				// 重新添加选择覆盖层
+			const newSelectionOverlay = document.createElement('div');
+			newSelectionOverlay.className = 'selection-overlay';
+			newSelectionOverlay.id = 'selection-overlay';
+			imageContainer.appendChild(newSelectionOverlay);
+			
+			// 更新全局变量指向新的overlay元素
+			selectionOverlay = newSelectionOverlay;
+				
+				// 显示导航区域
+				imageNavigation.style.display = 'block';
+				
+				// 更新导航按钮状态
+				prevImageBtn.disabled = currentImageIndex === 0;
+				nextImageBtn.disabled = currentImageIndex === currentImages.length - 1;
+				
+				// 更新页码显示
+				const pageInput = document.getElementById('page-input');
+				const totalPagesSpan = document.getElementById('total-pages');
+				if (pageInput && totalPagesSpan) {
+					pageInput.value = currentImageIndex + 1;
+					pageInput.max = currentImages.length;
+					totalPagesSpan.textContent = currentImages.length;
+
+				}
+				
+
+				
+				// 更新图片信息
+				if (currentImage.name) {
+					imageInfo.textContent = `文件: ${currentImage.name}`;
+				} else {
+					imageInfo.textContent = `页面 ${currentImageIndex + 1}`;
+				}
+				
+				// 重新初始化选择功能
+				initImageSelection();
+				
+				// 初始化手动选择功能
+				initManualSelection();
+				
+				// 恢复框选状态或重新绘制检测框
+				if (img.complete && img.naturalWidth > 0) {
+					// 先尝试恢复保存的框选状态
+					restoreCurrentImageSelection();
+					// 如果有检测结果，总是重新绘制检测框（确保智谱AI等模型的检测框能正确显示）
+					if (detectionResults && detectionResults.pdf_position_list) {
+						drawDetectionBoxes();
+					}
+				} else {
+					img.onload = () => {
+						// 先尝试恢复保存的框选状态
+						restoreCurrentImageSelection();
+						// 如果有检测结果，总是重新绘制检测框（确保智谱AI等模型的检测框能正确显示）
+						if (detectionResults && detectionResults.pdf_position_list) {
+							drawDetectionBoxes();
+						}
+					};
+				}
+				
+				// 更新按钮状态
+				updateButtons();
+			}
+
+			/**
+			 * 格式化文件大小
+			 */
+			function formatFileSize(bytes) {
+				if (bytes < 1024) {
+					return bytes + ' B';
+				} else if (bytes < 1024 * 1024) {
+					return (bytes / 1024).toFixed(2) + ' KB';
+				} else {
+					return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+				}
+			}
+
+			/**
+			 * 初始化图片选择功能
+			 */
+			function initImageSelection() {
+				const imageContainer = document.querySelector('.image-container');
+				const currentImage = document.getElementById('current-image');
+				selectionBox = document.getElementById('selection-box');
+				
+				if (!imageContainer || !currentImage || !selectionBox) return;
+				
+				imageContainer.addEventListener('mousedown', startSelection);
+				imageContainer.addEventListener('mousemove', updateSelection);
+				imageContainer.addEventListener('mouseup', endSelection);
+			}
+			
+			/**
+			 * 初始化图片导航功能
+			 */
+			function initImageNavigation() {
+				if (prevImageBtn) {
+					prevImageBtn.addEventListener('click', () => {
+						if (currentImageIndex > 0) {
+							// 先保存当前图片的框选状态
+							if (selectionOverlay) {
+								saveCurrentImageSelection();
+							}
+							currentImageIndex--;
+							displayCurrentImage();
+						}
+					});
+				}
+				
+				if (nextImageBtn) {
+					nextImageBtn.addEventListener('click', () => {
+						if (currentImageIndex < currentImages.length - 1) {
+							// 先保存当前图片的框选状态
+							if (selectionOverlay) {
+								saveCurrentImageSelection();
+							}
+							currentImageIndex++;
+							displayCurrentImage();
+						}
+					});
+				}
+			
+				
+				// 页码输入框事件处理
+				const pageInput = document.getElementById('page-input');
+				const totalPagesSpan = document.getElementById('total-pages');
+				const imageCounter = document.getElementById('image-counter');
+				
+				if (pageInput && totalPagesSpan) {
+					// 输入框变化事件
+					pageInput.addEventListener('change', () => {
+						if (currentImages.length <= 1) return;
+						
+						const targetPage = parseInt(pageInput.value);
+						if (targetPage >= 1 && targetPage <= currentImages.length) {
+							// 先保存当前图片的框选状态
+							if (selectionOverlay) {
+								saveCurrentImageSelection();
+							}
+							// 添加跳转成功的视觉反馈
+							if (imageCounter) {
+								imageCounter.style.backgroundColor = '#c8e6c9';
+								setTimeout(() => {
+									imageCounter.style.backgroundColor = '';
+								}, 500);
+							}
+							currentImageIndex = targetPage - 1;
+							displayCurrentImage();
+						} else {
+							// 恢复到当前页码
+							pageInput.value = currentImageIndex + 1;
+							// 添加错误的视觉反馈
+							if (imageCounter) {
+								imageCounter.style.backgroundColor = '#ffcdd2';
+								setTimeout(() => {
+									imageCounter.style.backgroundColor = '';
+								}, 1000);
+							}
+							if (typeof eda !== 'undefined' && eda.sys_ToastMessage) {
+								eda.sys_ToastMessage.showMessage(`请输入有效的页码 (1-${currentImages.length})`, 0);
+							} else {
+								alert(`请输入有效的页码 (1-${currentImages.length})`);
+							}
+						}
+					});
+					
+					// 回车键确认
+					pageInput.addEventListener('keypress', (e) => {
+						if (e.key === 'Enter') {
+							pageInput.blur(); // 触发change事件
+						}
+					});
+					
+					// 选中文本便于编辑
+					pageInput.addEventListener('focus', () => {
+						pageInput.select();
+					});
+				}
+				
+				// 添加键盘快捷键支持
+				document.addEventListener('keydown', (e) => {
+					if (currentImages.length <= 1) return;
+					
+					if (e.key === 'ArrowLeft' && currentImageIndex > 0) {
+						e.preventDefault();
+						// 先保存当前图片的框选状态
+						if (selectionOverlay) {
+							saveCurrentImageSelection();
+						}
+						currentImageIndex--;
+						displayCurrentImage();
+					} else if (e.key === 'ArrowRight' && currentImageIndex < currentImages.length - 1) {
+						e.preventDefault();
+						// 先保存当前图片的框选状态
+						if (selectionOverlay) {
+							saveCurrentImageSelection();
+						}
+						currentImageIndex++;
+						displayCurrentImage();
+					}
+				});
+			}
+
+			/**
+			 * 开始选择
+			 */
+			function startSelection(e) {
+				if (e.target.tagName !== 'IMG') return;
+				
+				isSelecting = true;
+				const rect = e.target.getBoundingClientRect();
+				selectionStart.x = e.clientX - rect.left;
+				selectionStart.y = e.clientY - rect.top;
+				
+				selectionBox.style.display = 'block';
+				selectionBox.style.left = selectionStart.x + 'px';
+				selectionBox.style.top = selectionStart.y + 'px';
+				selectionBox.style.width = '0px';
+				selectionBox.style.height = '0px';
+				
+				e.preventDefault();
+			}
+
+			/**
+			 * 更新选择
+			 */
+			function updateSelection(e) {
+				if (!isSelecting) return;
+				
+				const rect = e.target.getBoundingClientRect();
+				selectionEnd.x = e.clientX - rect.left;
+				selectionEnd.y = e.clientY - rect.top;
+				
+				const left = Math.min(selectionStart.x, selectionEnd.x);
+				const top = Math.min(selectionStart.y, selectionEnd.y);
+				const width = Math.abs(selectionEnd.x - selectionStart.x);
+				const height = Math.abs(selectionEnd.y - selectionStart.y);
+				
+				selectionBox.style.left = left + 'px';
+				selectionBox.style.top = top + 'px';
+				selectionBox.style.width = width + 'px';
+				selectionBox.style.height = height + 'px';
+				
+				updateCoordinateDisplay(left, top, width, height);
+			}
+
+			/**
+			 * 结束选择
+			 */
+			function endSelection(e) {
+				isSelecting = false;
+			}
+
+			/**
+			 * 更新坐标显示
+			 */
+			function updateCoordinateDisplay(x, y, width, height) {
+				coordinateDisplay.textContent = `坐标信息: X=${Math.round(x)}, Y=${Math.round(y)}, 宽=${Math.round(width)}, 高=${Math.round(height)}`;
+			}
+
+			/**
+			 * 初始化按钮事件
+			 */
+			function initButtons() {
+				// 隐藏窗口
+				hideButton.addEventListener('click', () => {
+					eda.sys_IFrame.hideIFrame('symbol');
+					eda.sys_ToastMessage.showMessage('页面已隐藏，可点击继续创建重新打开', 1);
+
+				});
+				
+				// 清除框选
+				clearSelectionButton.addEventListener('click', clearSelection);
+				
+				// 搜索位置
+				searchPositionButton.addEventListener('click', searchPosition);
+				
+				// 提取参数
+				extractParamsButton.addEventListener('click', extractParams);
+				
+				// 手动框选
+				manualSelectButton.addEventListener('click', toggleManualSelection);
+				
+				// 添加引脚
+				addPinButton.addEventListener('click', addPin);
+				
+				// 清空表格
+				clearTableButton.addEventListener('click', clearTable);
+				
+				// 创建符号
+				createSymbolButton.addEventListener('click', createSymbolFromTable);
+				
+				// 复制符号信息
+				copySymbolInfoButton.addEventListener('click', copySymbolInfo);
+				
+				// 初始化图片预览功能
+				initImagePreview();
+			}
+
+			/**
+			 * 开始计时
+			 */
+			function startTiming() {
+				startTime = Date.now();
+				timingDisplay.textContent = '耗时: 0.0s';
+				
+				// 清除之前的计时器
+				if (timingInterval) {
+					clearInterval(timingInterval);
+				}
+				
+				// 开始实时更新计时显示
+				timingInterval = setInterval(() => {
+					if (startTime) {
+						const elapsed = (Date.now() - startTime) / 1000;
+						timingDisplay.textContent = `耗时: ${elapsed.toFixed(1)}s`;
+					}
+				}, 100);
+			}
+			
+			/**
+			 * 停止计时
+			 */
+			function stopTiming() {
+				if (timingInterval) {
+					clearInterval(timingInterval);
+					timingInterval = null;
+				}
+				
+				if (startTime) {
+					const elapsed = (Date.now() - startTime) / 1000;
+					timingDisplay.textContent = `耗时: ${elapsed.toFixed(1)}s`;
+					startTime = null;
+				}
+			}
+			
+			/**
+			 * 重置计时显示
+			 */
+			function resetTiming() {
+				if (timingInterval) {
+					clearInterval(timingInterval);
+					timingInterval = null;
+				}
+				startTime = null;
+				timingDisplay.textContent = '耗时: --';
+			}
+			
+			/**
+			 * 清除框选
+			 */
+			function clearSelection() {
+				// 停止手动选择模式
+				if (manualSelectionMode) {
+					stopManualSelection();
+					manualSelectButton.textContent = '手动框选';
+				}
+				
+				// 清除旧版选择框
+				if (selectionBox) {
+					selectionBox.style.display = 'none';
+				}
+				
+				// 清除检测框和手动选择相关元素
+				if (selectionOverlay) {
+					const existingBoxes = selectionOverlay.querySelectorAll('.detection-box');
+					existingBoxes.forEach(box => box.remove());
+					
+					// 清除手动选择框
+					const selectionBoxes = selectionOverlay.querySelectorAll('.selection-box');
+					selectionBoxes.forEach(box => box.remove());
+					
+					// 清除起点标记
+					const startMarkers = selectionOverlay.querySelectorAll('.start-marker');
+					startMarkers.forEach(marker => marker.remove());
+				}
+				
+				// 重置选择状态
+				isSelecting = false;
+				manualSelectionMode = false;
+				firstPoint = null;
+				tempSelectionBox = null;
+				selectionStart = { x: 0, y: 0 };
+				selectionEnd = { x: 0, y: 0 };
+				currentSelection = null;
+				
+				// 清除当前图片的保存状态
+				if (currentImages.length > 0) {
+					const imageKey = `image_${currentImageIndex}`;
+					delete imageSelections[imageKey];
+					console.log(`清除图片 ${currentImageIndex + 1} 的保存状态`);
+				}
+				
+				// 清除检测结果（这样搜索位置的框选也会被清除）
+				detectionResults = null;
+				console.log('清除检测结果');
+				
+				coordinateDisplay.textContent = '坐标信息: 未选择区域';
+				
+				// 更新按钮状态
+				updateButtons();
+			}
+			
+			/**
+			 * 搜索位置 - 第一步：识别符号位置
+			 */
+			async function searchPosition() {
+				if (currentImages.length === 0) {
+					eda.sys_ToastMessage.showMessage('请先上传图片', 0);
+					return;
+				}
+				
+				// 检查智谱AI模型限制
+				if (selectedProvider === 'zhipu') {
+					eda.sys_ToastMessage.showMessage('智谱AI模型不支持搜索位置功能，该模型传输图片有上限', 0);
+					return;
+				}
+				
+				// 检查设置是否完整
+				if (!isSpecialApiFormat(selectedProvider, apiUrl) && (!apiKey || apiKey.trim() === '')) {
+					eda.sys_ToastMessage.showMessage('请在设置中配置API密钥', 0);
+					return;
+				}
+				
+				if (selectedProvider === 'custom' && (!apiUrl || apiUrl.trim() === '')) {
+					eda.sys_ToastMessage.showMessage('请在设置中配置自定义API地址', 0);
+					return;
+				}
+				
+				if (selectedProvider === 'custom' && (!customModel || customModel.trim() === '')) {
+					eda.sys_ToastMessage.showMessage('请在设置中配置自定义模型名称', 0);
+					return;
+				}
+				
+				try {
+				eda.sys_ToastMessage.showMessage('正在搜索符号位置...', 3);
+				
+				// 开始计时
+				startTiming();
+					
+					// 构建包含所有图像的请求
+					const imageContents = currentImages.map(img => ({
+						type: "image_url",
+						image_url: { url: img.src }
+					}));
+					
+					const data = {
+					model: selectedModel,
+					temperature: 0,
+					vl_high_resolution_images: true,
+					messages: [
+							{
+								role: 'system',
+								content: [{ type: 'text', text: 'You are a professional IC package detection expert.' }]
+							},
+							{
+								role: 'user',
+								content: [
+									...imageContents,
+									{
+										type: 'text',
+										text: `请分析这些图片，识别出IC封装符号的位置。以JSON格式输出所有的芯片符号bbox的坐标，不要输出json代码段。对于每个检测到的符号，请返回以下JSON格式：\n\n{
+  "input_width": 模型处理时的图像宽度,
+  "input_height": 模型处理时的图像高度,
+  "pdf_position_list": [
+    {
+      "page_num": 页码(从1开始),
+      "package_type": "符号类型",
+      "confidence": 置信度(0-1),
+      "package_rect": {
+        "x": x坐标,
+        "y": y坐标,
+        "width": 宽度,
+        "height": 高度
+      }
+    }
+  ]
+}\n\n注意：坐标应该基于模型实际处理的图像尺寸，请在返回结果中包含input_width和input_height字段。
+`
+									}
+								]
+							}
+						]
+					};
+					
+					const response = await callAPI(data);
+					
+					if (!response.ok) {
+						throw new Error('API请求失败');
+					}
+					
+					let result, content;
+					
+					if (isSpecialApiFormat(selectedProvider, apiUrl)) {
+					// 自定义模式使用特殊API响应处理
+					const responseText = await response.text();
+					console.log('特殊API原始响应:', responseText);
+					
+					// 首先尝试直接解析为JSON（特殊API可能直接返回JSON格式）
+					try {
+						result = JSON.parse(responseText);
+						console.log('特殊API响应解析成功:', result);
+						
+						// 如果直接解析成功且包含pdf_position_list，直接使用
+						if (result.pdf_position_list && Array.isArray(result.pdf_position_list)) {
+							console.log('特殊API直接返回了pdf_position_list');
+							detectionResults = result;
+							content = null; // 跳过content解析
+						} else {
+							// 否则按照原有逻辑处理
+							if (result.context && result.context.chat && result.context.chat.input_text) {
+								content = result.context.chat.input_text;
+							} else if (result.data && result.data.content) {
+								content = result.data.content;
+							} else if (result.content) {
+								content = result.content;
+							} else if (result.response) {
+								content = result.response;
+							} else {
+								// 如果都没有找到，尝试将整个result作为内容
+								content = JSON.stringify(result);
+								console.log('使用整个result作为内容:', content);
+							}
+						}
+					} catch (parseError) {
+						// 如果JSON解析失败，直接使用原始文本
+						console.log('特殊API响应不是JSON格式，使用原始文本:', responseText);
+						content = responseText;
+					}
+					} else {
+						// 通义千问、智谱AI和自定义API响应处理
+						result = await response.json();
+						
+						// 处理不同的响应格式
+						if (selectedProvider === 'zhipu' && result.choices && result.choices[0]) {
+							// 智谱AI响应格式
+							content = result.choices[0].message.content;
+						} else if (selectedProvider === 'qwen' && result.choices && result.choices[0]) {
+							// 通义千问兼容模式响应格式
+							content = result.choices[0].message.content;
+						} else if (Array.isArray(result) && result[0] && result[0].message) {
+							// 处理数组格式的响应
+							content = result[0].message.content;
+						} else if (result.choices && result.choices[0]) {
+							// 处理标准格式的响应
+							content = result.choices[0].message.content;
+						} else if (result.pdf_position_list) {
+							// 处理直接返回检测结果的格式
+							detectionResults = result;
+							content = null; // 跳过content解析
+						} else {
+							throw new Error('无法解析API响应格式');
+						}
+					}
+					
+					// 解析检测结果
+					try {
+						if (content !== null) {
+							// 更强健的JSON清理逻辑
+							let cleanContent = content;
+							
+							// 智谱AI特殊标记处理
+							if (selectedProvider === 'zhipu') {
+								// 提取<|begin_of_box|>和<|end_of_box|>之间的内容
+								const boxMatch = cleanContent.match(/<\|begin_of_box\|>([\s\S]*?)<\|end_of_box\|>/);
+								if (boxMatch) {
+									cleanContent = boxMatch[1].trim();
+									console.log('智谱AI提取的JSON内容:', cleanContent);
+								}
+							}
+							
+							// 移除可能的代码块标记
+							cleanContent = cleanContent.replace(/^```json\s*\n?/i, '');
+							cleanContent = cleanContent.replace(/\n?```\s*$/i, '');
+							cleanContent = cleanContent.replace(/^```\s*\n?/i, '');
+							
+							// 移除可能的前后空白字符
+							cleanContent = cleanContent.trim();
+							
+							// 如果内容以{开头但前面有其他字符，尝试提取JSON部分
+							const jsonMatch = cleanContent.match(/\{[\s\S]*\}/);
+							if (jsonMatch) {
+								cleanContent = jsonMatch[0];
+							}
+							
+							const parsedContent = JSON.parse(cleanContent);
+							
+							// 处理可能的数组格式响应
+							if (Array.isArray(parsedContent) && parsedContent.length > 0) {
+								detectionResults = parsedContent[0];
+							} else {
+								detectionResults = parsedContent;
+							}
+						}
+						// 如果content为null，说明已经直接获得了detectionResults
+						
+						console.log('解析的检测结果:', detectionResults);
+						
+						// 停止计时
+						stopTiming();
+						
+						// 验证检测结果数据结构
+						if (!detectionResults || !detectionResults.pdf_position_list || !Array.isArray(detectionResults.pdf_position_list)) {
+							throw new Error('检测结果数据格式不正确');
+						}
+						
+						// 绘制检测框
+						drawDetectionBoxes();
+						
+						// 自动跳转到第一个检测框所在的页面
+						if (detectionResults.pdf_position_list.length > 0) {
+							const firstDetection = detectionResults.pdf_position_list[0];
+							const firstDetectionPage = firstDetection.page_num;
+							const targetImageIndex = firstDetectionPage - 1;
+							
+							if (targetImageIndex >= 0 && targetImageIndex < currentImages.length && targetImageIndex !== currentImageIndex) {
+								// 保存当前图片的框选状态
+								saveCurrentImageSelection();
+								// 跳转到目标页面
+								currentImageIndex = targetImageIndex;
+								displayCurrentImage();
+								eda.sys_ToastMessage.showMessage(`已自动跳转到第 ${firstDetectionPage} 页`, 1);
+							}
+						}
+						
+						// 更新按钮状态
+						updateButtons();
+						
+						eda.sys_ToastMessage.showMessage(`检测到 ${detectionResults.pdf_position_list.length} 个符号`, 1);
+					} catch (parseError) {
+					console.error('解析检测结果失败:', parseError);
+					console.error('原始内容:', content);
+					// 停止计时
+					stopTiming();
+					eda.sys_ToastMessage.showMessage('解析检测结果失败', 0);
+				}
+				
+			} catch (error) {
+				console.error('搜索位置失败:', error);
+				// 停止计时
+				stopTiming();
+				eda.sys_ToastMessage.showMessage('搜索位置失败: ' + error.message, 0);
+			}
+			}
+			
+			/**
+			 * 提取参数 - 第二步：提取引脚信息
+			 */
+			async function extractParams() {
+				apiKey = apiKeyInput.value.trim();
+				selectedModel = modelSelect.value;
+				
+				// 检查设置是否完整
+				if (!isSpecialApiFormat(selectedProvider, apiUrl) && (!apiKey || apiKey.trim() === '')) {
+					eda.sys_ToastMessage.showMessage('请在设置中配置API密钥', 0);
+					return;
+				}
+				
+				if (selectedProvider === 'custom' && (!apiUrl || apiUrl.trim() === '')) {
+					eda.sys_ToastMessage.showMessage('请在设置中配置自定义API地址', 0);
+					return;
+				}
+				
+				if (selectedProvider === 'custom' && (!customModel || customModel.trim() === '')) {
+					eda.sys_ToastMessage.showMessage('请在设置中配置自定义模型名称', 0);
+					return;
+				}
+				
+				// 检查是否有图片有框选（手动框选或搜索位置的自动框选）
+				const imagesWithSelections = [];
+				
+				for (let i = 0; i < currentImages.length; i++) {
+					const imageKey = `image_${i}`;
+					const selections = imageSelections[imageKey];
+					
+					if (selections && selections.length > 0) {
+						imagesWithSelections.push({
+							index: i,
+							image: currentImages[i],
+							selections: selections
+						});
+					}
+				}
+				
+				if (imagesWithSelections.length === 0) {
+					eda.sys_ToastMessage.showMessage('请先进行手动框选或搜索位置', 0);
+					return;
+				}
+				
+				try {
+				eda.sys_ToastMessage.showMessage(`正在提取 ${imagesWithSelections.length} 张图片的引脚信息...`, 3);
+				
+				// 开始计时
+				startTiming();
+					
+					// 构建包含所有有框选图片的请求
+					const imageContents = [];
+					let totalSelections = 0;
+					
+					for (const imageData of imagesWithSelections) {
+						console.log(`添加图片 ${imageData.index + 1}，框选数量: ${imageData.selections.length}`);
+						imageContents.push({
+							type: "image_url",
+							image_url: { url: imageData.image.src }
+						});
+						totalSelections += imageData.selections.length;
+					}
+					
+					// 添加文本提示
+					imageContents.push({
+						type: 'text',
+						text: `从芯片封装手册的符号图中提取引脚信息，包括引脚号(pinNumber)和引脚名称(pinName)。请以JSON格式输出，不要输出json代码段，JSON格式如下：\n\`\`\`json\n{\n  "pins": [\n    {"pinNumber": "1", "pinName": "VCC"},\n    {"pinNumber": "2", "pinName": "GND"}\n  ]\n}\n\`\`\``
+					});
+					
+					const data = {
+						model: selectedModel,
+						temperature: 0,
+						vl_high_resolution_images: true,
+						messages: [
+							{
+								role: 'system',
+								content: [{ type: 'text', text: 'You are a helpful assistant specialized in analyzing chip pinout diagrams.' }]
+							},
+							{
+								role: 'user',
+								content: imageContents
+							}
+						]
+					};
+					
+					const response = await callAPI(data);
+					
+					if (!response.ok) {
+						throw new Error('API请求失败');
+					}
+					
+					let result, content;
+					
+					if (isSpecialApiFormat(selectedProvider, apiUrl)) {
+					// 自定义模式使用特殊API响应处理
+					const responseText = await response.text();
+					console.log('特殊API原始响应:', responseText);
+					
+					// 首先尝试直接解析为JSON（特殊API可能直接返回JSON格式）
+					try {
+						result = JSON.parse(responseText);
+						console.log('特殊API响应解析成功:', result);
+						
+						// 如果直接解析成功且包含pins数组，直接使用
+						if (result.pins && Array.isArray(result.pins)) {
+							console.log('特殊API直接返回了pins数组');
+							content = JSON.stringify(result);
+						} else {
+							// 否则按照原有逻辑处理
+							if (result.context && result.context.chat && result.context.chat.input_text) {
+								content = result.context.chat.input_text;
+							} else if (result.data && result.data.content) {
+								content = result.data.content;
+							} else if (result.content) {
+								content = result.content;
+							} else if (result.response) {
+								content = result.response;
+							} else {
+								// 如果都没有找到，尝试将整个result作为内容
+								content = JSON.stringify(result);
+								console.log('使用整个result作为内容:', content);
+							}
+						}
+					} catch (parseError) {
+						// 如果JSON解析失败，直接使用原始文本
+						console.log('特殊API响应不是JSON格式，使用原始文本:', responseText);
+						content = responseText;
+					}
+					} else {
+						// 通义千问、智谱AI和自定义API响应处理
+						result = await response.json();
+						
+						// 处理不同的响应格式
+						if (selectedProvider === 'zhipu' && result.choices && result.choices[0]) {
+							// 智谱AI响应格式
+							content = result.choices[0].message.content;
+						} else if (selectedProvider === 'qwen' && result.choices && result.choices[0]) {
+							// 通义千问兼容模式响应格式
+							content = result.choices[0].message.content;
+						} else if (Array.isArray(result) && result[0] && result[0].message) {
+							// 处理数组格式的响应
+							content = result[0].message.content;
+						} else if (result.choices && result.choices[0]) {
+							// 处理标准格式的响应
+							content = result.choices[0].message.content;
+						} else {
+							throw new Error('无法解析API响应格式');
+						}
+					}
+					
+					// 解析并添加引脚信息
+				parseAndAddPins(content);
+				
+				// 停止计时
+				stopTiming();
+				
+				eda.sys_ToastMessage.showMessage(`成功提取 ${imagesWithSelections.length} 张图片的引脚信息`, 1);
+				
+			} catch (error) {
+				console.error('提取参数失败:', error);
+				// 停止计时
+				stopTiming();
+				eda.sys_ToastMessage.showMessage('提取参数失败: ' + error.message, 0);
+			}
+			}
+			
+			// 手动选择状态变量
+			let manualSelectionMode = false;
+			let firstPoint = null;
+			let tempSelectionBox = null;
+			
+			/**
+			 * 切换手动框选模式
+			 */
+			function toggleManualSelection() {
+				if (manualSelectionMode) {
+					stopManualSelection();
+					manualSelectButton.textContent = '手动框选';
+				} else {
+					startManualSelection();
+					manualSelectButton.textContent = '停止框选';
+				}
+			}
+			
+			/**
+			 * 开始手动选择模式
+			 */
+			function startManualSelection() {
+				manualSelectionMode = true;
+				firstPoint = null;
+				if (imageDisplay) {
+					imageDisplay.classList.add('selecting');
+				}
+				// 确保selectionOverlay可以接收鼠标事件
+				if (selectionOverlay) {
+					selectionOverlay.style.pointerEvents = 'all';
+				}
+				eda.sys_ToastMessage.showMessage('请点击图片选择起点', 2);
+			}
+			
+			/**
+			 * 停止手动选择模式
+			 */
+			function stopManualSelection() {
+				manualSelectionMode = false;
+				firstPoint = null;
+				if (imageDisplay) {
+					imageDisplay.classList.remove('selecting');
+				}
+				
+				// 重置selectionOverlay的pointer-events
+				if (selectionOverlay) {
+					selectionOverlay.style.pointerEvents = 'none';
+				}
+				
+				// 清除临时选择框
+				if (tempSelectionBox) {
+					tempSelectionBox.remove();
+					tempSelectionBox = null;
+				}
+			}
+			
+			// 存储事件监听器引用
+			let manualSelectionHandlers = {
+				click: null
+			};
+			
+			/**
+			 * 初始化手动选择功能
+			 */
+			function initManualSelection() {
+				if (!selectionOverlay) return;
+				
+				console.log('初始化手动选择功能');
+				
+				// 移除旧的事件监听器
+				if (manualSelectionHandlers.click) {
+					selectionOverlay.removeEventListener('click', manualSelectionHandlers.click);
+				}
+				
+				// 确保overlay覆盖整个图像区域
+				selectionOverlay.style.position = 'absolute';
+				selectionOverlay.style.top = '0';
+				selectionOverlay.style.left = '0';
+				selectionOverlay.style.width = '100%';
+				selectionOverlay.style.height = '100%';
+				selectionOverlay.style.zIndex = '10';
+				
+				// 创建点击事件监听器
+				manualSelectionHandlers.click = (e) => {
+					if (!manualSelectionMode) return;
+					
+					const rect = selectionOverlay.getBoundingClientRect();
+					const clickPoint = {
+						x: e.clientX - rect.left,
+						y: e.clientY - rect.top
+					};
+					
+					if (!firstPoint) {
+						// 第一次点击：设置起点
+						firstPoint = clickPoint;
+						console.log('设置起点:', firstPoint);
+						
+						// 创建起点标记
+						const startMarker = document.createElement('div');
+						startMarker.className = 'start-marker';
+						startMarker.style.position = 'absolute';
+						startMarker.style.left = (firstPoint.x - 3) + 'px';
+						startMarker.style.top = (firstPoint.y - 3) + 'px';
+						startMarker.style.width = '6px';
+						startMarker.style.height = '6px';
+						startMarker.style.backgroundColor = '#ff0000';
+						startMarker.style.borderRadius = '50%';
+						startMarker.style.zIndex = '15';
+						selectionOverlay.appendChild(startMarker);
+						
+						eda.sys_ToastMessage.showMessage('起点已设置，请点击终点', 2);
+					} else {
+						// 第二次点击：设置终点并创建选择框
+						const secondPoint = clickPoint;
+						console.log('设置终点:', secondPoint);
+						
+						// 计算选择框的位置和尺寸
+						const left = Math.min(firstPoint.x, secondPoint.x);
+						const top = Math.min(firstPoint.y, secondPoint.y);
+						const width = Math.abs(secondPoint.x - firstPoint.x);
+						const height = Math.abs(secondPoint.y - firstPoint.y);
+						
+						// 创建选择框
+						const selectionBox = document.createElement('div');
+						selectionBox.className = 'selection-box';
+						selectionBox.style.position = 'absolute';
+						selectionBox.style.left = left + 'px';
+						selectionBox.style.top = top + 'px';
+						selectionBox.style.width = width + 'px';
+						selectionBox.style.height = height + 'px';
+						selectionBox.style.border = '2px solid #007bff';
+						selectionBox.style.backgroundColor = 'rgba(0, 123, 255, 0.1)';
+						selectionBox.style.zIndex = '12';
+						selectionOverlay.appendChild(selectionBox);
+						
+						// 更新坐标显示
+						updateCoordinateDisplay(left, top, width, height);
+						
+						// 保存手动选择框到imageSelections
+						const imageKey = `image_${currentImageIndex}`;
+						if (!imageSelections[imageKey]) {
+							imageSelections[imageKey] = [];
+						}
+						imageSelections[imageKey].push({
+							type: 'manual',
+							left: left + 'px',
+							top: top + 'px',
+							width: width + 'px',
+							height: height + 'px',
+							border: '2px solid #007bff',
+							backgroundColor: 'rgba(0, 123, 255, 0.1)'
+						});
+						
+						console.log('手动选择完成:', {
+							page: currentImageIndex + 1,
+							selection: { left, top, width, height }
+						});
+						console.log(`保存手动框选到图片 ${currentImageIndex + 1}:`, imageSelections[imageKey]);
+						
+						// 更新按钮状态
+						updateButtons();
+						
+						// 停止选择模式
+						stopManualSelection();
+						manualSelectButton.textContent = '手动框选';
+						
+						eda.sys_ToastMessage.showMessage('选择框已创建', 1);
+					}
+					
+					e.preventDefault();
+					e.stopPropagation();
+				};
+				
+				// 添加点击事件监听器
+				selectionOverlay.addEventListener('click', manualSelectionHandlers.click);
+			}
+			
+			/**
+			 * 绘制检测框
+			 */
+			function drawDetectionBoxes() {
+				console.log('开始绘制检测框，detectionResults:', detectionResults);
+				
+				if (!detectionResults || !detectionResults.pdf_position_list) {
+					console.log('没有检测结果，跳过绘制');
+					return;
+				}
+				
+				// 清除现有检测框
+				const existingBoxes = selectionOverlay.querySelectorAll('.detection-box');
+				console.log('清除现有检测框数量:', existingBoxes.length);
+				existingBoxes.forEach(box => box.remove());
+				
+				// 获取当前图像
+				const currentImage = imageDisplay.querySelector('img');
+				if (!currentImage) {
+					console.log('没有找到当前图像');
+					return;
+				}
+				
+				console.log('当前图像索引:', currentImageIndex);
+				
+				// 等待图像加载完成后绘制
+				function drawBoxes() {
+				const imageRect = currentImage.getBoundingClientRect();
+				const overlayRect = selectionOverlay.getBoundingClientRect();
+				
+				console.log('图像尺寸:', {
+					imageRect: imageRect,
+					overlayRect: overlayRect,
+					naturalWidth: currentImage.naturalWidth,
+					naturalHeight: currentImage.naturalHeight
+				});
+				
+				// 修正：计算图片相对于overlay的实际偏移
+				const offsetX = imageRect.left - overlayRect.left;
+				const offsetY = imageRect.top - overlayRect.top;
+				
+				// 计算缩放比例
+				const scaleX = imageRect.width / currentImage.naturalWidth;
+				const scaleY = imageRect.height / currentImage.naturalHeight;
+				
+				console.log('缩放参数:', { offsetX, offsetY, scaleX, scaleY });
+					
+					// 绘制当前页面的检测框
+				const currentPageNum = currentImageIndex + 1;
+				console.log('当前页码:', currentPageNum);
+				
+				// 获取模型输入尺寸信息（如果有的话）
+				const modelInputWidth = detectionResults.input_width || currentImage.naturalWidth;
+				const modelInputHeight = detectionResults.input_height || currentImage.naturalHeight;
+				
+				console.log('坐标映射参数:', {
+					modelInputWidth,
+					modelInputHeight,
+					originalWidth: currentImage.naturalWidth,
+					originalHeight: currentImage.naturalHeight,
+					needMapping: modelInputWidth !== currentImage.naturalWidth || modelInputHeight !== currentImage.naturalHeight,
+					scaleFactorX: currentImage.naturalWidth / modelInputWidth,
+					scaleFactorY: currentImage.naturalHeight / modelInputHeight
+				});
+				
+				let drawnBoxes = 0;
+				detectionResults.pdf_position_list.forEach((detection, index) => {
+					console.log(`检测结果 ${index}:`, detection);
+					
+					if (detection.page_num === currentPageNum) {
+						const rect = detection.package_rect;
+						
+						// 坐标映射：检查是否需要从模型输入尺寸映射到原图尺寸
+						let mappedX, mappedY, mappedWidth, mappedHeight;
+						
+						// 如果模型输入尺寸与原图尺寸不同，说明需要映射
+						if (modelInputWidth !== currentImage.naturalWidth || modelInputHeight !== currentImage.naturalHeight) {
+							// 从模型输入尺寸映射到原图尺寸
+							mappedX = (rect.x / modelInputWidth) * currentImage.naturalWidth;
+							mappedY = (rect.y / modelInputHeight) * currentImage.naturalHeight;
+							mappedWidth = (rect.width / modelInputWidth) * currentImage.naturalWidth;
+							mappedHeight = (rect.height / modelInputHeight) * currentImage.naturalHeight;
+						} else {
+							// 坐标已经是基于原图尺寸的，直接使用
+							mappedX = rect.x;
+							mappedY = rect.y;
+							mappedWidth = rect.width;
+							mappedHeight = rect.height;
+						}
+						
+						// 修正：应用正确的偏移和缩放
+						const left = offsetX + mappedX * scaleX;
+						const top = offsetY + mappedY * scaleY;
+						const width = mappedWidth * scaleX;
+						const height = mappedHeight * scaleY;
+						
+						// 边界检查：确保检测框不超出图片范围
+						const maxLeft = offsetX + imageRect.width;
+						const maxTop = offsetY + imageRect.height;
+						
+						if (left >= offsetX && top >= offsetY && 
+							left + width <= maxLeft && top + height <= maxTop) {
+							
+							const detectionBox = document.createElement('div');
+							detectionBox.className = 'detection-box';
+							
+							detectionBox.style.left = left + 'px';
+							detectionBox.style.top = top + 'px';
+							detectionBox.style.width = width + 'px';
+							detectionBox.style.height = height + 'px';
+							
+							console.log(`绘制检测框 ${index}:`, {
+								original: rect,
+								mapped: { mappedX, mappedY, mappedWidth, mappedHeight },
+								scaled: { left, top, width, height },
+								mappingApplied: modelInputWidth !== currentImage.naturalWidth || modelInputHeight !== currentImage.naturalHeight,
+								scaleFactors: {
+									x: currentImage.naturalWidth / modelInputWidth,
+									y: currentImage.naturalHeight / modelInputHeight
+								}
+							});
+							
+							// 添加标签
+							const label = document.createElement('div');
+							label.className = 'detection-label';
+							label.textContent = `${detection.package_type} (${(detection.confidence * 100).toFixed(1)}%)`;
+							detectionBox.appendChild(label);
+							
+							selectionOverlay.appendChild(detectionBox);
+							drawnBoxes++;
+						} else {
+							console.warn(`检测框 ${index} 超出图片边界，跳过绘制:`, {
+								calculated: { left, top, width, height },
+								imageBounds: { offsetX, offsetY, maxLeft, maxTop }
+							});
+						}
+					}
+				});
+				
+				console.log(`成功绘制 ${drawnBoxes} 个检测框`);
+				
+				// 保存检测框到imageSelections
+				const imageKey = `image_${currentImageIndex}`;
+				const selections = [];
+				
+				// 收集所有检测框的信息
+				const detectionBoxes = selectionOverlay.querySelectorAll('.detection-box');
+				detectionBoxes.forEach(box => {
+					const label = box.querySelector('.detection-label');
+					selections.push({
+						type: 'detection',
+						left: box.style.left,
+						top: box.style.top,
+						width: box.style.width,
+						height: box.style.height,
+						labelText: label ? label.textContent : ''
+					});
+				});
+				
+				imageSelections[imageKey] = selections;
+				console.log(`保存图片 ${currentImageIndex + 1} 的检测框选状态:`, selections);
+				
+				// 更新按钮状态
+				updateButtons();
+				}
+				
+				// 如果图像已经加载，直接执行
+				if (currentImage.complete && currentImage.naturalWidth > 0) {
+					console.log('图像已加载，直接绘制');
+					drawBoxes();
+				} else {
+					console.log('等待图像加载完成');
+					// 等待图像加载完成
+					currentImage.onload = drawBoxes;
+				}
+			}
+
+			/**
+			 * 提取信息
+			 */
+			async function extractInfo() {
+				if (!selectionBox || selectionBox.style.display === 'none') {
+					eda.sys_ToastMessage.showMessage('请先框选要提取的区域', 2);
+					return;
+				}
+				
+				// 检查设置是否完整
+				if (!isSpecialApiFormat(selectedProvider, apiUrl) && (!apiKey || apiKey.trim() === '')) {
+					eda.sys_ToastMessage.showMessage('请在设置中配置API密钥', 0);
+					return;
+				}
+				
+				if (selectedProvider === 'custom' && (!apiUrl || apiUrl.trim() === '')) {
+					eda.sys_ToastMessage.showMessage('请在设置中配置自定义API地址', 0);
+					return;
+				}
+				
+				if (selectedProvider === 'custom' && (!customModel || customModel.trim() === '')) {
+					eda.sys_ToastMessage.showMessage('请在设置中配置自定义模型名称', 0);
+					return;
+				}
+				
+				try {
+				const currentImage = currentImages[currentImageIndex];
+			
+			// 将图片转换为base64格式
+			const canvas = document.createElement('canvas');
+			const ctx = canvas.getContext('2d');
+			const img = new Image();
+			
+			img.onload = async function() {
+				canvas.width = img.width;
+				canvas.height = img.height;
+				ctx.drawImage(img, 0, 0);
+				
+				const base64Data = canvas.toDataURL('image/png').split(',')[1];
+				// 使用多图模式，传入单张图片的数组
+				const result = await analyzeImage([currentImage.file], [base64Data], ['png']);
+				
+				// 解析返回的JSON数据并添加到表格
+				parseAndAddPins(result.result);
+				
+				eda.sys_ToastMessage.showMessage('信息提取成功', 1);
+			};
+			
+			img.onerror = function() {
+				eda.sys_ToastMessage.showMessage('图片加载失败', 0);
+			};
+			
+			img.src = currentImage.src;
+			} catch (error) {
+				console.error('提取信息失败:', error);
+				eda.sys_ToastMessage.showMessage('提取信息失败: ' + error.message, 0);
+			}
+			}
+
+			/**
+			 * 更新按钮状态
+			 */
+			function updateButtons() {
+				// 搜索位置按钮：有图片时启用
+				searchPositionButton.disabled = currentImages.length === 0;
+				
+				// 提取参数按钮：有框选（手动框选或搜索位置的自动框选）时启用
+				let hasSelections = false;
+				for (let i = 0; i < currentImages.length; i++) {
+					const imageKey = `image_${i}`;
+					const selections = imageSelections[imageKey];
+					if (selections && selections.length > 0) {
+						hasSelections = true;
+						break;
+					}
+				}
+				extractParamsButton.disabled = !hasSelections;
+				
+				// 手动框选按钮：有图片时启用
+				manualSelectButton.disabled = currentImages.length === 0;
+				
+				// 清除框选按钮：有图片时启用
+				clearSelectionButton.disabled = currentImages.length === 0;
+				
+				// 创建符号按钮：有引脚数据时启用
+			createSymbolButton.disabled = pinData.length === 0;
+			
+			// 复制符号信息按钮：有引脚数据时启用
+			copySymbolInfoButton.disabled = pinData.length === 0;
+			}
+			
+			/**
+			 * 更新UI状态
+			 */
+			function updateUI() {
+				updateButtons();
+			}
+
+			/**
+			 * 添加引脚
+			 */
+			function addPin() {
+				const newPin = {
+					pinNumber: pinData.length + 1,
+					pinName: '',
+					pinType: '未定义',
+					description: ''
+				};
+				
+				pinData.push(newPin);
+				updatePinTable();
+				updateUI();
+			}
+
+			/**
+			 * 清空表格
+			 */
+			function clearTable() {
+				pinData = [];
+				updatePinTable();
+				updateUI();
+			}
+
+			/**
+			 * 更新引脚表格
+			 */
+			function updatePinTable() {
+				if (pinData.length === 0) {
+					pinTableContainer.innerHTML = '<div class="empty-state">暂无引脚信息</div>';
+					return;
+				}
+				
+				let tableHTML = `
+					<table class="pin-table">
+						<thead>
+							<tr>
+								<th>引脚号</th>
+								<th>引脚名</th>
+								<th>类型</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+				`;
+				
+				pinData.forEach((pin, index) => {
+					tableHTML += `
+						<tr>
+							<td><input type="text" value="${pin.pinNumber}" onchange="updatePin(${index}, 'pinNumber', this.value)"></td>
+							<td><input type="text" value="${pin.pinName}" onchange="updatePin(${index}, 'pinName', this.value)"></td>
+							<td>
+								<select onchange="updatePin(${index}, 'pinType', this.value)">
+									<option value="未定义" ${pin.pinType === '未定义' ? 'selected' : ''}>未定义</option>
+									<option value="双向" ${pin.pinType === '双向' ? 'selected' : ''}>双向</option>
+									<option value="地" ${pin.pinType === '地' ? 'selected' : ''}>地</option>
+									<option value="高阻" ${pin.pinType === '高阻' ? 'selected' : ''}>高阻</option>
+									<option value="输入" ${pin.pinType === '输入' ? 'selected' : ''}>输入</option>
+									<option value="开集电极" ${pin.pinType === '开集电极' ? 'selected' : ''}>开集电极</option>
+									<option value="开发射极" ${pin.pinType === '开发射极' ? 'selected' : ''}>开发射极</option>
+									<option value="输出" ${pin.pinType === '输出' ? 'selected' : ''}>输出</option>
+									<option value="无源" ${pin.pinType === '无源' ? 'selected' : ''}>无源</option>
+									<option value="电源" ${pin.pinType === '电源' ? 'selected' : ''}>电源</option>
+									<option value="信号终端" ${pin.pinType === '信号终端' ? 'selected' : ''}>信号终端</option>
+								</select>
+							</td>
+							<td><button onclick="removePin(${index})">删除</button></td>
+						</tr>
+					`;
+				});
+				
+				tableHTML += `
+						</tbody>
+					</table>
+				`;
+				
+				pinTableContainer.innerHTML = tableHTML;
+			}
+
+			/**
+			 * 更新引脚数据
+			 */
+			function updatePin(index, field, value) {
+				if (pinData[index]) {
+					pinData[index][field] = value;
+				}
+			}
+
+			/**
+			 * 删除引脚
+			 */
+			function removePin(index) {
+				pinData.splice(index, 1);
+				updatePinTable();
+				updateUI();
+			}
+
+			/**
+			 * 停止分析过程
+			 */
+			function stopAnalysis() {
+				if (!isProcessing) return;
+				shouldStopProcessing = true;
+				stopButton.disabled = true;
+				stopButton.textContent = '正在停止...';
+			}
+
+			/**
+			 * 开始分析图片
+			 */
+			async function startAnalysis() {
+				// 获取当前API密钥和模型
+				eda.sys_ToastMessage.showMessage('图片识别正在进行中，等待期间可选择隐藏窗口', 3);
+				// 检查设置是否完整
+			if (!isSpecialApiFormat(selectedProvider, apiUrl) && (!apiKey || apiKey.trim() === '')) {
+				eda.sys_ToastMessage.showMessage('请在设置中配置API密钥', 0);
+				return;
+			}
+			
+			if (selectedProvider === 'custom' && (!apiUrl || apiUrl.trim() === '')) {
+				eda.sys_ToastMessage.showMessage('请在设置中配置自定义API地址', 0);
+				return;
+			}
+			
+			if (selectedProvider === 'custom' && (!customModel || customModel.trim() === '')) {
+				eda.sys_ToastMessage.showMessage('请在设置中配置自定义模型名称', 0);
+				return;
+			}
+				if (uploadedFiles.length === 0 || isProcessing) {
+					return;
+				}
+
+				isProcessing = true;
+				updateUI();
+				progressContainer.style.display = 'block';
+				progressBar.style.width = '0%';
+				progressText.textContent = `处理中: 0/${uploadedFiles.length}`;
+				resultsList.innerHTML = '';
+				analysisResults = [];
+				totalInputTokens = 0;
+				totalOutputTokens = 0;
+				costContainer.style.display = 'none';
+				startTime = Date.now();
+
+				setInterval(() => {
+					const elapsedTime = Date.now() - startTime;
+					const minutes = Math.floor(elapsedTime / 60000);
+					const seconds = Math.floor((elapsedTime % 60000) / 1000);
+					timerElement.textContent = `已用时: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+				}, 1000);
+
+				try {
+				if (shouldStopProcessing) {
+					progressText.textContent = `已停止: 0/${uploadedFiles.length}`;
+					return;
+				}
+
+				// 准备所有文件的base64数据
+				progressText.textContent = '正在准备图片数据...';
+				const base64Images = [];
+				const mimeTypes = [];
+				
+				for (let i = 0; i < uploadedFiles.length; i++) {
+					const file = uploadedFiles[i];
+					const base64Data = await readFileAsBase64(file);
+					base64Images.push(base64Data);
+					mimeTypes.push(file.type.split('/')[1] || 'png');
+					
+					const progress = Math.round(((i + 1) / uploadedFiles.length) * 50); // 前50%用于准备数据
+					progressBar.style.width = `${progress}%`;
+					progressText.textContent = `准备图片数据: ${i + 1}/${uploadedFiles.length}`;
+				}
+
+				if (shouldStopProcessing) return;
+
+				// 一次性调用API处理所有图片
+				progressBar.style.width = '75%';
+				progressText.textContent = '正在调用AI分析...';
+				
+				const resultData = await analyzeImage(uploadedFiles, base64Images, mimeTypes);
+				
+				// 处理结果
+				for (let i = 0; i < uploadedFiles.length; i++) {
+					const file = uploadedFiles[i];
+					analysisResults.push({
+						filename: file.name,
+						result: resultData.result,
+						inputTokens: resultData.inputTokens,
+						outputTokens: resultData.outputTokens,
+						base64: base64Images[i],
+						file: file,
+						index: i,
+						isError: false,
+					});
+					displayResult(file, base64Images[i], resultData.result);
+				}
+				
+				calculateAndUpdateCost(selectedModel, resultData.inputTokens, resultData.outputTokens);
+				
+			} catch (error) {
+				console.error('批量处理文件时出错:', error);
+				if (shouldStopProcessing) return;
+				
+				// 如果批量处理失败，记录错误
+				for (let i = 0; i < uploadedFiles.length; i++) {
+					const file = uploadedFiles[i];
+					analysisResults.push({
+						filename: file.name,
+						errorMessage: error.message,
+						inputTokens: 0,
+						outputTokens: 0,
+						file: file,
+						index: i,
+						isError: true,
+					});
+					displayError(file, error.message);
+				}
+			}
+
+				const processedCount = shouldStopProcessing ? analysisResults.length : uploadedFiles.length;
+				progressBar.style.width = '100%';
+				progressText.textContent = `处理完成: ${processedCount}/${uploadedFiles.length}`;
+				setTimeout(() => {
+					progressContainer.style.display = 'none';
+					progressBar.style.width = '0%';
+				}, 2000);
+
+				if (analysisResults.length > 0) {
+					downloadAllContainer.style.display = 'block';
+				}
+
+				setTimeout(() => {
+					isProcessing = false;
+					shouldStopProcessing = false;
+					updateUI();
+				}, 1000);
+			}
+
+			/**
+			 * 读取文件并转换为Base64
+			 */
+			function readFileAsBase64(file) {
+				return new Promise((resolve, reject) => {
+					const reader = new FileReader();
+					reader.onload = function (e) {
+						const base64 = e.target.result.split(',')[1];
+						resolve(base64);
+					};
+					reader.onerror = function (e) {
+						reject(new Error('读取文件失败'));
+					};
+					reader.readAsDataURL(file);
+				});
+			}
+
+			/**
+			 * 调用API分析图片（支持多图批量处理）
+			 */
+			async function analyzeImage(files, base64Images, mimeTypes) {
+				if (shouldStopProcessing) {
+					throw new Error('用户已停止处理');
+				}
+
+				// 构建多图内容数组
+				const imageContents = [];
+				for (let i = 0; i < base64Images.length; i++) {
+					imageContents.push({
+						type: 'image_url',
+						image_url: {
+							url: `data:image/${mimeTypes[i]};base64,${base64Images[i]}`,
+						},
+					});
+				}
+				
+				// 添加文本提示
+				imageContents.push({
+					type: 'text',
+					text: "从芯片封装手册的符号图中提取以下信息:{['type'],['pinNumber','pinName',]}，图像 type 包括:SOP、QFN、BGA。严格输出JSON",
+				});
+				
+				const data = {
+					model: selectedModel,
+					vl_high_resolution_images: true,
+					messages: [
+						{
+							role: 'system',
+							content: [{ type: 'text', text: 'You are a helpful assistant.' }],
+						},
+						{
+							role: 'user',
+							content: imageContents,
+						},
+					],
+				};
+
+				try {
+				const response = await callAPI(data);
+
+				if (!response.ok) {
+					throw new Error('API请求失败');
+				}
+
+				let result, content;
+				
+				if (isSpecialApiFormat(selectedProvider, apiUrl)) {
+					// 自定义模式使用特殊API响应处理
+			const responseText = await response.text();
+			console.log('特殊API原始响应:', responseText);
+			
+			// 首先尝试直接解析为JSON（特殊API可能直接返回JSON格式）
+			try {
+				result = JSON.parse(responseText);
+				console.log('特殊API响应解析成功:', result);
+				
+				// 如果直接解析成功且包含pins数组，直接返回
+				if (result.pins && Array.isArray(result.pins)) {
+					console.log('特殊API直接返回了pins数组');
+						return {
+							result: JSON.stringify(result),
+							inputTokens: 0,
+							outputTokens: 0
+						};
+					}
+					
+					// 否则按照原有逻辑处理
+					if (result.context && result.context.chat && result.context.chat.input_text) {
+						content = result.context.chat.input_text;
+					} else if (result.data && result.data.content) {
+						content = result.data.content;
+					} else if (result.content) {
+						content = result.content;
+					} else if (result.response) {
+						content = result.response;
+					} else {
+						// 如果都没有找到，尝试将整个result作为内容
+						content = JSON.stringify(result);
+						console.log('使用整个result作为内容:', content);
+					}
+				} catch (parseError) {
+					// 如果JSON解析失败，直接使用原始文本
+					console.log('特殊API响应不是JSON格式，使用原始文本:', responseText);
+					content = responseText;
+				}
+				
+				return {
+					result: content,
+					inputTokens: 0, // 特殊API可能不返回token信息
+					outputTokens: 0
+				};
+				} else {
+					// 通义千问、智谱AI和自定义API响应处理
+					result = await response.json();
+					
+					if (selectedProvider === 'zhipu') {
+						// 智谱AI响应格式
+						return {
+							result: result.choices[0].message.content,
+							inputTokens: result.usage?.prompt_tokens || 0,
+							outputTokens: result.usage?.completion_tokens || 0,
+						};
+					} else if (selectedProvider === 'qwen') {
+						// 通义千问兼容模式响应格式
+						return {
+							result: result.choices[0].message.content,
+							inputTokens: result.usage?.prompt_tokens || 0,
+							outputTokens: result.usage?.completion_tokens || 0,
+						};
+					} else {
+						// 自定义API响应格式
+						return {
+							result: result.choices[0].message.content,
+							inputTokens: result.usage?.prompt_tokens || 0,
+							outputTokens: result.usage?.completion_tokens || 0,
+						};
+					}
+				}
+			} catch (error) {
+				throw new Error('API调用失败');
+			}
+			}
+
+			/**
+			 * 显示分析结果
+			 */
+			function displayResult(file, base64, result) {
+				const resultCard = document.createElement('div');
+				resultCard.className = 'result-card';
+
+				const header = document.createElement('div');
+				header.className = 'result-card-header';
+				const title = document.createElement('div');
+				title.className = 'result-card-title';
+				title.textContent = file.name;
+				const toggleBtn = document.createElement('button');
+				toggleBtn.textContent = '展开';
+				toggleBtn.addEventListener('click', () => {
+					const content = resultCard.querySelector('.result-card-content');
+					if (content.style.display === 'none' || content.style.display === '') {
+						content.style.display = 'block';
+						toggleBtn.textContent = '收起';
+					} else {
+						content.style.display = 'none';
+						toggleBtn.textContent = '展开';
+					}
+				});
+				header.appendChild(title);
+				header.appendChild(toggleBtn);
+
+				const content = document.createElement('div');
+				content.className = 'result-card-content';
+				content.textContent = result;
+
+				const footer = document.createElement('div');
+				footer.className = 'result-card-footer';
+				const copyBtn = document.createElement('button');
+				copyBtn.textContent = '复制结果';
+				copyBtn.addEventListener('click', () => {
+					navigator.clipboard
+						.writeText(result)
+						.then(() => {
+							copyBtn.textContent = '已复制';
+							setTimeout(() => {
+								copyBtn.textContent = '复制结果';
+							}, 2000);
+						})
+						.catch((err) => {
+							console.error('复制失败:', err);
+							eda.sys_ToastMessage.showMessage('复制失败，请手动复制', 0);
+						});
+				});
+				const createSymbolBtn = document.createElement('button');
+				createSymbolBtn.className = 'create-symbol-btn';
+				createSymbolBtn.textContent = '创建符号';
+				createSymbolBtn.addEventListener('click', () => {
+					createSymbol(result);
+				});
+				footer.appendChild(copyBtn);
+				footer.appendChild(createSymbolBtn);
+
+				resultCard.appendChild(header);
+				resultCard.appendChild(content);
+				resultCard.appendChild(footer);
+
+				resultsList.appendChild(resultCard);
+			}
+
+			/**
+			 * 显示错误结果
+			 */
+			function displayError(file, errorMessage) {
+				const resultCard = document.createElement('div');
+				resultCard.className = 'result-card error';
+
+				const header = document.createElement('div');
+				header.className = 'result-card-header';
+				const title = document.createElement('div');
+				title.className = 'result-card-title';
+				title.textContent = file.name;
+				const toggleBtn = document.createElement('button');
+				toggleBtn.textContent = '展开';
+				toggleBtn.addEventListener('click', () => {
+					const content = resultCard.querySelector('.result-card-content');
+					if (content.style.display === 'none' || content.style.display === '') {
+						content.style.display = 'block';
+						toggleBtn.textContent = '收起';
+					} else {
+						content.style.display = 'none';
+						toggleBtn.textContent = '展开';
+					}
+				});
+				header.appendChild(title);
+				header.appendChild(toggleBtn);
+
+				const content = document.createElement('div');
+				content.className = 'result-card-content';
+				content.textContent = `处理失败: ${errorMessage}`;
+
+				resultCard.appendChild(header);
+				resultCard.appendChild(content);
+
+				resultsList.appendChild(resultCard);
+			}
+
+
+
+			/**
+			 * 下载所有结果
+			 */
+			function downloadAllResults() {
+				if (analysisResults.length === 0) {
+					eda.sys_ToastMessage.showMessage('没有可下载的结果', 2);
+					return;
+				}
+
+				const zip = new JSZip();
+				analysisResults.forEach((result) => {
+					const filename = `${result.filename.split('.')[0]}.txt`;
+					zip.file(filename, result.result);
+				});
+
+				zip.generateAsync({ type: 'blob' })
+					.then((blob) => {
+						const link = document.createElement('a');
+						link.href = URL.createObjectURL(blob);
+						const timestamp = new Date().toISOString().replace(/[:.]/g, '-').substring(0, 19);
+						link.download = `图片分析结果_${timestamp}.zip`;
+						document.body.appendChild(link);
+						link.click();
+						document.body.removeChild(link);
+						setTimeout(() => URL.revokeObjectURL(link.href), 100);
+					})
+					.catch((err) => {
+						console.error('创建ZIP文件失败:', err);
+						eda.sys_ToastMessage.showMessage('创建ZIP文件失败，将逐个下载结果', 2);
+						analysisResults.forEach((result) => {
+							downloadResult(result.filename, result.result);
+						});
+					});
+			}
+
+			/**
+			 * 下载单个结果
+			 */
+			function downloadResult(filename, content) {
+				const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+				const link = document.createElement('a');
+				link.href = URL.createObjectURL(blob);
+				link.download = `${filename.split('.')[0]}.txt`;
+				document.body.appendChild(link);
+				link.click();
+				document.body.removeChild(link);
+				setTimeout(() => URL.revokeObjectURL(link.href), 100);
+			}
+
+			/**
+			 * 计算费用并更新UI
+			 */
+			function calculateAndUpdateCost(model, inputTokens, outputTokens) {
+				totalInputTokens += inputTokens;
+				totalOutputTokens += outputTokens;
+				const rates = modelRates[model] || modelRates['qwen-vl-max-latest'];
+				const inputCost = (totalInputTokens / 1000) * rates.input;
+				const outputCost = (totalOutputTokens / 1000) * rates.output;
+				const totalCost = inputCost + outputCost;
+				inputTokensElement.textContent = totalInputTokens;
+				outputTokensElement.textContent = totalOutputTokens;
+				inputCostElement.textContent = `¥${inputCost.toFixed(4)}`;
+				outputCostElement.textContent = `¥${outputCost.toFixed(4)}`;
+				totalCostElement.textContent = `¥${totalCost.toFixed(4)}`;
+				costContainer.style.display = 'block';
+			}
+
+			/**
+			 * 解析并添加引脚数据
+			 */
+			function parseAndAddPins(resultText) {
+				try {
+					console.log('开始解析引脚数据，原始内容:', resultText);
+					
+					// 智谱AI特殊标记处理
+					if (selectedProvider === 'zhipu') {
+						// 提取<|begin_of_box|>和<|end_of_box|>之间的内容
+						const boxMatch = resultText.match(/<\|begin_of_box\|>([\s\S]*?)<\|end_of_box\|>/);
+						if (boxMatch) {
+							resultText = boxMatch[1].trim();
+							console.log('智谱AI提取的JSON内容:', resultText);
+						}
+					}
+					
+					// 方法1: 优先尝试解析完整的JSON字符串（处理自定义API直接返回的JSON格式）
+					try {
+						// 尝试将整个resultText作为JSON解析
+						let fullJsonData = null;
+						
+						// 首先尝试直接解析
+						try {
+							fullJsonData = JSON.parse(resultText.trim());
+							console.log('直接解析JSON成功');
+						} catch (directError) {
+							// 如果直接解析失败，尝试提取JSON部分
+							const trimmedText = resultText.trim();
+							const firstBrace = trimmedText.indexOf('{');
+							const lastBrace = trimmedText.lastIndexOf('}');
+							
+							if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {
+								const jsonPart = trimmedText.substring(firstBrace, lastBrace + 1);
+								try {
+									fullJsonData = JSON.parse(jsonPart);
+									console.log('成功解析提取的JSON部分');
+								} catch (extractError) {
+									console.warn('提取JSON部分解析失败:', extractError.message);
+								}
+							}
+						}
+						
+						if (fullJsonData && fullJsonData.pins && Array.isArray(fullJsonData.pins)) {
+							console.log('通过完整JSON解析找到pins数组，长度:', fullJsonData.pins.length);
+							
+							fullJsonData.pins.forEach((pin, index) => {
+								try {
+									// 更强的容错处理，支持各种可能的字段名
+									const pinNumber = String(pin.pinNumber || pin.pin_number || pin.number || pin.pin || (index + 1));
+									const pinName = String(pin.pinName || pin.pin_name || pin.name || pin.label || `Pin${pinNumber}`);
+									
+									// 确保引脚名称不为空且处理特殊字符
+									const cleanPinName = pinName.trim() || `Pin${pinNumber}`;
+									
+									pinData.push({
+										pinNumber: pinNumber,
+										pinName: cleanPinName,
+										pinType: pin.pinType || pin.pin_type || pin.type || 'I/O',
+										description: pin.description || pin.desc || pin.comment || ''
+									});
+									
+									console.log(`成功处理引脚 ${pinNumber}: ${cleanPinName}`);
+								} catch (pinError) {
+									console.warn(`处理引脚 ${index} 时出错:`, pinError, pin);
+									// 即使单个引脚处理失败，也尝试添加基本信息
+									try {
+										pinData.push({
+													pinNumber: `Pin${index + 1}`,
+													pinName: `Pin${index + 1}`,
+													pinType: '未定义',
+													description: '解析失败的引脚'
+												});
+									} catch (fallbackError) {
+										console.error('连备用引脚信息都无法添加:', fallbackError);
+									}
+								}
+							});
+							
+							updatePinTable();
+							updateUI();
+							eda.sys_ToastMessage.showMessage(`成功解析 ${fullJsonData.pins.length} 个引脚信息`, 1);
+							return;
+						}
+					} catch (fullJsonError) {
+						console.warn('完整JSON解析失败:', fullJsonError.message);
+					}
+					
+					// 方法2: 尝试解析标准的```json代码块
+					const jsonMatches = resultText.match(/```json\s*([\s\S]*?)\s*```/g);
+					if (jsonMatches && jsonMatches.length > 0) {
+						console.log('找到JSON代码块，数量:', jsonMatches.length);
+						
+						// 遍历所有JSON代码块，寻找包含pins数组的
+						for (const jsonBlock of jsonMatches) {
+							try {
+								const jsonContent = jsonBlock.replace(/```json\s*/, '').replace(/\s*```$/, '');
+								const jsonData = JSON.parse(jsonContent);
+								
+								if (jsonData.pins && Array.isArray(jsonData.pins)) {
+									console.log('找到有效的pins数组，长度:', jsonData.pins.length);
+									jsonData.pins.forEach(pin => {
+										pinData.push({
+											pinNumber: pin.pin_number || pin.pinNumber || '',
+											pinName: pin.pin_name || pin.pinName || '',
+											pinType: pin.pin_type || pin.pinType || pin.type || '未定义',
+											description: pin.description || ''
+										});
+									});
+									updatePinTable();
+									updateUI();
+									eda.sys_ToastMessage.showMessage(`成功解析 ${jsonData.pins.length} 个引脚信息`, 1);
+									return;
+								}
+							} catch (parseError) {
+								console.warn('解析JSON代码块失败:', parseError);
+								continue;
+							}
+						}
+					}
+					
+					// 方法2: 尝试直接查找JSON对象（不在代码块中）
+				// 改进的正则表达式，能更好地匹配完整的JSON对象
+				let directJsonMatch = null;
+				
+				// 首先尝试匹配完整的JSON对象
+				const jsonStartIndex = resultText.indexOf('{');
+				if (jsonStartIndex !== -1) {
+					// 从第一个{开始，找到匹配的}
+					let braceCount = 0;
+					let jsonEndIndex = -1;
+					
+					for (let i = jsonStartIndex; i < resultText.length; i++) {
+						if (resultText[i] === '{') {
+							braceCount++;
+						} else if (resultText[i] === '}') {
+							braceCount--;
+							if (braceCount === 0) {
+								jsonEndIndex = i;
+								break;
+							}
+						}
+					}
+					
+					if (jsonEndIndex !== -1) {
+						const jsonStr = resultText.substring(jsonStartIndex, jsonEndIndex + 1);
+						if (jsonStr.includes('"pins"')) {
+							directJsonMatch = [jsonStr];
+						}
+					}
+				}
+				
+				// 如果上面的方法没找到，回退到原来的正则表达式方法
+				if (!directJsonMatch) {
+					directJsonMatch = resultText.match(/\{[\s\S]*?"pins"[\s\S]*?\}/g);
+				}
+					if (directJsonMatch && directJsonMatch.length > 0) {
+						console.log('找到直接JSON对象，数量:', directJsonMatch.length);
+						
+						for (const jsonStr of directJsonMatch) {
+						try {
+							// 尝试多种JSON解析策略
+							let jsonData = null;
+							
+							// 策略1: 直接解析
+							try {
+								jsonData = JSON.parse(jsonStr);
+							} catch (directParseError) {
+								console.warn('直接JSON解析失败，尝试清理后解析:', directParseError.message);
+								
+								// 策略2: 清理常见的JSON格式问题后解析
+								let cleanedJsonStr = jsonStr
+									.replace(/([{,]\s*)([a-zA-Z_][a-zA-Z0-9_]*)\s*:/g, '$1"$2":') // 为没有引号的键添加引号
+									.replace(/:\s*([a-zA-Z_][a-zA-Z0-9_]*)\s*([,}])/g, ': "$1"$2') // 为没有引号的字符串值添加引号
+									.replace(/,\s*}/g, '}') // 移除多余的逗号
+									.replace(/,\s*]/g, ']'); // 移除数组末尾多余的逗号
+								
+								try {
+									jsonData = JSON.parse(cleanedJsonStr);
+									console.log('清理后JSON解析成功');
+								} catch (cleanedParseError) {
+									console.warn('清理后JSON解析仍然失败:', cleanedParseError.message);
+									throw cleanedParseError;
+								}
+							}
+							
+							if (jsonData && jsonData.pins && Array.isArray(jsonData.pins)) {
+								console.log('找到有效的pins数组，长度:', jsonData.pins.length);
+								
+								// 处理每个引脚，增强容错性
+								jsonData.pins.forEach((pin, index) => {
+									try {
+										const pinNumber = String(pin.pin_number || pin.pinNumber || pin.number || (index + 1));
+										const pinName = String(pin.pin_name || pin.pinName || pin.name || `Pin${pinNumber}`);
+										
+										pinData.push({
+											pinNumber: pinNumber,
+											pinName: pinName,
+											pinType: pin.pin_type || pin.pinType || pin.type || 'I/O',
+											description: pin.description || pin.desc || ''
+										});
+									} catch (pinError) {
+										console.warn(`处理引脚 ${index} 时出错:`, pinError, pin);
+										// 即使单个引脚处理失败，也继续处理其他引脚
+									}
+								});
+								
+								updatePinTable();
+								updateUI();
+								eda.sys_ToastMessage.showMessage(`成功解析 ${jsonData.pins.length} 个引脚信息`, 1);
+								return;
+							}
+						} catch (parseError) {
+							console.warn('解析直接JSON失败:', parseError.message);
+							console.warn('失败的JSON字符串:', jsonStr.substring(0, 500) + (jsonStr.length > 500 ? '...' : ''));
+							continue;
+						}
+					}
+				}
+				
+				// 方法3: 尝试解析文本格式的引脚信息
+					console.log('尝试解析文本格式的引脚信息');
+					const lines = resultText.split('\n');
+					let foundPins = 0;
+					
+					lines.forEach(line => {
+						// 匹配 Pin X: NAME 格式
+						const pinMatch = line.match(/Pin\s*(\d+)\s*[:|：]\s*([^,，\n]+)/i);
+						if (pinMatch) {
+							pinData.push({
+								pinNumber: pinMatch[1],
+								pinName: pinMatch[2].trim(),
+								pinType: '未定义',
+								description: ''
+							});
+							foundPins++;
+							return;
+						}
+						
+						// 匹配 "pinNumber": "X", "pinName": "NAME" 格式
+						const jsonLineMatch = line.match(/"pinNumber"\s*:\s*"(\d+)".*?"pinName"\s*:\s*"([^"]+)"/);
+						if (jsonLineMatch) {
+							pinData.push({
+							pinNumber: jsonLineMatch[1],
+							pinName: jsonLineMatch[2].trim(),
+							pinType: '未定义',
+							description: ''
+						});
+							foundPins++;
+							return;
+						}
+						
+						// 匹配数字: 名称格式
+						const simpleMatch = line.match(/(\d+)\s*[:|：]\s*([^,，\n]+)/);
+						if (simpleMatch) {
+							pinData.push({
+								pinNumber: simpleMatch[1],
+								pinName: simpleMatch[2].trim(),
+								pinType: '未定义',
+								description: ''
+							});
+							foundPins++;
+						}
+					});
+					
+					if (foundPins > 0) {
+						console.log('通过文本解析找到引脚数量:', foundPins);
+						updatePinTable();
+						updateUI();
+						eda.sys_ToastMessage.showMessage(`成功解析 ${foundPins} 个引脚信息`, 1);
+						return;
+					}
+					
+					// 如果所有方法都失败了
+					console.error('所有解析方法都失败了');
+					eda.sys_ToastMessage.showMessage('无法解析引脚信息，请检查API返回格式', 0);
+					
+				} catch (error) {
+					console.error('解析引脚数据失败:', error);
+					console.error('原始内容:', resultText);
+					eda.sys_ToastMessage.showMessage('解析引脚数据失败: ' + error.message, 0);
+				}
+			}
+
+			/**
+			 * 创建符号（从表格数据）
+			 */
+			function createSymbolFromTable() {
+				if (pinData.length === 0) {
+					eda.sys_ToastMessage.showMessage('请先添加引脚信息', 2);
+					return;
+				}
+				
+				try {
+					// 创建符号边框，传递引脚总数，使用左右两边布局
+					let bbox = createSymbolBoundingBox('DUAL_SIDE', pinData.length);
+					console.log('创建的符号边框:', bbox);
+
+					// 创建引脚，使用左右两边布局
+					createSymbolPins(pinData, bbox, 'DUAL_SIDE');
+					console.log('引脚创建完成');
+
+					eda.sys_IFrame.hideIFrame('symbol');
+					eda.sys_ToastMessage.showMessage('符号创建成功，支持在菜单中通过点击"继续创建"选项以重新打开窗口', 3);
+				} catch (error) {
+					console.error('创建符号失败:', error);
+					eda.sys_ToastMessage.showMessage('创建符号失败，请检查控制台日志以获取详细信息', 0);
+				}
+			}
+
+			/**
+			 * 复制符号信息
+			 */
+			function copySymbolInfo() {
+				if (pinData.length === 0) {
+					if (typeof eda !== 'undefined' && eda.sys_ToastMessage) {
+						eda.sys_ToastMessage.showMessage('暂无引脚信息可复制', 2);
+					} else {
+						alert('暂无引脚信息可复制');
+					}
+					return;
+				}
+				
+				try {
+					let copyText = '';
+					
+					pinData.forEach((pin, index) => {
+						// 每个引脚占一行，格式为：引脚号\t引脚名称\t
+						copyText += `${pin.pinNumber}\t${pin.pinName}\t\n`;
+						
+						// 每隔几个引脚添加空行（用*表示）
+						if ((index + 1) % 4 === 0 && index < pinData.length - 1) {
+							copyText += '*\t*\t\n';
+						}
+					});
+					
+					// 复制到剪贴板
+					navigator.clipboard.writeText(copyText).then(() => {
+						if (typeof eda !== 'undefined' && eda.sys_ToastMessage) {
+							eda.sys_ToastMessage.showMessage(`已复制 ${pinData.length} 个引脚信息到剪贴板`, 1);
+						} else {
+							alert(`已复制 ${pinData.length} 个引脚信息到剪贴板`);
+						}
+					}).catch(err => {
+						console.error('复制失败:', err);
+						// 降级方案：使用传统的复制方法
+						const textArea = document.createElement('textarea');
+						textArea.value = copyText;
+						document.body.appendChild(textArea);
+						textArea.select();
+						try {
+							document.execCommand('copy');
+							if (typeof eda !== 'undefined' && eda.sys_ToastMessage) {
+								eda.sys_ToastMessage.showMessage(`已复制 ${pinData.length} 个引脚信息到剪贴板`, 1);
+							} else {
+								alert(`已复制 ${pinData.length} 个引脚信息到剪贴板`);
+							}
+						} catch (fallbackErr) {
+							console.error('降级复制也失败:', fallbackErr);
+							if (typeof eda !== 'undefined' && eda.sys_ToastMessage) {
+								eda.sys_ToastMessage.showMessage('复制失败，请手动复制', 0);
+							} else {
+								alert('复制失败，请手动复制');
+							}
+						}
+						document.body.removeChild(textArea);
+					});
+					
+				} catch (error) {
+					console.error('复制符号信息失败:', error);
+					if (typeof eda !== 'undefined' && eda.sys_ToastMessage) {
+						eda.sys_ToastMessage.showMessage('复制失败: ' + error.message, 0);
+					} else {
+						alert('复制失败: ' + error.message);
+					}
+				}
+			}
+
+			function createSymbol(jsonData) {
+				try {
+					// 去除代码块标记
+					jsonData = jsonData.replace(/```json\n/, '').replace(/\n```$/, '');
+
+					// 尝试解析JSON数据
+					const data = JSON.parse(jsonData);
+
+					// 检查JSON数据是否包含必要的字段
+					if (!data || typeof data !== 'object' || !data.type || !Array.isArray(data.pins)) {
+						throw new Error('JSON数据格式不正确，缺少type或pins字段');
+					}
+
+					const type = data.type;
+					const pins = data.pins;
+
+					console.log('解析的JSON数据:', data);
+
+					// 创建符号边框，传递引脚总数
+					let bbox = createSymbolBoundingBox(type, pins.length);
+					console.log('创建的符号边框:', bbox);
+
+					console.log('type0', type);
+					// 创建引脚
+					createSymbolPins(pins, bbox, type);
+					console.log('引脚创建完成');
+
+					eda.sys_IFrame.hideIFrame('symbol');
+					eda.sys_ToastMessage.showMessage('符号创建成功，支持在菜单中通过点击“继续创建”选项以重新打开窗口', 3);
+				} catch (error) {
+					console.error('创建符号失败:', error);
+					eda.sys_ToastMessage.showMessage('创建符号失败，请检查控制台日志以获取详细信息', 0);
+				}
+			}
+
+			/**
+			 * 根据引脚总数量动态创建符号边框
+			 */
+			function createSymbolBoundingBox(type, pinCount) {
+				if (!pinCount || isNaN(pinCount) || pinCount <= 0) {
+					throw new Error('无效的引脚数量: ' + pinCount);
+				}
+
+				let aspectRatio = 1.2;
+				let width, height;
+				const pinSpacing = 20; // 每个引脚所需的最小间距
+
+				if (type === 'SOP') {
+					aspectRatio = 0.45;
+					// 根据引脚数量计算宽度和高度
+					const totalPinsPerSide = Math.ceil(pinCount / 4); // 每边的引脚数量
+					width = totalPinsPerSide * pinSpacing * aspectRatio; // 宽度与引脚数量成比例
+					height = totalPinsPerSide * pinSpacing; // 高度与引脚数量成比例
+				} else if (type === 'DUAL_SIDE') {
+					// 左右两边布局：每边分配一半引脚
+					const pinsPerSide = Math.ceil(pinCount / 2);
+					height = (pinsPerSide + 1) * pinSpacing; // 高度根据每边引脚数量计算
+					width = height * 0.6; // 宽度相对较窄
+				} else {
+					// 默认四边布局
+					const totalPinsPerSide = Math.ceil(pinCount / 4); // 每边的引脚数量
+					width = totalPinsPerSide * pinSpacing * aspectRatio; // 宽度与引脚数量成比例
+					height = totalPinsPerSide * pinSpacing; // 高度与引脚数量成比例
+				}
+
+				// 创建边框的点坐标
+				const bbox = [0, 0, width, 0, width, height, 0, height, 0, 0];
+
+				// 使用 eda.sch_PrimitivePolygon.create 创建符号边框
+				eda.sch_PrimitivePolygon.create(bbox);
+
+				// 验证 bbox 是否有效
+				if (bbox.some((value) => isNaN(value))) {
+					throw new Error('生成的边框坐标无效: ' + bbox);
+				}
+
+				return bbox;
+			}
+
+			/**
+			 * 引脚类型映射函数
+			 * 将中文引脚类型映射为EDA系统的引脚类型枚举值
+			 */
+			function mapPinType(chineseType) {
+				const pinTypeMap = {
+					'双向': 'BI',
+					'地': 'GROUND',
+					'高阻': 'HIZ',
+					'输入': 'IN',
+					'开集电极': 'OPEN_COLLECTOR',
+					'开发射极': 'OPEN_EMITTER',
+					'输出': 'OUT',
+					'无源': 'PASSIVE',
+					'电源': 'POWER',
+					'信号终端': 'TERMINATOR',
+					'未定义': 'UNDEFINED'
+				};
+				
+				return pinTypeMap[chineseType] || 'UNDEFINED';
+			}
+
+			/**
+			 * 创建符号引脚
+			 */
+			function createSymbolPins(pins, bbox, type) {
+				if (!Array.isArray(pins) || pins.length === 0) {
+					throw new Error('无效的引脚数据: ' + pins);
+				}
+
+				if (!Array.isArray(bbox) || bbox.length < 8 || bbox.some((value) => isNaN(value))) {
+					throw new Error('无效的边框数据: ' + bbox);
+				}
+				console.log('type1', type);
+				pins.forEach((pin, pinIndex) => {
+						const pinNumber = pin.pinNumber;
+						const pinName = pin.pinName;
+						const pinType = mapPinType(pin.pinType || '未定义'); // 映射引脚类型
+						console.log('type2', type);
+						let x = 0,
+							y = 0,
+							rotation = 0; // 旋转角度
+						const pinCount = pins.length;
+
+					if (type === 'DUAL_SIDE') {
+						// 左右两边布局，左上角为第一个引脚逆时针排列
+						const pinsPerSide = Math.ceil(pinCount / 2);
+						
+						if (pinIndex < pinsPerSide) {
+							// 左边引脚：从上到下排列
+							x = bbox[0] - 20; // 向左移动20
+							// 从顶部开始，均匀分布
+							const yPosition = (pinIndex + 1) / (pinsPerSide + 1);
+							y = bbox[1] + (bbox[5] - bbox[1]) * yPosition;
+							rotation = 180; // 引脚向左
+						} else {
+							// 右边引脚：从下到上排列（逆时针）
+							x = bbox[2] + 20; // 向右移动20
+							const rightPinIndex = pinIndex - pinsPerSide;
+							const rightPinsCount = pinCount - pinsPerSide;
+							// 从底部开始，向上排列
+							const yPosition = 1 - (rightPinIndex + 1) / (rightPinsCount + 1);
+							y = bbox[1] + (bbox[5] - bbox[1]) * yPosition;
+							rotation = 0; // 引脚向右
+						}
+					} else {
+						// 原有的四边布局逻辑
+						const sidePinCount =
+							type === 'SOP'
+								? Math.ceil(pinCount / 2) // 如果是 SOP 类型，每边分配一半引脚
+								: Math.ceil((pinCount + 4) / 4) - 1; // 其他类型，每边分配引脚数量（去掉顶点）
+
+						const side =
+							type === 'SOP'
+								? pinIndex < sidePinCount
+									? 0
+									: 2 // 如果是 SOP 类型，只使用左边(0)和右边(2)
+								: Math.floor(pinIndex / sidePinCount); // 其他类型，按四边分配
+
+						const index =
+							type === 'SOP'
+								? pinIndex % sidePinCount // 如果是 SOP 类型，按左右两边分配
+								: pinIndex % sidePinCount; // 其他类型，按四边分配
+
+						const normalizedIndex = sidePinCount > 1 ? (index + 1) / (sidePinCount + 1) : 0;
+						console.log('type3', type);
+						switch (side) {
+							case 0: // left (逆时针第1边)
+								x = bbox[0] - 20; // 向左移动20
+								y = bbox[5] - (bbox[5] - bbox[1]) * normalizedIndex;
+								rotation = 180; // 旋转角度180
+								break;
+							case 1: // bottom (逆时针第2边)
+								if (type !== 'SOP') {
+									// SOP 类型不创建底边引脚
+									x = bbox[0] + (bbox[2] - bbox[0]) * normalizedIndex; // 沿着底边从左到右
+									y = bbox[1] - 20; // 向上移动20
+									rotation = 270; // 旋转角度270
+								}
+								break;
+							case 2: // right (逆时针第3边)
+								x = bbox[2] + 20; // 向右移动20
+								y = bbox[1] + (bbox[5] - bbox[1]) * normalizedIndex;
+								rotation = 0; // 旋转角度0
+								break;
+							case 3: // top (逆时针第4边)
+								if (type !== 'SOP') {
+									// SOP 类型不创建顶边引脚
+									x = bbox[2] - (bbox[2] - bbox[0]) * normalizedIndex; // 沿着顶边从右到左
+									y = bbox[5] + 20; // 向下移动20
+									rotation = 90; // 旋转角度90
+								}
+								break;
+						}
+					}
+
+					if (isNaN(x) || isNaN(y)) {
+							throw new Error(`引脚坐标无效: pinNumber=${pinNumber}, pinName=${pinName}, x=${x}, y=${y}`);
+						}
+
+						console.log('创建引脚:', pinNumber, pinName, x, y, rotation, pinType);
+						eda.sch_PrimitivePin.create(x, y, pinNumber, pinName, rotation, undefined, undefined, undefined, pinType);
+				});
+			}
+
+			/**
+			 * 初始化图片预览功能
+			 */
+			function initImagePreview() {
+				const imagePreviewModal = document.getElementById('image-preview-modal');
+				const previewImage = document.getElementById('preview-image');
+				const previewInfo = document.getElementById('preview-info');
+				const closePreviewBtn = document.getElementById('close-preview');
+
+				// 关闭预览
+				function closePreview() {
+					imagePreviewModal.style.display = 'none';
+					previewImage.src = '';
+				}
+
+				// 点击关闭按钮
+				closePreviewBtn.addEventListener('click', closePreview);
+
+				// 点击模态框背景关闭
+				imagePreviewModal.addEventListener('click', (e) => {
+					if (e.target === imagePreviewModal) {
+						closePreview();
+					}
+				});
+
+				// ESC键关闭
+				document.addEventListener('keydown', (e) => {
+					if (e.key === 'Escape' && imagePreviewModal.style.display === 'flex') {
+						closePreview();
+					}
+				});
+
+				// 为图片添加点击预览功能
+				function addImageClickPreview() {
+					const currentImage = document.getElementById('current-image');
+					if (currentImage && currentImages.length > 0) {
+						// 移除之前的事件监听器（如果有的话）
+						const newImage = currentImage.cloneNode(true);
+						currentImage.parentNode.replaceChild(newImage, currentImage);
+						
+						// 重新获取新的图片元素
+						const freshImage = document.getElementById('current-image');
+						freshImage.style.cursor = 'pointer';
+						freshImage.style.pointerEvents = 'auto';
+						
+						freshImage.addEventListener('click', (e) => {
+							// 阻止事件冒泡，避免触发框选功能
+							e.stopPropagation();
+							
+							// 如果正在手动选择模式，不触发预览
+							if (manualSelectionMode) {
+								return;
+							}
+
+							// 显示预览
+							const currentImageData = currentImages[currentImageIndex];
+							previewImage.src = currentImageData.src;
+							previewInfo.textContent = currentImageData.name || `页面 ${currentImageIndex + 1}`;
+							imagePreviewModal.style.display = 'flex';
+						});
+					}
+				}
+
+				// 监听图片显示更新，为新图片添加预览功能
+				const originalDisplayCurrentImage = displayCurrentImage;
+				displayCurrentImage = function() {
+					originalDisplayCurrentImage.apply(this, arguments);
+					// 延迟添加点击事件，确保图片已经加载
+					setTimeout(addImageClickPreview, 100);
+				};
+			}
+		</script>
+	</body>
+</html>
