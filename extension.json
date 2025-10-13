@@ -10,16 +10,16 @@
 	},
 	"license": "Apache-2.0",
 	"repository": {
-		"type": "extension-store",
-		"url": ""
+		"type": "github",
+		"url": "https://github.com/easyeda/eext-ai-library-building-helper"
 	},
 	"categories": "Other",
 	"keywords": ["AI", "Symbol", "Footprint", "Lib"],
 	"images": {
 		"logo": "./images/logo.png"
 	},
-	"homepage": "https://pro.lceda.cn",
-	"bugs": "https://lceda.cn/page/feedback?originPage=other",
+	"homepage": "https://github.com/easyeda/eext-ai-library-building-helper",
+	"bugs": "https://github.com/easyeda/eext-ai-library-building-helper/issues",
 	"activationEvents": {},
 	"entry": "./dist/index",
 	"dependentExtensions": {},
