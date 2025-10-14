@@ -907,11 +907,11 @@
 				<div class="form-group" id="model-group">
 					<label for="model-select">选择模型</label>
 					<select id="model-select">
+						<option value="qwen3-vl-plus" selected>qwen3-vl-plus</option>
 						<option value="qwen-vl-max-latest">qwen-vl-max-latest</option>
 						<option value="qwen2.5-vl-7b-instruct">qwen2.5-vl-7b-instruct</option>
 						<option value="qwen2.5-vl-72b-instruct">qwen2.5-vl-72b-instruct</option>
 						<option value="qvq-72b-preview">qvq-72b-preview</option>
-						<option value="qwen-vl-plus">qwen-vl-plus</option>
 					</select>
 				</div>
 				<div class="form-group" id="api-key-group">
@@ -984,7 +984,6 @@
 				<div class="image-navigation" id="image-navigation" style="display: none;">
 					<div class="nav-controls">
 					<button id="prev-image" class="nav-btn">‹ 上一张</button>
-					<span class="image-counter" id="image-counter" title="💡 快速跳转：输入页码按回车键">
 						<input type="number" id="page-input" min="1" value="1" placeholder="页码" title="输入页码按回车键快速跳转到指定页面" style="width: 40px; text-align: center; border: 1px solid #ddd; background: white; font-size: 12px; font-weight: 500; color: #495057; border-radius: 3px; padding: 1px 2px;" /> / <span id="total-pages">1</span>
 					</span>
 					<button id="next-image" class="nav-btn">下一张 ›</button>
@@ -1006,6 +1005,7 @@
 							<option value="DIP">DIP</option>
 							<option value="QFN">QFN</option>
 							<option value="QFP">QFP</option>
+							<option value="SOP">SOP</option>
 							<option value="SOD">SOD</option>
 							<option value="SOT23">SOT23</option>
 							<option value="SOT223">SOT223</option>
@@ -1030,7 +1030,7 @@
 			let currentImages = [];
 			let currentImageIndex = 0;
 			let apiKey = '';
-			let selectedModel = 'qwen-vl-max-latest';
+			let selectedModel = 'qwen3-vl-plus';
 			let selectedProvider = 'qwen';
 			let apiUrl = '';
 			let customApiUrl = '';
@@ -1056,7 +1056,7 @@
 				'qwen2.5-vl-7b-instruct': { input: 0.002, output: 0.005 },
 				'qwen2.5-vl-72b-instruct': { input: 0.016, output: 0.048 },
 				'qvq-72b-preview': { input: 0.012, output: 0.036 },
-				'qwen-vl-plus': { input: 0.0015, output: 0.0045 },
+				'qwen3-vl-plus': { input: 0.0015, output: 0.0045 },
 			};
 
 			// 模型厂商配置
@@ -1065,11 +1065,11 @@
 					name: '通义千问',
 					apiUrl: 'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions',
 					models: [
+						{ value: 'qwen3-vl-plus', name: 'qwen3-vl-plus' },
 						{ value: 'qwen-vl-max-latest', name: 'qwen-vl-max-latest' },
 						{ value: 'qwen2.5-vl-7b-instruct', name: 'qwen2.5-vl-7b-instruct' },
 						{ value: 'qwen2.5-vl-72b-instruct', name: 'qwen2.5-vl-72b-instruct' },
-						{ value: 'qvq-72b-preview', name: 'qvq-72b-preview' },
-						{ value: 'qwen-vl-plus', name: 'qwen-vl-plus' }
+						{ value: 'qvq-72b-preview', name: 'qvq-72b-preview' }
 					],
 					requiresApiKey: true
 				},
@@ -1221,7 +1221,7 @@
 				// 初始化全局变量
 				apiKey = eda.sys_Storage.getExtensionUserConfig('api_key') || '';
 				selectedProvider = eda.sys_Storage.getExtensionUserConfig('selected_provider') || 'qwen';
-				selectedModel = eda.sys_Storage.getExtensionUserConfig('selected_model') || 'qwen-vl-max-latest';
+				selectedModel = eda.sys_Storage.getExtensionUserConfig('selected_model') || 'qwen3-vl-plus';
 				apiUrl = eda.sys_Storage.getExtensionUserConfig('api_url') || '';
 				customApiUrl = eda.sys_Storage.getExtensionUserConfig('custom_api_url') || '';
 				customModel = eda.sys_Storage.getExtensionUserConfig('custom_model') || '';
@@ -2499,6 +2499,83 @@
 			} 
 			
 			/**
+			 * 比较两次提取结果，选择更好的一个
+			 */
+			function chooseBetterResult(firstResult, secondResult) {
+				if (!firstResult) return secondResult;
+				if (!secondResult) return firstResult;
+				
+				try {
+					// 尝试解析两个结果
+					const first = parseParametersFromContent(firstResult);
+					const second = parseParametersFromContent(secondResult);
+					
+					// 如果只有一个解析成功，选择成功的
+					if (first && !second) return firstResult;
+					if (!first && second) return secondResult;
+					if (!first && !second) return secondResult; // 都失败时选择第二个
+					
+					// 都成功时，选择参数更多的
+					const firstCount = first.parameters ? first.parameters.length : 0;
+					const secondCount = second.parameters ? second.parameters.length : 0;
+					
+					console.log(`第一次提取参数数量: ${firstCount}, 第二次提取参数数量: ${secondCount}`);
+					
+					// 如果参数数量相同，选择第二个（通常更稳定）
+					// 如果第二个参数更多，选择第二个
+					// 如果第一个参数明显更多（差距>=2），选择第一个
+					if (secondCount >= firstCount || (firstCount - secondCount < 2)) {
+						console.log('选择第二次提取结果');
+						return secondResult;
+					} else {
+						console.log('选择第一次提取结果（参数更多）');
+						return firstResult;
+					}
+				} catch (error) {
+					console.error('比较结果时出错:', error);
+					// 出错时默认选择第二个
+					return secondResult;
+				}
+			}
+			
+			/**
+			 * 从内容中解析参数（用于比较）
+			 */
+			function parseParametersFromContent(content) {
+				try {
+					// 查找JSON代码块
+					const jsonBlockRegex = /```json\s*([\s\S]*?)\s*```/g;
+					let match;
+					
+					while ((match = jsonBlockRegex.exec(content)) !== null) {
+						try {
+							const jsonContent = match[1].trim();
+							const parsed = JSON.parse(jsonContent);
+							if (parsed.parameters && Array.isArray(parsed.parameters)) {
+								return parsed;
+							}
+						} catch (e) {
+							continue;
+						}
+					}
+					
+					// 如果没有找到代码块，尝试直接解析
+					try {
+						const parsed = JSON.parse(content);
+						if (parsed.parameters && Array.isArray(parsed.parameters)) {
+							return parsed;
+						}
+					} catch (e) {
+						// 忽略解析错误
+					}
+					
+					return null;
+				} catch (error) {
+					return null;
+				}
+			}
+			
+			/**
 			 * 提取参数 - 第二步：提取封装参数
 			 */
 			async function extractParams() {
@@ -2549,8 +2626,11 @@
 	// 获取当前选择的封装类型
 	const selectedPackageType = packageTypeSelect.value;
 	let paramPrompt = '';
+	let extractionCount = 2; // 默认提取2次
 				
-					if (selectedPackageType) {
+	if (selectedPackageType) {
+		// 如果已经选择了封装类型，只提取一次
+		extractionCount = 1;
 		// 根据选择的封装类型生成提示词
 		const typeParams = packageParams[selectedPackageType];
 		if (typeParams) {
@@ -2558,141 +2638,203 @@
 			paramPrompt = `从芯片封装手册图中提取${selectedPackageType}封装的参数，包括：${paramList}。请仔细测量图中的尺寸标注，以毫米为单位。`;
 		}
 	} else {
-		// 如果没有选择类型，让AI自动识别
+		// 如果没有选择类型，让AI自动识别，执行两次提取
 		paramPrompt = '从芯片封装手册图中识别封装类型（BGA、DIP、QFN、QFP、SOD、SOT23、SOT223中的一种），并提取相应的封装参数。请仔细测量图中的尺寸标注，以毫米为单位。';
 	}
 	
 	let content;
+	let firstResult = null;
+	let secondResult = null;
+	let detectedPackageType = null; // 存储第一次提取识别到的封装类型
 	
-	if (selectedProvider === 'custom' && apiUrl === 'https://chat.eda.cn/ai-chat-api/complete') {
-		// 特殊API调用
-		const images = imagesWithSelections.map(imageData => imageData.image);
-		const fullPrompt = `${paramPrompt}请以JSON格式输出，不要输出json代码段，JSON格式如下：\n\`\`\`json\n{\n  "package_type": "QFN",\n  "parameters": [\n    {"name": "本体长度", "key": "BL", "value": "5.0", "unit": "mm"},\n    {"name": "本体宽度", "key": "BW", "value": "5.0", "unit": "mm"}\n  ]\n}\n\`\`\``;
-		content = await callCustomAPI(images, fullPrompt);
-	} else {
-		// 通义千问API调用
-		// 构建包含所有有框选图片的请求
-		const imageContents = [];
-		let totalSelections = 0;
+	// 根据是否选择封装类型决定提取次数
+	for (let attempt = 1; attempt <= extractionCount; attempt++) {
+		eda.sys_ToastMessage.showMessage(`正在进行第 ${attempt} 次提取...`, 3);
 		
-		for (const imageData of imagesWithSelections) {
-			console.log(`添加图片 ${imageData.index + 1}，框选数量: ${imageData.selections.length}`);
-			imageContents.push({
-				type: "image_url",
-				image_url: { url: imageData.image.src }
-			});
-			totalSelections += imageData.selections.length;
+		// 在两次提取之间添加2秒间隔（仅在需要两次提取时）
+		if (attempt === 2 && extractionCount === 2) {
+			console.log('等待2秒后进行第二次提取...');
+			await new Promise(resolve => setTimeout(resolve, 2000));
 		}
 		
-		// 添加文本提示
-		imageContents.push({
-			type: 'text',
-			text: `${paramPrompt}请以JSON格式输出，不要输出json代码段，JSON格式如下：\n\`\`\`json\n{\n  "package_type": "QFN",\n  "parameters": [\n    {"name": "本体长度", "key": "BL", "value": "5.0", "unit": "mm"},\n    {"name": "本体宽度", "key": "BW", "value": "5.0", "unit": "mm"}\n  ]\n}\n\`\`\``
-		});
-		
-		const data = {
-			model: selectedModel,
-			temperature: 0,
-			vl_high_resolution_images: true,
-			messages: [
-				{
-					role: 'system',
-					content: [{ type: 'text', text: 'You are a professional IC package analysis expert specialized in extracting package parameters from technical documentation.' }]
-				},
-				{
-					role: 'user',
-					content: imageContents
-				}
-			]
-		};
-		
-		const response = await callAPI(data);
-		
-		if (!response.ok) {
-			throw new Error('API请求失败');
+		// 为第二次提取生成更精确的prompt（仅在需要两次提取时）
+		let currentPrompt = paramPrompt;
+		if (attempt === 2 && detectedPackageType && extractionCount === 2) {
+			// 第二次提取使用第一次识别到的封装类型
+			const typeParams = packageParams[detectedPackageType];
+			if (typeParams) {
+				const paramList = typeParams.map(p => `${p.name}(${p.key})`).join('、');
+				currentPrompt = `从芯片封装手册图中提取${detectedPackageType}封装的参数，包括：${paramList}。请仔细测量图中的尺寸标注，以毫米为单位。`;
+				console.log(`第二次提取使用检测到的封装类型: ${detectedPackageType}`);
+			}
 		}
-		
-		let result;
-		
-		if (isSpecialApiFormat(selectedProvider, apiUrl)) {
-			// 特殊API响应处理
-			const responseText = await response.text();
-			console.log('特殊API原始响应:', responseText);
+	
+		if (selectedProvider === 'custom' && apiUrl === 'https://chat.eda.cn/ai-chat-api/complete') {
+			// 特殊API调用
+			const images = imagesWithSelections.map(imageData => imageData.image);
+			const fullPrompt = `${currentPrompt}请以JSON格式输出，不要输出json代码段，JSON格式如下：\n\`\`\`json\n{\n  "package_type": "QFN",\n  "parameters": [\n    {"name": "本体长度", "key": "BL", "value": "5.0", "unit": "mm"},\n    {"name": "本体宽度", "key": "BW", "value": "5.0", "unit": "mm"}\n  ]\n}\n\`\`\``;
+			content = await callCustomAPI(images, fullPrompt);
+		} else {
+			// 通义千问API调用
+			// 构建包含所有有框选图片的请求
+			const imageContents = [];
+			let totalSelections = 0;
 			
-			// 首先尝试直接解析为JSON
-			try {
-				result = JSON.parse(responseText);
-				console.log('特殊API响应解析成功:', result);
-				
-				// 如果直接解析成功且包含parameters数组，直接使用
-				if (result.parameters && Array.isArray(result.parameters)) {
-					console.log('特殊API直接返回了parameters数组');
-					content = JSON.stringify(result);
-				} else {
-					// 否则按照原有逻辑处理
-					if (result.context && result.context.chat && result.context.chat.input_text) {
-						content = result.context.chat.input_text;
-					} else if (result.data && result.data.content) {
-						content = result.data.content;
-					} else if (result.content) {
-						content = result.content;
-					} else if (result.response) {
-						content = result.response;
-					} else {
-						// 如果都没有找到，尝试将整个result作为内容
-						content = JSON.stringify(result);
-						console.log('使用整个result作为内容:', content);
+			for (const imageData of imagesWithSelections) {
+				console.log(`添加图片 ${imageData.index + 1}，框选数量: ${imageData.selections.length}`);
+				imageContents.push({
+					type: "image_url",
+					image_url: { url: imageData.image.src }
+				});
+				totalSelections += imageData.selections.length;
+			}
+			
+			// 添加文本提示
+			imageContents.push({
+				type: 'text',
+				text: `${currentPrompt}请以JSON格式输出，不要输出json代码段，JSON格式如下：\n\`\`\`json\n{\n  "package_type": "QFN",\n  "parameters": [\n    {"name": "本体长度", "key": "BL", "value": "5.0", "unit": "mm"},\n    {"name": "本体宽度", "key": "BW", "value": "5.0", "unit": "mm"}\n  ]\n}\n\`\`\``
+			});
+			
+			const data = {
+				model: selectedModel,
+				temperature: 0,
+				vl_high_resolution_images: true,
+				messages: [
+					{
+						role: 'system',
+						content: [{ type: 'text', text: 'You are a professional IC package analysis expert specialized in extracting package parameters from technical documentation.' }]
+					},
+					{
+						role: 'user',
+						content: imageContents
 					}
+				]
+			};
+			
+			const response = await callAPI(data);
+			
+			if (!response.ok) {
+				throw new Error('API请求失败');
+			}
+			
+			let result;
+			
+			if (isSpecialApiFormat(selectedProvider, apiUrl)) {
+				// 特殊API响应处理
+				const responseText = await response.text();
+				console.log('特殊API原始响应:', responseText);
+				
+				// 首先尝试直接解析为JSON
+				try {
+					result = JSON.parse(responseText);
+					console.log('特殊API响应解析成功:', result);
+					
+					// 如果直接解析成功且包含parameters数组，直接使用
+					if (result.parameters && Array.isArray(result.parameters)) {
+						console.log('特殊API直接返回了parameters数组');
+						content = JSON.stringify(result);
+					} else {
+						// 否则按照原有逻辑处理
+						if (result.context && result.context.chat && result.context.chat.input_text) {
+							content = result.context.chat.input_text;
+						} else if (result.data && result.data.content) {
+							content = result.data.content;
+						} else if (result.content) {
+							content = result.content;
+						} else if (result.response) {
+							content = result.response;
+						} else {
+							// 如果都没有找到，尝试将整个result作为内容
+							content = JSON.stringify(result);
+							console.log('使用整个result作为内容:', content);
+						}
+					}
+				} catch (parseError) {
+					// 如果JSON解析失败，直接使用原始文本
+					console.log('特殊API响应不是JSON格式，使用原始文本:', responseText);
+					content = responseText;
 				}
-			} catch (parseError) {
-				// 如果JSON解析失败，直接使用原始文本
-				console.log('特殊API响应不是JSON格式，使用原始文本:', responseText);
-				content = responseText;
+			} else {
+				// 通义千问、智谱AI和自定义API响应处理
+				result = await response.json();
+				console.log('API响应JSON解析结果:', result);
+				
+				// 处理不同的响应格式
+				if (selectedProvider === 'zhipu' && result.choices && result.choices[0]) {
+					// 智谱AI响应格式
+					content = result.choices[0].message.content;
+					console.log('智谱AI提取的content:', content);
+					console.log('智谱AI content类型:', typeof content);
+				} else if (Array.isArray(result) && result[0] && result[0].message) {
+					// 处理数组格式的响应
+					content = result[0].message.content;
+					console.log('数组格式提取的content:', content);
+				} else if (result.choices && result.choices[0]) {
+					// 处理标准格式的响应
+					content = result.choices[0].message.content;
+					console.log('标准格式提取的content:', content);
+				} else {
+					console.error('无法识别的API响应格式:', result);
+					throw new Error('无法解析API响应格式');
+				}
+				
+				// 立即验证content
+				console.log('响应处理后的content:', content, '类型:', typeof content);
+			}
+		}
+		
+		// 验证content是否有效
+		if (!content || typeof content !== 'string') {
+			console.error('content为空或不是字符串:', content);
+			throw new Error('API返回的内容为空或格式错误');
+		}
+		
+		console.log(`第 ${attempt} 次提取结果:`, content);
+		
+		// 存储提取结果
+		if (attempt === 1) {
+			firstResult = content;
+			// 从第一次提取结果中获取封装类型（仅在需要两次提取时）
+			if (extractionCount === 2) {
+				try {
+					const parsedResult = parseParametersFromContent(content);
+					if (parsedResult && parsedResult.package_type) {
+						detectedPackageType = parsedResult.package_type;
+						console.log(`第一次提取识别到封装类型: ${detectedPackageType}`);
+					}
+				} catch (error) {
+					console.warn('解析第一次提取结果时出错:', error);
+				}
+				console.log('第一次提取完成，准备进行第二次提取...');
 			}
 		} else {
-			// 通义千问、智谱AI和自定义API响应处理
-			result = await response.json();
-			console.log('API响应JSON解析结果:', result);
-			
-			// 处理不同的响应格式
-			if (selectedProvider === 'zhipu' && result.choices && result.choices[0]) {
-				// 智谱AI响应格式
-				content = result.choices[0].message.content;
-				console.log('智谱AI提取的content:', content);
-				console.log('智谱AI content类型:', typeof content);
-			} else if (Array.isArray(result) && result[0] && result[0].message) {
-				// 处理数组格式的响应
-				content = result[0].message.content;
-				console.log('数组格式提取的content:', content);
-			} else if (result.choices && result.choices[0]) {
-				// 处理标准格式的响应
-				content = result.choices[0].message.content;
-				console.log('标准格式提取的content:', content);
-			} else {
-				console.error('无法识别的API响应格式:', result);
-				throw new Error('无法解析API响应格式');
-			}
-			
-			// 立即验证content
-			console.log('响应处理后的content:', content, '类型:', typeof content);
+			secondResult = content;
 		}
 	}
 	
-	// 验证content是否有效
-	if (!content || typeof content !== 'string') {
-		console.error('content为空或不是字符串:', content);
-		throw new Error('API返回的内容为空或格式错误');
+	// 根据提取次数选择最佳结果
+	let bestResult;
+	if (extractionCount === 1) {
+		// 只提取一次，直接使用结果
+		bestResult = firstResult;
+		console.log('已选择封装类型，使用单次提取结果:', bestResult);
+	} else {
+		// 比较两次结果并选择更好的
+		bestResult = chooseBetterResult(firstResult, secondResult);
+		console.log('选择的最佳结果:', bestResult);
 	}
 	
-	console.log('传递给parseAndAddParams的content:', content);
-	
-	// 解析并添加封装参数
-	parseAndAddParams(content);
+	// 使用最佳结果进行参数解析
+	parseAndAddParams(bestResult);
 	
 	// 停止计时
 	stopTiming();
 	
-	eda.sys_ToastMessage.showMessage(`成功提取 ${imagesWithSelections.length} 张图片的封装参数`, 1);
+	// 根据提取次数显示不同的成功消息
+	const successMessage = extractionCount === 1 
+		? `成功提取 ${imagesWithSelections.length} 张图片的封装参数（已选择封装类型）`
+		: `成功提取 ${imagesWithSelections.length} 张图片的封装参数（智能选择最佳结果）`;
+	eda.sys_ToastMessage.showMessage(successMessage, 1);
 	
 } catch (error) {
 	console.error('提取参数失败:', error);
@@ -4243,7 +4385,7 @@
 			console.log('开始创建封装:', packageType, params);
 			
 			// 检查是否为暂不支持的封装类型
-			const unsupportedTypes = ['QFP', 'SOD', 'SOT23', 'SOT223'];
+			const unsupportedTypes = ['SOD', 'SOT23', 'SOT223'];
 			if (unsupportedTypes.includes(packageType)) {
 				eda.sys_ToastMessage.showMessage('该封装类型暂不支持创建', 2);
 				return false;
@@ -4262,6 +4404,12 @@
 					break;
 				case 'QFN':
 					createQFNFootprint(params);
+					break;
+				case 'QFP':
+					createQFPFootprint(params);
+					break;
+				case 'SOP':
+					createSOPFootprint(params);
 					break;
 				default:
 					throw new Error('不支持的封装类型: ' + packageType);
@@ -4602,11 +4750,211 @@
 		}
 
 		/**
-		 * 创建QFP封装
+		 * 创建QFP封装 (Quad Flat Package - 四方扁平封装)
 		 */
 		function createQFPFootprint(params) {
 			console.log('创建QFP封装:', params);
-			// 实际的QFP封装创建逻辑
+			
+			// 获取参数，设置默认值
+			const pinCountLR = parseInt(params.pin_count_lr) || parseInt(params['引脚数(左右)']) || 14; // 左右引脚数
+			const pinCountTB = parseInt(params.pin_count_tb) || parseInt(params['引脚数(上下)']) || 14; // 上下引脚数
+			const leadSpan1 = parseFloat(params.lead_span1) || parseFloat(params.LS1) || parseFloat(params['引脚跨距(LS1)']) || 9.0; // 引脚跨距(LS1)
+			const leadSpan2 = parseFloat(params.lead_span2) || parseFloat(params.LS2) || parseFloat(params['引脚纵向跨距(LS2)']) || 9.0; // 引脚纵向跨距(LS2)
+			const bodyLength = parseFloat(params.body_length) || parseFloat(params.BL) || parseFloat(params['本体长度(BL)']) || 7.0; // 本体长度(BL)
+			const bodyWidth = parseFloat(params.body_width) || parseFloat(params.BW) || parseFloat(params['本体宽度(BW)']) || 7.0; // 本体宽度(BW)
+			const pinLength = parseFloat(params.pin_length) || parseFloat(params.PL) || parseFloat(params['引脚长度(PL)']) || 0.6; // 引脚长度(PL)
+			const pinWidth = parseFloat(params.pin_width) || parseFloat(params.PW) || parseFloat(params['引脚宽度(PW)']) || 0.3; // 引脚宽度(PW)
+			const pinPitch = parseFloat(params.pin_pitch) || parseFloat(params.PP) || parseFloat(params['引脚间距(PP)']) || 0.5; // 引脚间距(PP)
+			
+			console.log('QFP参数:', {
+				pinCountLR, pinCountTB, leadSpan1, leadSpan2,
+				bodyLength, bodyWidth, pinLength, pinWidth, pinPitch
+			});
+			
+			// 转换为EDA单位(mil，1mm = 39.3701mil)
+			const mmToMil = 39.3701;
+			const leadSpan1Mil = leadSpan1 * mmToMil;
+			const leadSpan2Mil = leadSpan2 * mmToMil;
+			const bodyLengthMil = bodyLength * mmToMil;
+			const bodyWidthMil = bodyWidth * mmToMil;
+			const pinLengthMil = pinLength * mmToMil;
+			const pinWidthMil = pinWidth * mmToMil;
+			const pinPitchMil = pinPitch * mmToMil;
+			
+			// 计算引脚位置
+			let pinNumber = 1;
+			
+			// 左侧引脚 (引脚1开始，从上到下)
+			for (let i = 0; i < pinCountLR; i++) {
+				const y = (pinCountLR - 1) * pinPitchMil / 2 - i * pinPitchMil;
+				const x = -leadSpan1Mil / 2;
+				eda.pcb_PrimitivePad.create(
+					EPCB_LayerId.TOP,
+					pinNumber.toString(),
+					x, y, 0,
+					[EPCB_PrimitivePadShapeType.RECTANGLE, pinLengthMil, pinWidthMil, 0]
+				);
+				pinNumber++;
+			}
+			
+			// 底部引脚 (从左到右)
+			for (let i = 0; i < pinCountTB; i++) {
+				const x = -(pinCountTB - 1) * pinPitchMil / 2 + i * pinPitchMil;
+				const y = -leadSpan2Mil / 2;
+				eda.pcb_PrimitivePad.create(
+					EPCB_LayerId.TOP,
+					pinNumber.toString(),
+					x, y, 1.57, // 90度旋转
+					[EPCB_PrimitivePadShapeType.RECTANGLE, pinLengthMil, pinWidthMil, 0]
+				);
+				pinNumber++;
+			}
+			
+			// 右侧引脚 (从下到上)
+			for (let i = 0; i < pinCountLR; i++) {
+				const y = -(pinCountLR - 1) * pinPitchMil / 2 + i * pinPitchMil;
+				const x = leadSpan1Mil / 2;
+				eda.pcb_PrimitivePad.create(
+					EPCB_LayerId.TOP,
+					pinNumber.toString(),
+					x, y, 0,
+					[EPCB_PrimitivePadShapeType.RECTANGLE, pinLengthMil, pinWidthMil, 0]
+				);
+				pinNumber++;
+			}
+			
+			// 顶部引脚 (从右到左)
+			for (let i = 0; i < pinCountTB; i++) {
+				const x = (pinCountTB - 1) * pinPitchMil / 2 - i * pinPitchMil;
+				const y = leadSpan2Mil / 2;
+				eda.pcb_PrimitivePad.create(
+					EPCB_LayerId.TOP,
+					pinNumber.toString(),
+					x, y, 1.57, // 90度旋转
+					[EPCB_PrimitivePadShapeType.RECTANGLE, pinLengthMil, pinWidthMil, 0]
+				);
+				pinNumber++;
+			}
+			
+			// 创建丝印轮廓（四个角的L形标记）
+			const silkOffset = 8; // 丝印偏移量(mil)
+			const silkLength = 20; // 丝印线段长度(mil)
+			const outlineX = bodyWidthMil / 2 + silkOffset;
+			const outlineY = bodyLengthMil / 2 + silkOffset;
+			
+			// 创建四个角的丝印线段
+			// 左上角 - 带有第一引脚标记
+			const line1 = eda.pcb_MathPolygon.createPolygon([-outlineX, outlineY, 'L', -outlineX + silkLength, outlineY]);
+			const line2 = eda.pcb_MathPolygon.createPolygon([-outlineX, outlineY, 'L', -outlineX, outlineY - silkLength]);
+			
+			// 左下角
+			const line3 = eda.pcb_MathPolygon.createPolygon([-outlineX, -outlineY, 'L', -outlineX, -outlineY + silkLength]);
+			const line4 = eda.pcb_MathPolygon.createPolygon([-outlineX, -outlineY, 'L', -outlineX + silkLength, -outlineY]);
+			
+			// 右下角
+			const line5 = eda.pcb_MathPolygon.createPolygon([outlineX, -outlineY, 'L', outlineX - silkLength, -outlineY]);
+			const line6 = eda.pcb_MathPolygon.createPolygon([outlineX, -outlineY, 'L', outlineX, -outlineY + silkLength]);
+			
+			// 右上角
+			const line7 = eda.pcb_MathPolygon.createPolygon([outlineX, outlineY, 'L', outlineX - silkLength, outlineY]);
+			const line8 = eda.pcb_MathPolygon.createPolygon([outlineX, outlineY, 'L', outlineX, outlineY - silkLength]);
+			
+			// 创建丝印
+			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line1, 6);
+			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line2, 6);
+			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line3, 6);
+			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line4, 6);
+			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line5, 6);
+			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line6, 6);
+			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line7, 6);
+			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line8, 6);
+			
+			// 在左上角添加第一引脚标记（小圆点）
+			const dotX = -outlineX + silkLength / 2;
+			const dotY = outlineY - silkLength / 2;
+			const dotRadius = 3; // 小圆点半径(mil)
+			const dotCircle = eda.pcb_MathPolygon.createPolygon([dotX, dotY, 'A', dotX + dotRadius, dotY, dotX, dotY]);
+			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, dotCircle, 6);
+			
+			console.log('QFP封装创建完成，总引脚数:', pinNumber - 1);
+		}
+
+		/**
+		 * 创建SOP封装 (Small Outline Package - 小外形封装)
+		 */
+		function createSOPFootprint(params) {
+			console.log('创建SOP封装:', params);
+			
+			// 获取参数，设置默认值
+			const pinCount = parseInt(params.pin_count) || parseInt(params['引脚数量']) || 8;
+			const leadSpan = parseFloat(params.lead_span) || parseFloat(params.LS) || parseFloat(params['引脚跨距(LS)']) || 5.8;
+			const bodyLength = parseFloat(params.body_length) || parseFloat(params.BL) || parseFloat(params['本体长度(BL)']) || 4.9;
+			const bodyWidth = parseFloat(params.body_width) || parseFloat(params.BW) || parseFloat(params['本体宽度(BW)']) || 3.9;
+			const pinLength = parseFloat(params.pin_length) || parseFloat(params.PL) || parseFloat(params['引脚长度(PL)']) || 0.6;
+			const pinWidth = parseFloat(params.pin_width) || parseFloat(params.PW) || parseFloat(params['引脚宽度(PW)']) || 0.4;
+			const pinPitch = parseFloat(params.pin_pitch) || parseFloat(params.PP) || parseFloat(params['引脚间距(PP)']) || 1.27;
+			
+			console.log('SOP参数:', { pinCount, leadSpan, bodyLength, bodyWidth, pinLength, pinWidth, pinPitch });
+			
+			// 转换为EDA单位(mil，1mm = 39.3701mil)
+			const mmToMil = 39.3701;
+			const leadSpanMil = leadSpan * mmToMil;
+			const bodyLengthMil = bodyLength * mmToMil;
+			const bodyWidthMil = bodyWidth * mmToMil;
+			const pinLengthMil = pinLength * mmToMil;
+			const pinWidthMil = pinWidth * mmToMil;
+			const pinPitchMil = pinPitch * mmToMil;
+			
+			const pinsPerSide = pinCount / 2;
+			let pinNumber = 1;
+			
+			// 左侧引脚
+			for (let i = 0; i < pinsPerSide; i++) {
+				const y = (pinsPerSide - 1) * pinPitchMil / 2 - i * pinPitchMil;
+				const x = -leadSpanMil / 2;
+				eda.pcb_PrimitivePad.create(
+					EPCB_LayerId.TOP, pinNumber.toString(), x, y, 0,
+					[EPCB_PrimitivePadShapeType.RECTANGLE, pinLengthMil, pinWidthMil, 0]
+				);
+				pinNumber++;
+			}
+			
+			// 右侧引脚
+			for (let i = 0; i < pinsPerSide; i++) {
+				const y = -(pinsPerSide - 1) * pinPitchMil / 2 + i * pinPitchMil;
+				const x = leadSpanMil / 2;
+				eda.pcb_PrimitivePad.create(
+					EPCB_LayerId.TOP, pinNumber.toString(), x, y, 0,
+					[EPCB_PrimitivePadShapeType.RECTANGLE, pinLengthMil, pinWidthMil, 0]
+				);
+				pinNumber++;
+			}
+			
+			// 创建丝印轮廓
+			const silkOffset = 6;
+			const outlineX = bodyWidthMil / 2 + silkOffset;
+			const outlineY = bodyLengthMil / 2 + silkOffset;
+			
+			const leftLine = eda.pcb_MathPolygon.createPolygon([-outlineX, outlineY, 'L', -outlineX, -outlineY]);
+			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, leftLine, 6);
+			
+			const rightLine = eda.pcb_MathPolygon.createPolygon([outlineX, outlineY, 'L', outlineX, -outlineY]);
+			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, rightLine, 6);
+			
+			const bottomLine = eda.pcb_MathPolygon.createPolygon([-outlineX, -outlineY, 'L', outlineX, -outlineY]);
+			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, bottomLine, 6);
+			
+			const arcGap = 40;
+			const leftShortLine = eda.pcb_MathPolygon.createPolygon([-outlineX, outlineY, 'L', -arcGap/2, outlineY]);
+			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, leftShortLine, 6);
+			
+			const rightShortLine = eda.pcb_MathPolygon.createPolygon([arcGap/2, outlineY, 'L', outlineX, outlineY]);
+			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, rightShortLine, 6);
+			
+			const connectingArc = eda.pcb_MathPolygon.createPolygon([-arcGap/2, outlineY, 'ARC', 180, arcGap/2, outlineY]);
+			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, connectingArc, 6);
+			
+			console.log('SOP封装创建完成，总引脚数:', pinCount);
 		}
 
 		/**

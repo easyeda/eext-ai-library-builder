@@ -1,7 +1,10 @@
 {
 	"editor.formatOnSave": true,
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
-	"eslint.validate": ["javascript", "typescript"],
+	"eslint.validate": [
+		"javascript",
+		"typescript"
+	],
 	"editor.codeActionsOnSave": {
 		"source.fixAll.eslint": "explicit"
 	},
@@ -47,5 +50,9 @@
 	"[typescript]": {
 		"editor.defaultFormatter": "vscode.typescript-language-features"
 	},
-	"livePreview.defaultPreviewPath": "/iframe/symbol.html"
+	"livePreview.defaultPreviewPath": "/iframe/symbol.html",
+	"kiroAgent.configureMCP": "Disabled",
+	"[jsonc]": {
+		"editor.defaultFormatter": "vscode.json-language-features"
+	}
 }

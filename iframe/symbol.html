@@ -891,6 +891,7 @@
 				<div class="form-group" id="model-group">
 					<label for="model-select">选择模型</label>
 					<select id="model-select">
+						<option value="qwen3-vl-plus" selected>qwen3-vl-plus</option>
 						<option value="qwen-vl-max-latest">qwen-vl-max-latest</option>
 						<option value="qwen2.5-vl-7b-instruct">qwen2.5-vl-7b-instruct</option>
 						<option value="qwen2.5-vl-72b-instruct">qwen2.5-vl-72b-instruct</option>
@@ -998,7 +999,7 @@
 			let currentImages = [];
 			let currentImageIndex = 0;
 			let apiKey = '';
-			let selectedModel = 'qwen-vl-max-latest';
+			let selectedModel = 'qwen3-vl-plus';
 			let selectedProvider = 'qwen';
 			let apiUrl = '';
 			let customModel = '';
@@ -1024,6 +1025,7 @@
 				'qwen2.5-vl-72b-instruct': { input: 0.016, output: 0.048 },
 				'qvq-72b-preview': { input: 0.012, output: 0.036 },
 				'qwen-vl-plus': { input: 0.0015, output: 0.0045 },
+				'qwen3-vl-plus': { input: 0.0015, output: 0.0045 },
 			};
 
 			// 模型厂商配置
@@ -1032,6 +1034,7 @@
 					name: '通义千问',
 					apiUrl: 'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions',
 					models: [
+						{ value: 'qwen3-vl-plus', name: 'qwen3-vl-plus' },
 						{ value: 'qwen-vl-max-latest', name: 'qwen-vl-max-latest' },
 						{ value: 'qwen2.5-vl-7b-instruct', name: 'qwen2.5-vl-7b-instruct' },
 						{ value: 'qwen2.5-vl-72b-instruct', name: 'qwen2.5-vl-72b-instruct' },
@@ -1218,7 +1221,7 @@
 				// 设置全局变量
 				selectedProvider = savedProvider || 'qwen';
 				apiKey = savedApiKey || '';
-				selectedModel = savedModel || 'qwen-vl-max-latest';
+				selectedModel = savedModel || 'qwen3-vl-plus';
 				apiUrl = savedApiUrl || '';
 				customModel = savedCustomModel || '';
 				
