@@ -20,7 +20,7 @@
 				display: flex;
 				height: 100vh;
 				background-color: #ffffff;
-				box-shadow: 0 0 20px rgba(0,0,0,0.1);
+				box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 			}
 			.header {
 				display: none;
@@ -29,7 +29,7 @@
 				padding: 12px 20px;
 				background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
 				border-bottom: 1px solid #e9ecef;
-				box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 			}
 			h1 {
 				margin: 0;
@@ -66,7 +66,7 @@
 				left: 0;
 				width: 100%;
 				height: 100%;
-				background: rgba(0,0,0,0.5);
+				background: rgba(0, 0, 0, 0.5);
 				z-index: 1000;
 				align-items: center;
 				justify-content: center;
@@ -77,7 +77,7 @@
 				padding: 24px;
 				width: 400px;
 				max-width: 90vw;
-				box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+				box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 			}
 			.settings-header {
 				display: flex;
@@ -171,7 +171,7 @@
 				border-color: #6c757d;
 				background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
 				transform: translateY(-2px);
-				box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 			}
 			.upload-area.highlight {
 				border-color: #6c757d;
@@ -241,7 +241,7 @@
 				padding: 12px 16px;
 				border-bottom: 1px solid #e9ecef;
 				background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-				box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 			}
 			.control-row {
 				display: flex;
@@ -678,7 +678,7 @@
 				padding: 12px 16px;
 				border-bottom: 1px solid #e9ecef;
 				background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-				box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 			}
 			.table-controls button {
 				padding: 0 6px;
@@ -787,97 +787,97 @@
 				text-align: center;
 				flex-shrink: 0;
 				margin-left: auto;
-		}
-		/* 替换PDF按钮样式 */
-		.replace-pdf-overlay {
-			position: absolute;
-			top: 10px;
-			left: 10px;
-			z-index: 15;
-			display: none;
-		}
+			}
+			/* 替换PDF按钮样式 */
+			.replace-pdf-overlay {
+				position: absolute;
+				top: 10px;
+				left: 10px;
+				z-index: 15;
+				display: none;
+			}
 
-		.replace-pdf-overlay button {
-			background: rgba(0, 0, 0, 0.7);
-			color: white;
-			border: none;
-			padding: 0 12px;
-			border-radius: 4px;
-			font-size: 12px;
-			cursor: pointer;
-			transition: background-color 0.2s;
-			height: 24px;
-			line-height: 24px;
-			min-width: 24px;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-		}
+			.replace-pdf-overlay button {
+				background: rgba(0, 0, 0, 0.7);
+				color: white;
+				border: none;
+				padding: 0 12px;
+				border-radius: 4px;
+				font-size: 12px;
+				cursor: pointer;
+				transition: background-color 0.2s;
+				height: 24px;
+				line-height: 24px;
+				min-width: 24px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
 
-		.replace-pdf-overlay button:hover {
-			background: rgba(0, 0, 0, 0.9);
-		}
-		
-		/* 图片预览模态框样式 */
-		.image-preview-modal {
-			display: none;
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			background: rgba(0, 0, 0, 0.9);
-			z-index: 2000;
-			align-items: center;
-			justify-content: center;
-			cursor: pointer;
-		}
-		
-		.image-preview-content {
-			position: relative;
-			max-width: 90vw;
-			max-height: 90vh;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-		}
-		
-		.image-preview-content img {
-			max-width: 100%;
-			max-height: 100%;
-			object-fit: contain;
-			border-radius: 8px;
-			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-			cursor: default;
-		}
-		
-		.image-preview-close {
-			position: absolute;
-			top: 20px;
-			right: 20px;
-			background: rgba(255, 255, 255, 0.9);
-			border: none;
-			border-radius: 50%;
-			width: 50px;
-			height: 50px;
-			font-size: 24px;
-			cursor: pointer;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			transition: all 0.2s ease;
-			color: #333;
-			line-height: 50px;
-			font-weight: bold;
-			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-		}
-		
-		.image-preview-close:hover {
-			background: rgba(255, 255, 255, 1);
-			transform: scale(1.1);
-			box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
-		}
-	</style>
+			.replace-pdf-overlay button:hover {
+				background: rgba(0, 0, 0, 0.9);
+			}
+
+			/* 图片预览模态框样式 */
+			.image-preview-modal {
+				display: none;
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: rgba(0, 0, 0, 0.9);
+				z-index: 2000;
+				align-items: center;
+				justify-content: center;
+				cursor: pointer;
+			}
+
+			.image-preview-content {
+				position: relative;
+				max-width: 90vw;
+				max-height: 90vh;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			.image-preview-content img {
+				max-width: 100%;
+				max-height: 100%;
+				object-fit: contain;
+				border-radius: 8px;
+				box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+				cursor: default;
+			}
+
+			.image-preview-close {
+				position: absolute;
+				top: 20px;
+				right: 20px;
+				background: rgba(255, 255, 255, 0.9);
+				border: none;
+				border-radius: 50%;
+				width: 50px;
+				height: 50px;
+				font-size: 24px;
+				cursor: pointer;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				transition: all 0.2s ease;
+				color: #333;
+				line-height: 50px;
+				font-weight: bold;
+				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+			}
+
+			.image-preview-close:hover {
+				background: rgba(255, 255, 255, 1);
+				transform: scale(1.1);
+				box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+			}
+		</style>
 	</head>
 	<body>
 		<!-- 图片预览模态框 -->
@@ -888,10 +888,10 @@
 				<div class="image-preview-info" id="preview-info">图片信息</div>
 			</div>
 		</div>
-		
+
 		<!-- 设置模态框 -->
 		<div id="settings-modal" class="settings-modal">
-			<div class="settings-content" style="width: 500px;">
+			<div class="settings-content" style="width: 500px">
 				<div class="settings-header">
 					<h3 class="settings-title">设置</h3>
 					<button class="close-btn" id="close-settings">×</button>
@@ -918,16 +918,16 @@
 					<label for="api-key">API密钥</label>
 					<input type="text" id="api-key" placeholder="请输入您的API密钥" />
 				</div>
-				<div class="form-group" id="api-url-group" style="display: none;">
+				<div class="form-group" id="api-url-group" style="display: none">
 					<label for="api-url">API地址</label>
 					<input type="text" id="api-url" placeholder="请输入API地址" />
 				</div>
-				<div class="form-group" id="custom-model-group" style="display: none;">
+				<div class="form-group" id="custom-model-group" style="display: none">
 					<label for="custom-model">模型名称</label>
 					<input type="text" id="custom-model" placeholder="请输入模型名称" />
 				</div>
-				<div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px;">
-					<button type="button" id="cancel-settings" style="background: #e9ecef; color: #495057;">取消</button>
+				<div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px">
+					<button type="button" id="cancel-settings" style="background: #e9ecef; color: #495057">取消</button>
 					<button type="button" id="save-settings" class="btn-primary">保存</button>
 				</div>
 			</div>
@@ -940,7 +940,7 @@
 					<h1>封装生成器</h1>
 					<button class="settings-btn" id="open-settings">设置</button>
 				</div>
-				
+
 				<!-- 上传区域 -->
 				<div class="upload-section">
 					<div id="drop-area" class="upload-area">
@@ -963,9 +963,7 @@
 						<div class="timing-display" id="timing-display">耗时: --</div>
 					</div>
 					<div class="progress-container">
-						<div class="coordinate-display" id="coordinate-display">
-							坐标信息: 未选择区域
-						</div>
+						<div class="coordinate-display" id="coordinate-display">坐标信息: 未选择区域</div>
 						<div class="progress-bar" id="progress-bar">
 							<div class="progress-fill" id="progress-fill"></div>
 						</div>
@@ -981,13 +979,31 @@
 				</div>
 
 				<!-- 图片导航区域 -->
-				<div class="image-navigation" id="image-navigation" style="display: none;">
+				<div class="image-navigation" id="image-navigation" style="display: none">
 					<div class="nav-controls">
-					<button id="prev-image" class="nav-btn">‹ 上一张</button>
-						<input type="number" id="page-input" min="1" value="1" placeholder="页码" title="输入页码按回车键快速跳转到指定页面" style="width: 40px; text-align: center; border: 1px solid #ddd; background: white; font-size: 12px; font-weight: 500; color: #495057; border-radius: 3px; padding: 1px 2px;" /> / <span id="total-pages">1</span>
-					</span>
-					<button id="next-image" class="nav-btn">下一张 ›</button>
-				</div>
+						<button id="prev-image" class="nav-btn">‹ 上一张</button>
+						<input
+							type="number"
+							id="page-input"
+							min="1"
+							value="1"
+							placeholder="页码"
+							title="输入页码按回车键快速跳转到指定页面"
+							style="
+								width: 40px;
+								text-align: center;
+								border: 1px solid #ddd;
+								background: white;
+								font-size: 12px;
+								font-weight: 500;
+								color: #495057;
+								border-radius: 3px;
+								padding: 1px 2px;
+							"
+						/>
+						/ <span id="total-pages">1</span>
+						<button id="next-image" class="nav-btn">下一张 ›</button>
+					</div>
 					<div class="image-info" id="image-info">当前图片</div>
 				</div>
 			</div>
@@ -999,7 +1015,18 @@
 						<button id="add-param">添加参数</button>
 						<button id="clear-table">清空表格</button>
 						<button id="create-footprint" class="btn-success">创建封装</button>
-						<select id="package-type-select" style="width: 120px; padding: 4px 8px; border: 1px solid #e9ecef; border-radius: 4px; font-size: 12px; background: #ffffff; margin-left: 8px;">
+						<select
+							id="package-type-select"
+							style="
+								width: 120px;
+								padding: 4px 8px;
+								border: 1px solid #e9ecef;
+								border-radius: 4px;
+								font-size: 12px;
+								background: #ffffff;
+								margin-left: 8px;
+							"
+						>
 							<option value="">封装类型</option>
 							<option value="BGA">BGA</option>
 							<option value="DIP">DIP</option>
@@ -1018,7 +1045,6 @@
 					</div>
 				</div>
 			</div>
-
 		</div>
 
 		<script>
@@ -1069,24 +1095,22 @@
 						{ value: 'qwen-vl-max-latest', name: 'qwen-vl-max-latest' },
 						{ value: 'qwen2.5-vl-7b-instruct', name: 'qwen2.5-vl-7b-instruct' },
 						{ value: 'qwen2.5-vl-72b-instruct', name: 'qwen2.5-vl-72b-instruct' },
-						{ value: 'qvq-72b-preview', name: 'qvq-72b-preview' }
+						{ value: 'qvq-72b-preview', name: 'qvq-72b-preview' },
 					],
-					requiresApiKey: true
+					requiresApiKey: true,
 				},
 				zhipu: {
 					name: '智谱AI',
 					apiUrl: 'https://open.bigmodel.cn/api/paas/v4/chat/completions',
-					models: [
-						{ value: 'glm-4.5v', name: 'GLM-4.5V' }
-					],
-					requiresApiKey: true
+					models: [{ value: 'glm-4.5v', name: 'GLM-4.5V' }],
+					requiresApiKey: true,
 				},
 				custom: {
 					name: '自定义',
 					apiUrl: '',
 					models: [],
-					requiresApiKey: false
-				}
+					requiresApiKey: false,
+				},
 			};
 
 			// 封装类型参数配置
@@ -1098,16 +1122,16 @@
 					{ name: '本体宽度(BW)', key: 'body_width', unit: 'mm' },
 					{ name: '引脚直径(PD)', key: 'pin_diameter', unit: 'mm' },
 					{ name: '引脚间距(PS)', key: 'pin_spacing', unit: 'mm' },
-					{ name: '引脚纵向间距(PP)', key: 'pin_pitch', unit: 'mm' }
+					{ name: '引脚纵向间距(PP)', key: 'pin_pitch', unit: 'mm' },
 				],
 				'DIP': [
-				{ name: '引脚数量', key: 'pin_count', unit: '' },
-				{ name: '引脚跨距', key: 'LS', unit: 'mm' },
-				{ name: '本体长度', key: 'BL', unit: 'mm' },
-				{ name: '本体宽度', key: 'BW', unit: 'mm' },
-				{ name: '引脚直径', key: 'PD', unit: 'mm' },
-				{ name: '引脚间距', key: 'PS', unit: 'mm' }
-			],
+					{ name: '引脚数量', key: 'pin_count', unit: '' },
+					{ name: '引脚跨距', key: 'LS', unit: 'mm' },
+					{ name: '本体长度', key: 'BL', unit: 'mm' },
+					{ name: '本体宽度', key: 'BW', unit: 'mm' },
+					{ name: '引脚直径', key: 'PD', unit: 'mm' },
+					{ name: '引脚间距', key: 'PS', unit: 'mm' },
+				],
 				'QFN': [
 					{ name: '引脚数(左右)', key: 'pin_count_lr', unit: '' },
 					{ name: '引脚数(上下)', key: 'pin_count_tb', unit: '' },
@@ -1115,7 +1139,7 @@
 					{ name: '本体宽度(BW)', key: 'body_width', unit: 'mm' },
 					{ name: '引脚长度(PL)', key: 'pin_length', unit: 'mm' },
 					{ name: '引脚宽度(PW)', key: 'pin_width', unit: 'mm' },
-					{ name: '引脚间距(PP)', key: 'pin_pitch', unit: 'mm' }
+					{ name: '引脚间距(PP)', key: 'pin_pitch', unit: 'mm' },
 				],
 				'QFP': [
 					{ name: '引脚数(左右)', key: 'pin_count_lr', unit: '' },
@@ -1126,14 +1150,14 @@
 					{ name: '本体宽度(BW)', key: 'body_width', unit: 'mm' },
 					{ name: '引脚长度(PL)', key: 'pin_length', unit: 'mm' },
 					{ name: '引脚宽度(PW)', key: 'pin_width', unit: 'mm' },
-					{ name: '引脚间距(PP)', key: 'pin_pitch', unit: 'mm' }
+					{ name: '引脚间距(PP)', key: 'pin_pitch', unit: 'mm' },
 				],
 				'SOD': [
 					{ name: '引脚跨距(LS)', key: 'lead_span', unit: 'mm' },
 					{ name: '本体长度(BL)', key: 'body_length', unit: 'mm' },
 					{ name: '本体宽度(BW)', key: 'body_width', unit: 'mm' },
 					{ name: '引脚长度(PL)', key: 'pin_length', unit: 'mm' },
-					{ name: '引脚宽度(PW)', key: 'pin_width', unit: 'mm' }
+					{ name: '引脚宽度(PW)', key: 'pin_width', unit: 'mm' },
 				],
 				'SOT23': [
 					{ name: '引脚数量', key: 'pin_count', unit: '' },
@@ -1142,7 +1166,7 @@
 					{ name: '本体宽度(BW)', key: 'body_width', unit: 'mm' },
 					{ name: '引脚长度(PL)', key: 'pin_length', unit: 'mm' },
 					{ name: '引脚宽度(PW)', key: 'pin_width', unit: 'mm' },
-					{ name: '引脚间距(PP)', key: 'pin_pitch', unit: 'mm' }
+					{ name: '引脚间距(PP)', key: 'pin_pitch', unit: 'mm' },
 				],
 				'SOT223': [
 					{ name: '引脚数量', key: 'pin_count', unit: '' },
@@ -1152,8 +1176,8 @@
 					{ name: '引脚长度(PL)', key: 'pin_length', unit: 'mm' },
 					{ name: '引脚宽度(PW)', key: 'pin_width', unit: 'mm' },
 					{ name: '引脚间距(PS)', key: 'pin_spacing', unit: 'mm' },
-					{ name: '引脚宽度(PW1)', key: 'pin_width1', unit: 'mm' }
-				]
+					{ name: '引脚宽度(PW1)', key: 'pin_width1', unit: 'mm' },
+				],
 			};
 
 			// DOM元素
@@ -1202,19 +1226,19 @@
 				if (typeof eda === 'undefined') {
 					window.eda = {
 						sys_Storage: {
-							getExtensionUserConfig: function(key) {
+							getExtensionUserConfig: function (key) {
 								return localStorage.getItem('eda_' + key);
 							},
-							setExtensionUserConfig: function(key, value) {
+							setExtensionUserConfig: function (key, value) {
 								localStorage.setItem('eda_' + key, value);
-							}
+							},
 						},
 						sch_PrimitivePin: {
-							create: function() {
+							create: function () {
 								console.log('EDA环境不可用，无法创建引脚');
 								return null;
-							}
-						}
+							},
+						},
 					};
 				}
 
@@ -1231,35 +1255,35 @@
 				updateModelOptions();
 
 				// 设置模态框事件处理
-			openSettingsBtn.addEventListener('click', function() {
-				settingsModal.style.display = 'flex';
-			});
-
-			// 控制区域设置按钮事件处理
-			const openSettingsControlBtn = document.getElementById('open-settings-control');
-			if (openSettingsControlBtn) {
-				openSettingsControlBtn.addEventListener('click', function() {
+				openSettingsBtn.addEventListener('click', function () {
 					settingsModal.style.display = 'flex';
 				});
-			}
 
-				closeSettingsBtn.addEventListener('click', function() {
+				// 控制区域设置按钮事件处理
+				const openSettingsControlBtn = document.getElementById('open-settings-control');
+				if (openSettingsControlBtn) {
+					openSettingsControlBtn.addEventListener('click', function () {
+						settingsModal.style.display = 'flex';
+					});
+				}
+
+				closeSettingsBtn.addEventListener('click', function () {
 					settingsModal.style.display = 'none';
 				});
 
-				cancelSettingsBtn.addEventListener('click', function() {
+				cancelSettingsBtn.addEventListener('click', function () {
 					settingsModal.style.display = 'none';
 				});
 
 				// 服务商选择变化事件
-				providerSelect.addEventListener('change', function() {
+				providerSelect.addEventListener('change', function () {
 					selectedProvider = providerSelect.value;
 					updateModelOptions();
 				});
 
-				saveSettingsBtn.addEventListener('click', function() {
+				saveSettingsBtn.addEventListener('click', function () {
 					saveSettings();
-					
+
 					// 关闭模态框
 					settingsModal.style.display = 'none';
 
@@ -1268,7 +1292,7 @@
 				});
 
 				// 点击模态框外部关闭
-				window.addEventListener('click', function(event) {
+				window.addEventListener('click', function (event) {
 					if (event.target === settingsModal) {
 						settingsModal.style.display = 'none';
 					}
@@ -1291,45 +1315,45 @@
 			function updateModelOptions() {
 				const provider = selectedProvider;
 				const config = providerConfigs[provider];
-				
+
 				// 清空现有选项
 				modelSelect.innerHTML = '';
-				
+
 				if (provider === 'custom') {
-				// 自定义模式：显示API密钥、自定义URL和模型，隐藏预设模型选择
-				apiKeyGroup.style.display = 'block';
-				modelGroup.style.display = 'none';
-				customUrlGroup.style.display = 'block';
-				customModelGroup.style.display = 'block';
-					
+					// 自定义模式：显示API密钥、自定义URL和模型，隐藏预设模型选择
+					apiKeyGroup.style.display = 'block';
+					modelGroup.style.display = 'none';
+					customUrlGroup.style.display = 'block';
+					customModelGroup.style.display = 'block';
+
 					// 恢复API地址输入框的可编辑状态
-				apiUrlInput.readOnly = false;
-				apiUrlInput.style.backgroundColor = '';
-				apiUrlInput.style.cursor = '';
-				
-				// 自定义模式下用户需要手动输入API地址
+					apiUrlInput.readOnly = false;
+					apiUrlInput.style.backgroundColor = '';
+					apiUrlInput.style.cursor = '';
+
+					// 自定义模式下用户需要手动输入API地址
 				} else {
 					// 其他模式：显示相应的UI元素
 					apiKeyGroup.style.display = config.requiresApiKey ? 'block' : 'none';
 					modelGroup.style.display = 'block';
 					customUrlGroup.style.display = 'none';
 					customModelGroup.style.display = 'none';
-					
+
 					// 恢复API地址输入框的可编辑状态
 					apiUrlInput.readOnly = false;
 					apiUrlInput.style.backgroundColor = '';
 					apiUrlInput.style.cursor = '';
-					
+
 					// 添加模型选项
-					config.models.forEach(model => {
+					config.models.forEach((model) => {
 						const option = document.createElement('option');
 						option.value = model.value;
 						option.textContent = model.name;
 						modelSelect.appendChild(option);
 					});
-					
+
 					// 设置当前选中的模型
-					if (selectedModel && config.models.some(m => m.value === selectedModel)) {
+					if (selectedModel && config.models.some((m) => m.value === selectedModel)) {
 						modelSelect.value = selectedModel;
 					} else if (config.models.length > 0) {
 						modelSelect.value = config.models[0].value;
@@ -1337,7 +1361,7 @@
 					}
 				}
 			}
-			
+
 			/**
 			 * 加载设置
 			 */
@@ -1347,7 +1371,7 @@
 				apiUrlInput.value = apiUrl;
 				customModelInput.value = customModel;
 			}
-			
+
 			/**
 			 * 保存设置
 			 */
@@ -1357,7 +1381,7 @@
 				selectedModel = modelSelect.value;
 				apiUrl = apiUrlInput.value;
 				customModel = customModelInput.value;
-				
+
 				eda.sys_Storage.setExtensionUserConfig('api_key', apiKey);
 				eda.sys_Storage.setExtensionUserConfig('selected_provider', selectedProvider);
 				eda.sys_Storage.setExtensionUserConfig('selected_model', selectedModel);
@@ -1438,7 +1462,7 @@
 
 				for (let i = 0; i < files.length; i++) {
 					const file = files[i];
-					
+
 					if (file.type === 'application/pdf') {
 						// 处理PDF文件
 						await processPDF(file);
@@ -1489,49 +1513,49 @@
 					imageSelections = {};
 					detectionResults = null;
 					clearSelection();
-					
+
 					// 显示进度条
 					showProgress();
 					updateProgress(0, '开始解析PDF...');
-					
+
 					const arrayBuffer = await file.arrayBuffer();
 					const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
-					
+
 					for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
 						const progress = Math.round((pageNum / pdf.numPages) * 100);
 						updateProgress(progress, `正在转换第 ${pageNum}/${pdf.numPages} 页...`);
-						
+
 						const page = await pdf.getPage(pageNum);
 						const viewport = page.getViewport({ scale: 1.0 });
-						
+
 						const canvas = document.createElement('canvas');
 						const context = canvas.getContext('2d');
 						canvas.height = viewport.height;
 						canvas.width = viewport.width;
-						
+
 						await page.render({ canvasContext: context, viewport: viewport }).promise;
-						
+
 						const imageData = canvas.toDataURL('image/png');
-				currentImages.push({
-					src: imageData,
-					name: `${file.name} - 第${pageNum}页`,
-					type: 'pdf-page',
-					file: file
-				});
+						currentImages.push({
+							src: imageData,
+							name: `${file.name} - 第${pageNum}页`,
+							type: 'pdf-page',
+							file: file,
+						});
 					}
-					
+
 					updateProgress(100, `PDF解析完成，共${pdf.numPages}页`);
-					
+
 					if (currentImages.length > 0) {
 						currentImageIndex = 0;
 						displayCurrentImage();
 					}
-					
+
 					// 延迟隐藏进度条
 					setTimeout(() => {
 						hideProgress();
 					}, 1500);
-					
+
 					eda.sys_ToastMessage.showMessage(`PDF解析完成，共${pdf.numPages}页`, 1);
 				} catch (error) {
 					console.error('PDF处理失败:', error);
@@ -1547,18 +1571,18 @@
 				return new Promise((resolve) => {
 					const reader = new FileReader();
 					reader.onload = function (e) {
-					currentImages.push({
-						src: e.target.result,
-						name: file.name,
-						type: 'image',
-						file: file
-					});
-						
+						currentImages.push({
+							src: e.target.result,
+							name: file.name,
+							type: 'image',
+							file: file,
+						});
+
 						if (currentImages.length === 1) {
 							currentImageIndex = 0;
 							displayCurrentImage();
 						}
-						
+
 						resolve();
 					};
 					reader.readAsDataURL(file);
@@ -1570,13 +1594,13 @@
 			 */
 			function saveCurrentImageSelection() {
 				if (currentImages.length === 0 || !selectionOverlay) return;
-				
+
 				const imageKey = `image_${currentImageIndex}`;
 				const selections = [];
-				
+
 				// 保存手动选择框
 				const selectionBoxes = selectionOverlay.querySelectorAll('.selection-box');
-				selectionBoxes.forEach(box => {
+				selectionBoxes.forEach((box) => {
 					selections.push({
 						type: 'manual',
 						left: box.style.left,
@@ -1584,13 +1608,13 @@
 						width: box.style.width,
 						height: box.style.height,
 						border: box.style.border,
-						backgroundColor: box.style.backgroundColor
+						backgroundColor: box.style.backgroundColor,
 					});
 				});
-				
+
 				// 保存检测框
 				const detectionBoxes = selectionOverlay.querySelectorAll('.detection-box');
-				detectionBoxes.forEach(box => {
+				detectionBoxes.forEach((box) => {
 					const label = box.querySelector('.detection-label');
 					selections.push({
 						type: 'detection',
@@ -1598,31 +1622,31 @@
 						top: box.style.top,
 						width: box.style.width,
 						height: box.style.height,
-						labelText: label ? label.textContent : ''
+						labelText: label ? label.textContent : '',
 					});
 				});
-				
+
 				imageSelections[imageKey] = selections;
 				console.log(`保存图片 ${currentImageIndex + 1} 的框选状态:`, selections);
 			}
-			
+
 			/**
 			 * 恢复当前图片的框选状态
 			 */
 			function restoreCurrentImageSelection() {
 				if (currentImages.length === 0 || !selectionOverlay) return;
-				
+
 				const imageKey = `image_${currentImageIndex}`;
 				const selections = imageSelections[imageKey];
-				
+
 				if (!selections || selections.length === 0) {
 					console.log(`图片 ${currentImageIndex + 1} 没有保存的框选状态`);
 					return;
 				}
-				
+
 				console.log(`恢复图片 ${currentImageIndex + 1} 的框选状态:`, selections);
-				
-				selections.forEach(selection => {
+
+				selections.forEach((selection) => {
 					if (selection.type === 'manual') {
 						// 恢复手动选择框
 						const selectionBox = document.createElement('div');
@@ -1648,20 +1672,20 @@
 						detectionBox.style.border = '2px solid #e74c3c';
 						detectionBox.style.backgroundColor = 'rgba(231, 76, 60, 0.2)';
 						detectionBox.style.zIndex = '11';
-						
+
 						if (selection.labelText) {
 							const label = document.createElement('div');
 							label.className = 'detection-label';
 							label.textContent = selection.labelText;
 							detectionBox.appendChild(label);
 						}
-						
+
 						selectionOverlay.appendChild(detectionBox);
 					}
 				});
-				
+
 				// 更新坐标显示（如果有手动选择框）
-				const manualSelections = selections.filter(s => s.type === 'manual');
+				const manualSelections = selections.filter((s) => s.type === 'manual');
 				if (manualSelections.length > 0) {
 					const lastSelection = manualSelections[manualSelections.length - 1];
 					const left = parseInt(lastSelection.left);
@@ -1671,13 +1695,13 @@
 					updateCoordinateDisplay(left, top, width, height);
 				}
 			}
-			
+
 			/**
 			 * 显示当前图片
 			 */
 			function displayCurrentImage() {
 				// 注意：框选状态的保存现在在图片切换时进行，而不是在这里
-				
+
 				if (currentImages.length === 0) {
 					imageDisplay.innerHTML = '<div class="empty-state">请上传PDF或图片文件</div>';
 					imageNavigation.style.display = 'none';
@@ -1686,36 +1710,36 @@
 					imageDisplay.style.cursor = 'pointer';
 					return;
 				}
-				
+
 				// 移除虚线边框，因为有图片了
 				imageDisplay.style.border = 'none';
 				imageDisplay.style.cursor = 'default';
-				
+
 				const currentImage = currentImages[currentImageIndex];
-				
+
 				// 创建图片容器
 				const imageContainer = document.createElement('div');
 				imageContainer.className = 'image-container';
-				
+
 				// 创建图片元素
 				const img = document.createElement('img');
 				img.src = currentImage.src;
 				img.alt = currentImage.name;
 				img.id = 'current-image';
-				
+
 				// 创建选择框元素
 				const selectionBox = document.createElement('div');
 				selectionBox.className = 'selection-box';
 				selectionBox.id = 'selection-box';
-				
+
 				// 将图片和选择框添加到容器中
 				imageContainer.appendChild(img);
 				imageContainer.appendChild(selectionBox);
-				
+
 				// 清空并添加新的图片容器
 				imageDisplay.innerHTML = '';
 				imageDisplay.appendChild(imageContainer);
-				
+
 				// 重新添加替换PDF按钮
 				const replacePdfOverlay = document.createElement('div');
 				replacePdfOverlay.className = 'replace-pdf-overlay';
@@ -1729,26 +1753,26 @@
 				});
 				replacePdfOverlay.appendChild(replacePdfBtn);
 				imageDisplay.appendChild(replacePdfOverlay);
-				
+
 				// 显示替换PDF按钮
 				replacePdfOverlay.style.display = 'block';
-				
+
 				// 重新添加选择覆盖层
-			const newSelectionOverlay = document.createElement('div');
-			newSelectionOverlay.className = 'selection-overlay';
-			newSelectionOverlay.id = 'selection-overlay';
-			imageContainer.appendChild(newSelectionOverlay);
-			
-			// 更新全局变量指向新的overlay元素
-			selectionOverlay = newSelectionOverlay;
-				
+				const newSelectionOverlay = document.createElement('div');
+				newSelectionOverlay.className = 'selection-overlay';
+				newSelectionOverlay.id = 'selection-overlay';
+				imageContainer.appendChild(newSelectionOverlay);
+
+				// 更新全局变量指向新的overlay元素
+				selectionOverlay = newSelectionOverlay;
+
 				// 显示导航区域
 				imageNavigation.style.display = 'block';
-				
+
 				// 更新导航按钮状态
 				prevImageBtn.disabled = currentImageIndex === 0;
 				nextImageBtn.disabled = currentImageIndex === currentImages.length - 1;
-				
+
 				// 更新页码输入框和总页数显示
 				const pageInput = document.getElementById('page-input');
 				const totalPages = document.getElementById('total-pages');
@@ -1759,20 +1783,20 @@
 				if (totalPages) {
 					totalPages.textContent = currentImages.length;
 				}
-				
+
 				// 更新图片信息
 				if (currentImage.name) {
 					imageInfo.textContent = `文件: ${currentImage.name}`;
 				} else {
 					imageInfo.textContent = `页面 ${currentImageIndex + 1}`;
 				}
-				
+
 				// 重新初始化选择功能
 				initImageSelection();
-				
+
 				// 初始化手动选择功能
 				initManualSelection();
-				
+
 				// 恢复框选状态或重新绘制检测框
 				if (img.complete && img.naturalWidth > 0) {
 					// 先尝试恢复保存的框选状态
@@ -1791,7 +1815,7 @@
 						}
 					};
 				}
-				
+
 				// 更新按钮状态
 				updateButtons();
 			}
@@ -1816,14 +1840,14 @@
 				const imageContainer = document.querySelector('.image-container');
 				const currentImage = document.getElementById('current-image');
 				selectionBox = document.getElementById('selection-box');
-				
+
 				if (!imageContainer || !currentImage || !selectionBox) return;
-				
+
 				imageContainer.addEventListener('mousedown', startSelection);
 				imageContainer.addEventListener('mousemove', updateSelection);
 				imageContainer.addEventListener('mouseup', endSelection);
 			}
-			
+
 			/**
 			 * 初始化图片导航功能
 			 */
@@ -1840,7 +1864,7 @@
 						}
 					});
 				}
-				
+
 				if (nextImageBtn) {
 					nextImageBtn.addEventListener('click', () => {
 						if (currentImageIndex < currentImages.length - 1) {
@@ -1853,16 +1877,16 @@
 						}
 					});
 				}
-				
+
 				// 页码输入框功能
 				const pageInput = document.getElementById('page-input');
-				
+
 				if (pageInput) {
 					// 页码跳转功能
 					pageInput.addEventListener('change', () => {
 						const pageNum = parseInt(pageInput.value);
 						const imageCounter = document.getElementById('image-counter');
-						
+
 						if (pageNum >= 1 && pageNum <= currentImages.length) {
 							// 先保存当前图片的框选状态
 							if (selectionOverlay) {
@@ -1870,7 +1894,7 @@
 							}
 							currentImageIndex = pageNum - 1;
 							displayCurrentImage();
-							
+
 							// 跳转成功的视觉反馈
 							if (imageCounter) {
 								imageCounter.style.backgroundColor = '#d4edda';
@@ -1882,7 +1906,7 @@
 							// 输入无效页码时恢复当前页码
 							pageInput.value = currentImageIndex + 1;
 							eda.sys_ToastMessage.showMessage(`请输入有效的页码 (1-${currentImages.length})`, 0);
-							
+
 							// 跳转失败的视觉反馈
 							if (imageCounter) {
 								imageCounter.style.backgroundColor = '#f8d7da';
@@ -1892,7 +1916,7 @@
 							}
 						}
 					});
-					
+
 					// 回车键快速跳转
 					pageInput.addEventListener('keydown', (e) => {
 						if (e.key === 'Enter') {
@@ -1901,17 +1925,17 @@
 							pageInput.blur();
 						}
 					});
-					
+
 					// 点击时选中文本
 					pageInput.addEventListener('click', (e) => {
 						e.target.select();
 					});
 				}
-				
+
 				// 添加键盘快捷键支持
 				document.addEventListener('keydown', (e) => {
 					if (currentImages.length <= 1) return;
-					
+
 					if (e.key === 'ArrowLeft' && currentImageIndex > 0) {
 						e.preventDefault();
 						// 先保存当前图片的框选状态
@@ -1937,18 +1961,18 @@
 			 */
 			function startSelection(e) {
 				if (e.target.tagName !== 'IMG') return;
-				
+
 				isSelecting = true;
 				const rect = e.target.getBoundingClientRect();
 				selectionStart.x = e.clientX - rect.left;
 				selectionStart.y = e.clientY - rect.top;
-				
+
 				selectionBox.style.display = 'block';
 				selectionBox.style.left = selectionStart.x + 'px';
 				selectionBox.style.top = selectionStart.y + 'px';
 				selectionBox.style.width = '0px';
 				selectionBox.style.height = '0px';
-				
+
 				e.preventDefault();
 			}
 
@@ -1957,21 +1981,21 @@
 			 */
 			function updateSelection(e) {
 				if (!isSelecting) return;
-				
+
 				const rect = e.target.getBoundingClientRect();
 				selectionEnd.x = e.clientX - rect.left;
 				selectionEnd.y = e.clientY - rect.top;
-				
+
 				const left = Math.min(selectionStart.x, selectionEnd.x);
 				const top = Math.min(selectionStart.y, selectionEnd.y);
 				const width = Math.abs(selectionEnd.x - selectionStart.x);
 				const height = Math.abs(selectionEnd.y - selectionStart.y);
-				
+
 				selectionBox.style.left = left + 'px';
 				selectionBox.style.top = top + 'px';
 				selectionBox.style.width = width + 'px';
 				selectionBox.style.height = height + 'px';
-				
+
 				updateCoordinateDisplay(left, top, width, height);
 			}
 
@@ -1998,28 +2022,28 @@
 					eda.sys_IFrame.hideIFrame('footprint');
 					eda.sys_ToastMessage.showMessage('页面已隐藏，可点击继续创建重新打开页面', 0);
 				});
-				
+
 				// 清除框选
 				clearSelectionButton.addEventListener('click', clearSelection);
-				
+
 				// 搜索位置
 				searchPositionButton.addEventListener('click', searchPosition);
-				
+
 				// 提取参数
 				extractParamsButton.addEventListener('click', extractParams);
-				
+
 				// 手动框选
 				manualSelectButton.addEventListener('click', toggleManualSelection);
-				
+
 				// 封装类型选择
 				packageTypeSelect.addEventListener('change', onPackageTypeChange);
-				
+
 				// 添加参数
 				addParamButton.addEventListener('click', addParam);
-				
+
 				// 清空表格
 				clearTableButton.addEventListener('click', clearTable);
-				
+
 				// 创建封装
 				createFootprintButton.addEventListener('click', createFootprintFromTable);
 			}
@@ -2030,12 +2054,12 @@
 			function startTiming() {
 				startTime = Date.now();
 				timingDisplay.textContent = '耗时: 0.0s';
-				
+
 				// 清除之前的计时器
 				if (timingInterval) {
 					clearInterval(timingInterval);
 				}
-				
+
 				// 开始实时更新计时显示
 				timingInterval = setInterval(() => {
 					if (startTime) {
@@ -2044,7 +2068,7 @@
 					}
 				}, 100);
 			}
-			
+
 			/**
 			 * 停止计时
 			 */
@@ -2053,14 +2077,14 @@
 					clearInterval(timingInterval);
 					timingInterval = null;
 				}
-				
+
 				if (startTime) {
 					const elapsed = (Date.now() - startTime) / 1000;
 					timingDisplay.textContent = `耗时: ${elapsed.toFixed(1)}s`;
 					startTime = null;
 				}
 			}
-			
+
 			/**
 			 * 重置计时显示
 			 */
@@ -2072,7 +2096,7 @@
 				startTime = null;
 				timingDisplay.textContent = '耗时: --';
 			}
-			
+
 			/**
 			 */
 			async function callCustomAPI(images, prompt) {
@@ -2086,58 +2110,53 @@
 						img.onerror = reject;
 						img.src = images[i].src;
 					});
-					
+
 					const canvas = document.createElement('canvas');
 					const ctx = canvas.getContext('2d');
 					canvas.width = img.naturalWidth;
 					canvas.height = img.naturalHeight;
 					ctx.drawImage(img, 0, 0);
-					
+
 					// 转换为base64
 					const base64 = canvas.toDataURL('image/png');
 					base64Images.push(base64);
 				}
-				
+
 				// 自定义API格式
 				const requestData = {
-					type: "chat.user.generic_chat",
+					type: 'chat.user.generic_chat',
 					context: {
 						chat: {
 							input_text: prompt,
-							base64_images: base64Images
+							base64_images: base64Images,
 						},
 						history: [],
-						messages: []
-					}
+						messages: [],
+					},
 				};
-				
+
 				const headers = {
 					'Content-Type': 'application/json',
-					'Accept': 'application/json'
+					'Accept': 'application/json',
 				};
-				
+
 				// 发送请求
-				const response = await eda.sys_ClientUrl.request(
-					customApiUrl,
-					'POST',
-					JSON.stringify(requestData),
-					headers
-				);
-				
+				const response = await eda.sys_ClientUrl.request(customApiUrl, 'POST', JSON.stringify(requestData), headers);
+
 				if (!response.ok) {
 					const errorText = await response.text();
 					console.error('自定义API请求失败:', response.status, errorText);
 					throw new Error(`自定义API请求失败: ${response.status} ${errorText}`);
 				}
-				
+
 				// 先获取响应文本，然后尝试解析JSON
 				const responseText = await response.text();
 				console.log('API响应:', responseText);
-				
+
 				if (!responseText.trim()) {
 					throw new Error('返回空响应');
 				}
-				
+
 				let result;
 				try {
 					// 清理响应文本，移除markdown代码块标记
@@ -2152,7 +2171,7 @@
 					console.error('JSON解析失败:', parseError, '响应内容:', responseText);
 					throw new Error(`API响应格式错误: ${parseError.message}`);
 				}
-				
+
 				// 处理自定义API响应格式
 				let content;
 				if (result.context && result.context.chat && result.context.chat.input_text) {
@@ -2164,10 +2183,10 @@
 				} else {
 					content = result.toString();
 				}
-				
+
 				return content;
 			}
-			
+
 			/**
 			 * 清除框选
 			 */
@@ -2177,26 +2196,26 @@
 					stopManualSelection();
 					manualSelectButton.textContent = '手动框选';
 				}
-				
+
 				// 清除旧版选择框
 				if (selectionBox) {
 					selectionBox.style.display = 'none';
 				}
-				
+
 				// 清除检测框和手动选择相关元素
 				if (selectionOverlay) {
 					const existingBoxes = selectionOverlay.querySelectorAll('.detection-box');
-					existingBoxes.forEach(box => box.remove());
-					
+					existingBoxes.forEach((box) => box.remove());
+
 					// 清除手动选择框
 					const selectionBoxes = selectionOverlay.querySelectorAll('.selection-box');
-					selectionBoxes.forEach(box => box.remove());
-					
+					selectionBoxes.forEach((box) => box.remove());
+
 					// 清除起点标记
 					const startMarkers = selectionOverlay.querySelectorAll('.start-marker');
-					startMarkers.forEach(marker => marker.remove());
+					startMarkers.forEach((marker) => marker.remove());
 				}
-				
+
 				// 重置选择状态
 				isSelecting = false;
 				manualSelectionMode = false;
@@ -2205,24 +2224,24 @@
 				selectionStart = { x: 0, y: 0 };
 				selectionEnd = { x: 0, y: 0 };
 				currentSelection = null;
-				
+
 				// 清除当前图片的保存状态
 				if (currentImages.length > 0) {
 					const imageKey = `image_${currentImageIndex}`;
 					delete imageSelections[imageKey];
 					console.log(`清除图片 ${currentImageIndex + 1} 的保存状态`);
 				}
-				
+
 				// 清除检测结果（这样搜索位置的框选也会被清除）
 				detectionResults = null;
 				console.log('清除检测结果');
-				
+
 				coordinateDisplay.textContent = '坐标信息: 未选择区域';
-				
+
 				// 更新按钮状态
 				updateButtons();
 			}
-			
+
 			/**
 			 * 搜索位置 - 第一步：识别封装位置
 			 */
@@ -2231,54 +2250,70 @@
 					eda.sys_ToastMessage.showMessage('请先上传图片', 0);
 					return;
 				}
-				
+
 				apiKey = apiKeyInput.value.trim();
-			selectedModel = modelSelect.value;
-			selectedProvider = providerSelect.value;
-			apiUrl = apiUrlInput.value.trim();
-			customApiUrl = apiUrlInput.value.trim();
-				
+				selectedModel = modelSelect.value;
+				selectedProvider = providerSelect.value;
+				apiUrl = apiUrlInput.value.trim();
+				customApiUrl = apiUrlInput.value.trim();
+
 				// 检查智谱AI模型限制
 				if (selectedProvider === 'zhipu') {
 					eda.sys_ToastMessage.showMessage('智谱AI模型不支持搜索位置功能，该模型传输图片有上限', 0);
 					return;
 				}
-				
+
 				// 自定义API不需要API密钥
 				if (!isSpecialApiFormat(selectedProvider, apiUrl) && !apiKey) {
 					eda.sys_ToastMessage.showMessage('请输入API密钥', 0);
 					return;
 				}
-				
+
 				// 特殊API使用默认地址
 				if (isSpecialApiFormat(selectedProvider, apiUrl)) {
-				customApiUrl = apiUrl;
+					customApiUrl = apiUrl;
 				}
-				
+
 				eda.sys_Storage.setExtensionUserConfig('api_key', apiKey);
 				eda.sys_Storage.setExtensionUserConfig('selected_model', selectedModel);
 				eda.sys_Storage.setExtensionUserConfig('selected_provider', selectedProvider);
 				eda.sys_Storage.setExtensionUserConfig('custom_api_url', customApiUrl);
-				
+
 				try {
-				eda.sys_ToastMessage.showMessage('正在搜索封装位置...', 3);
-				
-				// 开始计时
-				startTiming();
-				
-				if (isSpecialApiFormat(selectedProvider, apiUrl)) {
-					// 特殊API调用
-					const prompt = '请分析这些图片，搜索芯片封装的坐标位置。以JSON格式输出所有的芯片封装bbox的坐标，不要输出json代码段。对于每个检测到的封装，请返回以下JSON格式：\n\n{\n  "input_width": 模型处理时的图像宽度,\n  "input_height": 模型处理时的图像高度,\n  "pdf_position_list": [\n    {\n      "page_num": 页码(从1开始),\n      "package_type": "封装类型(BGA/DIP/QFN/QFP/SOD/SOT23/SOT223)",\n      "confidence": 置信度(0-1),\n      "package_rect": {\n        "x": x坐标,\n        "y": y坐标,\n        "width": 宽度,\n        "height": 高度\n      }\n    }\n  ]\n}\n\n注意：坐标应该基于模型实际处理的图像尺寸，请在返回结果中包含input_width和input_height字段。封装类型必须是BGA、DIP、QFN、QFP、SOD、SOT23、SOT223中的一种。';
-					const result = await callCustomAPI(currentImages, prompt);
-					
-					// 解析特殊API响应
-					try {
-						// 首先尝试直接解析为JSON
-						const parsedResult = JSON.parse(result);
-						if (parsedResult.pdf_position_list && Array.isArray(parsedResult.pdf_position_list)) {
-							detectionResults = parsedResult;
-						} else {
-							// 如果不是预期格式，尝试从其他字段提取
+					eda.sys_ToastMessage.showMessage('正在搜索封装位置...', 3);
+
+					// 开始计时
+					startTiming();
+
+					if (isSpecialApiFormat(selectedProvider, apiUrl)) {
+						// 特殊API调用
+						const prompt =
+							'请分析这些图片，搜索芯片封装的坐标位置。以JSON格式输出所有的芯片封装bbox的坐标，不要输出json代码段。对于每个检测到的封装，请返回以下JSON格式：\n\n{\n  "input_width": 模型处理时的图像宽度,\n  "input_height": 模型处理时的图像高度,\n  "pdf_position_list": [\n    {\n      "page_num": 页码(从1开始),\n      "package_type": "封装类型(BGA/DIP/QFN/QFP/SOD/SOT23/SOT223)",\n      "confidence": 置信度(0-1),\n      "package_rect": {\n        "x": x坐标,\n        "y": y坐标,\n        "width": 宽度,\n        "height": 高度\n      }\n    }\n  ]\n}\n\n注意：坐标应该基于模型实际处理的图像尺寸，请在返回结果中包含input_width和input_height字段。封装类型必须是BGA、DIP、QFN、QFP、SOD、SOT23、SOT223中的一种。';
+						const result = await callCustomAPI(currentImages, prompt);
+
+						// 解析特殊API响应
+						try {
+							// 首先尝试直接解析为JSON
+							const parsedResult = JSON.parse(result);
+							if (parsedResult.pdf_position_list && Array.isArray(parsedResult.pdf_position_list)) {
+								detectionResults = parsedResult;
+							} else {
+								// 如果不是预期格式，尝试从其他字段提取
+								let cleanContent = result;
+								// 更强健的JSON清理逻辑
+								cleanContent = cleanContent.replace(/^```json\s*\n?/i, '');
+								cleanContent = cleanContent.replace(/\n?```\s*$/i, '');
+								cleanContent = cleanContent.replace(/^```\s*\n?/i, '');
+								cleanContent = cleanContent.trim();
+								const jsonMatch = cleanContent.match(/\{[\s\S]*\}/);
+								if (jsonMatch) {
+									cleanContent = jsonMatch[0];
+								}
+								detectionResults = JSON.parse(cleanContent);
+							}
+						} catch (parseError) {
+							console.error('解析特殊API响应失败:', parseError);
+							// 如果JSON解析失败，尝试提取JSON代码块
 							let cleanContent = result;
 							// 更强健的JSON清理逻辑
 							cleanContent = cleanContent.replace(/^```json\s*\n?/i, '');
@@ -2291,45 +2326,30 @@
 							}
 							detectionResults = JSON.parse(cleanContent);
 						}
-					} catch (parseError) {
-						console.error('解析特殊API响应失败:', parseError);
-						// 如果JSON解析失败，尝试提取JSON代码块
-						let cleanContent = result;
-						// 更强健的JSON清理逻辑
-						cleanContent = cleanContent.replace(/^```json\s*\n?/i, '');
-						cleanContent = cleanContent.replace(/\n?```\s*$/i, '');
-						cleanContent = cleanContent.replace(/^```\s*\n?/i, '');
-						cleanContent = cleanContent.trim();
-						const jsonMatch = cleanContent.match(/\{[\s\S]*\}/);
-						if (jsonMatch) {
-							cleanContent = jsonMatch[0];
-						}
-						detectionResults = JSON.parse(cleanContent);
-					}
-				} else {
-					// 通义千问API调用
-					// 构建包含所有图像的请求
-					const imageContents = currentImages.map(img => ({
-						type: "image_url",
-						image_url: { url: img.src }
-					}));
-					
-					const data = {
-					model: selectedModel,
-					temperature: 0,
-					vl_high_resolution_images: true,
-					messages: [
-							{
-								role: 'system',
-								content: [{ type: 'text', text: 'You are a professional IC package detection expert.' }]
-							},
-							{
-								role: 'user',
-								content: [
-									...imageContents,
-									{
-										type: 'text',
-										text: `请分析这些图片，搜索芯片封装的坐标位置。以JSON格式输出所有的芯片封装bbox的坐标，不要检测芯片符号，不要输出json代码段。对于每个检测到的封装，请返回以下JSON格式：\n\n{
+					} else {
+						// 通义千问API调用
+						// 构建包含所有图像的请求
+						const imageContents = currentImages.map((img) => ({
+							type: 'image_url',
+							image_url: { url: img.src },
+						}));
+
+						const data = {
+							model: selectedModel,
+							temperature: 0,
+							vl_high_resolution_images: true,
+							messages: [
+								{
+									role: 'system',
+									content: [{ type: 'text', text: 'You are a professional IC package detection expert.' }],
+								},
+								{
+									role: 'user',
+									content: [
+										...imageContents,
+										{
+											type: 'text',
+											text: `请分析这些图片，搜索芯片封装的坐标位置。以JSON格式输出所有的芯片封装bbox的坐标，不要检测芯片符号，不要输出json代码段。对于每个检测到的封装，请返回以下JSON格式：\n\n{
   "input_width": 模型处理时的图像宽度,
   "input_height": 模型处理时的图像高度,
   "pdf_position_list": [
@@ -2346,185 +2366,190 @@
     }
   ]
 }\n\n注意：坐标应该基于模型实际处理的图像尺寸，请在返回结果中包含input_width和input_height字段。封装类型必须是BGA、DIP、QFN、QFP、SOD、SOT23、SOT223中的一种。
-`
+`,
+										},
+									],
+								},
+							],
+						};
+
+						const response = await callAPI(data);
+
+						if (!response.ok) {
+							throw new Error('API请求失败');
+						}
+
+						const result = await response.json();
+						let content;
+
+						// 处理不同的响应格式
+						if (selectedProvider === 'zhipu' && result.choices && result.choices[0]) {
+							// 智谱AI响应格式
+							content = result.choices[0].message.content;
+						} else if (selectedProvider === 'qwen' && result.choices && result.choices[0]) {
+							// 通义千问兼容模式响应格式
+							content = result.choices[0].message.content;
+						} else if (Array.isArray(result) && result[0] && result[0].message) {
+							// 处理数组格式的响应
+							content = result[0].message.content;
+						} else if (result.choices && result.choices[0]) {
+							// 处理标准格式的响应
+							content = result.choices[0].message.content;
+						} else if (result.pdf_position_list) {
+							// 处理直接返回检测结果的格式
+							detectionResults = result;
+							content = null; // 跳过content解析
+						} else {
+							throw new Error('无法解析API响应格式');
+						}
+
+						// 解析检测结果
+						try {
+							if (content !== null) {
+								// 更强健的JSON清理逻辑
+								let cleanContent = content;
+
+								// 智谱AI特殊标记处理
+								if (selectedProvider === 'zhipu') {
+									// 提取<|begin_of_box|>和<|end_of_box|>之间的内容
+									const boxMatch = cleanContent.match(/<\|begin_of_box\|>([\s\S]*?)<\|end_of_box\|>/);
+									if (boxMatch) {
+										cleanContent = boxMatch[1].trim();
+										console.log('智谱AI提取的JSON内容:', cleanContent);
 									}
-								]
-							}
-						]
-					};
-					
-					const response = await callAPI(data);
-					
-					if (!response.ok) {
-						throw new Error('API请求失败');
-					}
-					
-					const result = await response.json();
-					let content;
-					
-					// 处理不同的响应格式
-					if (selectedProvider === 'zhipu' && result.choices && result.choices[0]) {
-						// 智谱AI响应格式
-						content = result.choices[0].message.content;
-					} else if (selectedProvider === 'qwen' && result.choices && result.choices[0]) {
-						// 通义千问兼容模式响应格式
-						content = result.choices[0].message.content;
-					} else if (Array.isArray(result) && result[0] && result[0].message) {
-						// 处理数组格式的响应
-						content = result[0].message.content;
-					} else if (result.choices && result.choices[0]) {
-						// 处理标准格式的响应
-						content = result.choices[0].message.content;
-					} else if (result.pdf_position_list) {
-						// 处理直接返回检测结果的格式
-						detectionResults = result;
-						content = null; // 跳过content解析
-					} else {
-						throw new Error('无法解析API响应格式');
-					}
-					
-					// 解析检测结果
-					try {
-						if (content !== null) {
-							// 更强健的JSON清理逻辑
-							let cleanContent = content;
-							
-							// 智谱AI特殊标记处理
-							if (selectedProvider === 'zhipu') {
-								// 提取<|begin_of_box|>和<|end_of_box|>之间的内容
-								const boxMatch = cleanContent.match(/<\|begin_of_box\|>([\s\S]*?)<\|end_of_box\|>/);
-								if (boxMatch) {
-									cleanContent = boxMatch[1].trim();
-									console.log('智谱AI提取的JSON内容:', cleanContent);
+								}
+
+								// 移除可能的代码块标记
+								cleanContent = cleanContent.replace(/^```json\s*\n?/i, '');
+								cleanContent = cleanContent.replace(/\n?```\s*$/i, '');
+								cleanContent = cleanContent.replace(/^```\s*\n?/i, '');
+
+								// 移除可能的前后空白字符
+								cleanContent = cleanContent.trim();
+
+								// 如果内容以{开头但前面有其他字符，尝试提取JSON部分
+								const jsonMatch = cleanContent.match(/\{[\s\S]*\}/);
+								if (jsonMatch) {
+									cleanContent = jsonMatch[0];
+								}
+
+								const parsedContent = JSON.parse(cleanContent);
+
+								// 处理可能的数组格式响应
+								if (Array.isArray(parsedContent) && parsedContent.length > 0) {
+									detectionResults = parsedContent[0];
+								} else {
+									detectionResults = parsedContent;
 								}
 							}
-							
-							// 移除可能的代码块标记
-							cleanContent = cleanContent.replace(/^```json\s*\n?/i, '');
-							cleanContent = cleanContent.replace(/\n?```\s*$/i, '');
-							cleanContent = cleanContent.replace(/^```\s*\n?/i, '');
-							
-							// 移除可能的前后空白字符
-							cleanContent = cleanContent.trim();
-							
-							// 如果内容以{开头但前面有其他字符，尝试提取JSON部分
-							const jsonMatch = cleanContent.match(/\{[\s\S]*\}/);
-							if (jsonMatch) {
-								cleanContent = jsonMatch[0];
-							}
-							
-							const parsedContent = JSON.parse(cleanContent);
-							
-							// 处理可能的数组格式响应
-							if (Array.isArray(parsedContent) && parsedContent.length > 0) {
-								detectionResults = parsedContent[0];
-							} else {
-								detectionResults = parsedContent;
-							}
+							// 如果content为null，说明已经直接获得了detectionResults
+						} catch (parseError) {
+							console.error('解析检测结果失败:', parseError);
+							throw new Error('解析检测结果失败: ' + parseError.message);
 						}
-						// 如果content为null，说明已经直接获得了detectionResults
-					} catch (parseError) {
-						console.error('解析检测结果失败:', parseError);
-						throw new Error('解析检测结果失败: ' + parseError.message);
 					}
-				}
-						
-						console.log('解析的检测结果:', detectionResults);
-						
-						// 停止计时
-						stopTiming();
-						
-						// 绘制检测框
-						drawDetectionBoxes();
-						
-						// 验证检测结果数据结构
-						if (!detectionResults || !detectionResults.pdf_position_list || !Array.isArray(detectionResults.pdf_position_list)) {
-							throw new Error('检测结果数据格式不正确');
-						}
-						
-						// 自动设置第一个检测到的封装类型到下拉框（但不自动显示参数）
+
+					console.log('解析的检测结果:', detectionResults);
+
+					// 停止计时
+					stopTiming();
+
+					// 绘制检测框
+					drawDetectionBoxes();
+
+					// 验证检测结果数据结构
+					if (!detectionResults || !detectionResults.pdf_position_list || !Array.isArray(detectionResults.pdf_position_list)) {
+						throw new Error('检测结果数据格式不正确');
+					}
+
+					// 自动设置第一个检测到的封装类型到下拉框（但不自动显示参数）
 					if (detectionResults.pdf_position_list.length > 0) {
 						let firstPackageType = detectionResults.pdf_position_list[0].package_type;
 						// 包含BGA的封装类型自动归类到BGA
-					if (firstPackageType && firstPackageType.includes('BGA')) {
-						firstPackageType = 'BGA';
-					}
-					// 包含DIP的封装类型自动归类到DIP
-					if (firstPackageType && firstPackageType.includes('DIP')) {
-						firstPackageType = 'DIP';
-					}
+						if (firstPackageType && firstPackageType.includes('BGA')) {
+							firstPackageType = 'BGA';
+						}
+						// 包含DIP的封装类型自动归类到DIP
+						if (firstPackageType && firstPackageType.includes('DIP')) {
+							firstPackageType = 'DIP';
+						}
 						if (firstPackageType && packageTypeSelect.value !== firstPackageType) {
 							packageTypeSelect.value = firstPackageType;
 							// 不调用onPackageTypeChange()，避免自动显示参数
 						}
 						eda.sys_ToastMessage.showMessage(`封装类型为${firstPackageType}`, 3);
-							
-							// 自动跳转到第一个检测框所在的页面
-							const firstDetection = detectionResults.pdf_position_list[0];
-							const firstDetectionPage = firstDetection.page_num;
-							const targetImageIndex = firstDetectionPage - 1;
-							
-							if (targetImageIndex >= 0 && targetImageIndex < currentImages.length && targetImageIndex !== currentImageIndex) {
-									// 保存当前图片的框选状态
-									saveCurrentImageSelection();
-									// 跳转到目标页面
-								currentImageIndex = targetImageIndex;
-								displayCurrentImage();
-								eda.sys_ToastMessage.showMessage(`已自动跳转到第 ${firstDetectionPage} 页`, 1);
-							}
-							
-							// 检查检测到的封装在哪些页面
-							const detectedPages = [...new Set(detectionResults.pdf_position_list.map(d => d.page_num))].sort((a, b) => a - b);
-							const currentPageNum = currentImageIndex + 1;
-							
-							if (detectedPages.includes(currentPageNum)) {
-								eda.sys_ToastMessage.showMessage(`检测到 ${detectionResults.pdf_position_list.length} 个封装，当前页面有检测框，请确认后点击提取参数`, 1);
-							} else {
-								eda.sys_ToastMessage.showMessage(`检测到 ${detectionResults.pdf_position_list.length} 个封装在第 ${detectedPages.join('、')} 页，请切换到对应页面查看检测框`, 1);
-							}
-						} else {
-							eda.sys_ToastMessage.showMessage('未检测到封装', 0);
+
+						// 自动跳转到第一个检测框所在的页面
+						const firstDetection = detectionResults.pdf_position_list[0];
+						const firstDetectionPage = firstDetection.page_num;
+						const targetImageIndex = firstDetectionPage - 1;
+
+						if (targetImageIndex >= 0 && targetImageIndex < currentImages.length && targetImageIndex !== currentImageIndex) {
+							// 保存当前图片的框选状态
+							saveCurrentImageSelection();
+							// 跳转到目标页面
+							currentImageIndex = targetImageIndex;
+							displayCurrentImage();
+							eda.sys_ToastMessage.showMessage(`已自动跳转到第 ${firstDetectionPage} 页`, 1);
 						}
-						
-						// 更新按钮状态
-						updateButtons();
-					} catch (parseError) {
+
+						// 检查检测到的封装在哪些页面
+						const detectedPages = [...new Set(detectionResults.pdf_position_list.map((d) => d.page_num))].sort((a, b) => a - b);
+						const currentPageNum = currentImageIndex + 1;
+
+						if (detectedPages.includes(currentPageNum)) {
+							eda.sys_ToastMessage.showMessage(
+								`检测到 ${detectionResults.pdf_position_list.length} 个封装，当前页面有检测框，请确认后点击提取参数`,
+								1,
+							);
+						} else {
+							eda.sys_ToastMessage.showMessage(
+								`检测到 ${detectionResults.pdf_position_list.length} 个封装在第 ${detectedPages.join('、')} 页，请切换到对应页面查看检测框`,
+								1,
+							);
+						}
+					} else {
+						eda.sys_ToastMessage.showMessage('未检测到封装', 0);
+					}
+
+					// 更新按钮状态
+					updateButtons();
+				} catch (parseError) {
 					console.error('解析检测结果失败:', parseError);
 					console.error('原始内容:', content);
 					// 停止计时
 					stopTiming();
 					eda.sys_ToastMessage.showMessage('解析检测结果失败', 0);
 				}
-				
-			} 
-			
+			}
+
 			/**
 			 * 比较两次提取结果，选择更好的一个
 			 */
 			function chooseBetterResult(firstResult, secondResult) {
 				if (!firstResult) return secondResult;
 				if (!secondResult) return firstResult;
-				
+
 				try {
 					// 尝试解析两个结果
 					const first = parseParametersFromContent(firstResult);
 					const second = parseParametersFromContent(secondResult);
-					
+
 					// 如果只有一个解析成功，选择成功的
 					if (first && !second) return firstResult;
 					if (!first && second) return secondResult;
 					if (!first && !second) return secondResult; // 都失败时选择第二个
-					
+
 					// 都成功时，选择参数更多的
 					const firstCount = first.parameters ? first.parameters.length : 0;
 					const secondCount = second.parameters ? second.parameters.length : 0;
-					
+
 					console.log(`第一次提取参数数量: ${firstCount}, 第二次提取参数数量: ${secondCount}`);
-					
+
 					// 如果参数数量相同，选择第二个（通常更稳定）
 					// 如果第二个参数更多，选择第二个
 					// 如果第一个参数明显更多（差距>=2），选择第一个
-					if (secondCount >= firstCount || (firstCount - secondCount < 2)) {
+					if (secondCount >= firstCount || firstCount - secondCount < 2) {
 						console.log('选择第二次提取结果');
 						return secondResult;
 					} else {
@@ -2537,7 +2562,7 @@
 					return secondResult;
 				}
 			}
-			
+
 			/**
 			 * 从内容中解析参数（用于比较）
 			 */
@@ -2546,7 +2571,7 @@
 					// 查找JSON代码块
 					const jsonBlockRegex = /```json\s*([\s\S]*?)\s*```/g;
 					let match;
-					
+
 					while ((match = jsonBlockRegex.exec(content)) !== null) {
 						try {
 							const jsonContent = match[1].trim();
@@ -2558,7 +2583,7 @@
 							continue;
 						}
 					}
-					
+
 					// 如果没有找到代码块，尝试直接解析
 					try {
 						const parsed = JSON.parse(content);
@@ -2568,287 +2593,293 @@
 					} catch (e) {
 						// 忽略解析错误
 					}
-					
+
 					return null;
 				} catch (error) {
 					return null;
 				}
 			}
-			
+
 			/**
 			 * 提取参数 - 第二步：提取封装参数
 			 */
 			async function extractParams() {
 				apiKey = apiKeyInput.value.trim();
-			selectedModel = modelSelect.value;
-			selectedProvider = providerSelect.value;
-			apiUrl = apiUrlInput.value.trim();
-			customApiUrl = apiUrlInput.value.trim();
-				
+				selectedModel = modelSelect.value;
+				selectedProvider = providerSelect.value;
+				apiUrl = apiUrlInput.value.trim();
+				customApiUrl = apiUrlInput.value.trim();
+
 				// 自定义API不需要API密钥
 				if (!isSpecialApiFormat(selectedProvider, apiUrl) && !apiKey) {
 					eda.sys_ToastMessage.showMessage('请输入API密钥', 0);
 					return;
 				}
-				
+
 				// 特殊API使用默认地址
 				if (isSpecialApiFormat(selectedProvider, apiUrl)) {
-				customApiUrl = apiUrl;
+					customApiUrl = apiUrl;
 				}
-				
+
 				// 检查是否有图片有框选（手动框选或搜索位置的自动框选）
 				const imagesWithSelections = [];
-				
+
 				for (let i = 0; i < currentImages.length; i++) {
 					const imageKey = `image_${i}`;
 					const selections = imageSelections[imageKey];
-					
+
 					if (selections && selections.length > 0) {
 						imagesWithSelections.push({
 							index: i,
 							image: currentImages[i],
-							selections: selections
+							selections: selections,
 						});
 					}
 				}
-				
+
 				if (imagesWithSelections.length === 0) {
 					eda.sys_ToastMessage.showMessage('请先进行手动框选或搜索位置', 0);
 					return;
 				}
-				
+
 				try {
-	eda.sys_ToastMessage.showMessage(`正在提取 ${imagesWithSelections.length} 张图片的封装参数...`, 3);
-	
-	// 开始计时
-	startTiming();
-	
-	// 获取当前选择的封装类型
-	const selectedPackageType = packageTypeSelect.value;
-	let paramPrompt = '';
-	let extractionCount = 2; // 默认提取2次
-				
-	if (selectedPackageType) {
-		// 如果已经选择了封装类型，只提取一次
-		extractionCount = 1;
-		// 根据选择的封装类型生成提示词
-		const typeParams = packageParams[selectedPackageType];
-		if (typeParams) {
-			const paramList = typeParams.map(p => `${p.name}(${p.key})`).join('、');
-			paramPrompt = `从芯片封装手册图中提取${selectedPackageType}封装的参数，包括：${paramList}。请仔细测量图中的尺寸标注，以毫米为单位。`;
-		}
-	} else {
-		// 如果没有选择类型，让AI自动识别，执行两次提取
-		paramPrompt = '从芯片封装手册图中识别封装类型（BGA、DIP、QFN、QFP、SOD、SOT23、SOT223中的一种），并提取相应的封装参数。请仔细测量图中的尺寸标注，以毫米为单位。';
-	}
-	
-	let content;
-	let firstResult = null;
-	let secondResult = null;
-	let detectedPackageType = null; // 存储第一次提取识别到的封装类型
-	
-	// 根据是否选择封装类型决定提取次数
-	for (let attempt = 1; attempt <= extractionCount; attempt++) {
-		eda.sys_ToastMessage.showMessage(`正在进行第 ${attempt} 次提取...`, 3);
-		
-		// 在两次提取之间添加2秒间隔（仅在需要两次提取时）
-		if (attempt === 2 && extractionCount === 2) {
-			console.log('等待2秒后进行第二次提取...');
-			await new Promise(resolve => setTimeout(resolve, 2000));
-		}
-		
-		// 为第二次提取生成更精确的prompt（仅在需要两次提取时）
-		let currentPrompt = paramPrompt;
-		if (attempt === 2 && detectedPackageType && extractionCount === 2) {
-			// 第二次提取使用第一次识别到的封装类型
-			const typeParams = packageParams[detectedPackageType];
-			if (typeParams) {
-				const paramList = typeParams.map(p => `${p.name}(${p.key})`).join('、');
-				currentPrompt = `从芯片封装手册图中提取${detectedPackageType}封装的参数，包括：${paramList}。请仔细测量图中的尺寸标注，以毫米为单位。`;
-				console.log(`第二次提取使用检测到的封装类型: ${detectedPackageType}`);
-			}
-		}
-	
-		if (selectedProvider === 'custom' && apiUrl === 'https://chat.eda.cn/ai-chat-api/complete') {
-			// 特殊API调用
-			const images = imagesWithSelections.map(imageData => imageData.image);
-			const fullPrompt = `${currentPrompt}请以JSON格式输出，不要输出json代码段，JSON格式如下：\n\`\`\`json\n{\n  "package_type": "QFN",\n  "parameters": [\n    {"name": "本体长度", "key": "BL", "value": "5.0", "unit": "mm"},\n    {"name": "本体宽度", "key": "BW", "value": "5.0", "unit": "mm"}\n  ]\n}\n\`\`\``;
-			content = await callCustomAPI(images, fullPrompt);
-		} else {
-			// 通义千问API调用
-			// 构建包含所有有框选图片的请求
-			const imageContents = [];
-			let totalSelections = 0;
-			
-			for (const imageData of imagesWithSelections) {
-				console.log(`添加图片 ${imageData.index + 1}，框选数量: ${imageData.selections.length}`);
-				imageContents.push({
-					type: "image_url",
-					image_url: { url: imageData.image.src }
-				});
-				totalSelections += imageData.selections.length;
-			}
-			
-			// 添加文本提示
-			imageContents.push({
-				type: 'text',
-				text: `${currentPrompt}请以JSON格式输出，不要输出json代码段，JSON格式如下：\n\`\`\`json\n{\n  "package_type": "QFN",\n  "parameters": [\n    {"name": "本体长度", "key": "BL", "value": "5.0", "unit": "mm"},\n    {"name": "本体宽度", "key": "BW", "value": "5.0", "unit": "mm"}\n  ]\n}\n\`\`\``
-			});
-			
-			const data = {
-				model: selectedModel,
-				temperature: 0,
-				vl_high_resolution_images: true,
-				messages: [
-					{
-						role: 'system',
-						content: [{ type: 'text', text: 'You are a professional IC package analysis expert specialized in extracting package parameters from technical documentation.' }]
-					},
-					{
-						role: 'user',
-						content: imageContents
-					}
-				]
-			};
-			
-			const response = await callAPI(data);
-			
-			if (!response.ok) {
-				throw new Error('API请求失败');
-			}
-			
-			let result;
-			
-			if (isSpecialApiFormat(selectedProvider, apiUrl)) {
-				// 特殊API响应处理
-				const responseText = await response.text();
-				console.log('特殊API原始响应:', responseText);
-				
-				// 首先尝试直接解析为JSON
-				try {
-					result = JSON.parse(responseText);
-					console.log('特殊API响应解析成功:', result);
-					
-					// 如果直接解析成功且包含parameters数组，直接使用
-					if (result.parameters && Array.isArray(result.parameters)) {
-						console.log('特殊API直接返回了parameters数组');
-						content = JSON.stringify(result);
+					eda.sys_ToastMessage.showMessage(`正在提取 ${imagesWithSelections.length} 张图片的封装参数...`, 3);
+
+					// 开始计时
+					startTiming();
+
+					// 获取当前选择的封装类型
+					const selectedPackageType = packageTypeSelect.value;
+					let paramPrompt = '';
+					let extractionCount = 2; // 默认提取2次
+
+					if (selectedPackageType) {
+						// 如果已经选择了封装类型，只提取一次
+						extractionCount = 1;
+						// 根据选择的封装类型生成提示词
+						const typeParams = packageParams[selectedPackageType];
+						if (typeParams) {
+							const paramList = typeParams.map((p) => `${p.name}(${p.key})`).join('、');
+							paramPrompt = `从芯片封装手册图中提取${selectedPackageType}封装的参数，包括：${paramList}。请仔细测量图中的尺寸标注，以毫米为单位。`;
+						}
 					} else {
-						// 否则按照原有逻辑处理
-						if (result.context && result.context.chat && result.context.chat.input_text) {
-							content = result.context.chat.input_text;
-						} else if (result.data && result.data.content) {
-							content = result.data.content;
-						} else if (result.content) {
-							content = result.content;
-						} else if (result.response) {
-							content = result.response;
+						// 如果没有选择类型，让AI自动识别，执行两次提取
+						paramPrompt =
+							'从芯片封装手册图中识别封装类型（BGA、DIP、QFN、QFP、SOD、SOT23、SOT223中的一种），并提取相应的封装参数。请仔细测量图中的尺寸标注，以毫米为单位。';
+					}
+
+					let content;
+					let firstResult = null;
+					let secondResult = null;
+					let detectedPackageType = null; // 存储第一次提取识别到的封装类型
+
+					// 根据是否选择封装类型决定提取次数
+					for (let attempt = 1; attempt <= extractionCount; attempt++) {
+						eda.sys_ToastMessage.showMessage(`正在进行第 ${attempt} 次提取...`, 3);
+
+						// 在两次提取之间添加2秒间隔（仅在需要两次提取时）
+						if (attempt === 2 && extractionCount === 2) {
+							console.log('等待2秒后进行第二次提取...');
+							await new Promise((resolve) => setTimeout(resolve, 2000));
+						}
+
+						// 为第二次提取生成更精确的prompt（仅在需要两次提取时）
+						let currentPrompt = paramPrompt;
+						if (attempt === 2 && detectedPackageType && extractionCount === 2) {
+							// 第二次提取使用第一次识别到的封装类型
+							const typeParams = packageParams[detectedPackageType];
+							if (typeParams) {
+								const paramList = typeParams.map((p) => `${p.name}(${p.key})`).join('、');
+								currentPrompt = `从芯片封装手册图中提取${detectedPackageType}封装的参数，包括：${paramList}。请仔细测量图中的尺寸标注，以毫米为单位。`;
+								console.log(`第二次提取使用检测到的封装类型: ${detectedPackageType}`);
+							}
+						}
+
+						if (selectedProvider === 'custom' && apiUrl === 'https://chat.eda.cn/ai-chat-api/complete') {
+							// 特殊API调用
+							const images = imagesWithSelections.map((imageData) => imageData.image);
+							const fullPrompt = `${currentPrompt}请以JSON格式输出，不要输出json代码段，JSON格式如下：\n\`\`\`json\n{\n  "package_type": "QFN",\n  "parameters": [\n    {"name": "本体长度", "key": "BL", "value": "5.0", "unit": "mm"},\n    {"name": "本体宽度", "key": "BW", "value": "5.0", "unit": "mm"}\n  ]\n}\n\`\`\``;
+							content = await callCustomAPI(images, fullPrompt);
 						} else {
-							// 如果都没有找到，尝试将整个result作为内容
-							content = JSON.stringify(result);
-							console.log('使用整个result作为内容:', content);
+							// 通义千问API调用
+							// 构建包含所有有框选图片的请求
+							const imageContents = [];
+							let totalSelections = 0;
+
+							for (const imageData of imagesWithSelections) {
+								console.log(`添加图片 ${imageData.index + 1}，框选数量: ${imageData.selections.length}`);
+								imageContents.push({
+									type: 'image_url',
+									image_url: { url: imageData.image.src },
+								});
+								totalSelections += imageData.selections.length;
+							}
+
+							// 添加文本提示
+							imageContents.push({
+								type: 'text',
+								text: `${currentPrompt}请以JSON格式输出，不要输出json代码段，JSON格式如下：\n\`\`\`json\n{\n  "package_type": "QFN",\n  "parameters": [\n    {"name": "本体长度", "key": "BL", "value": "5.0", "unit": "mm"},\n    {"name": "本体宽度", "key": "BW", "value": "5.0", "unit": "mm"}\n  ]\n}\n\`\`\``,
+							});
+
+							const data = {
+								model: selectedModel,
+								temperature: 0,
+								vl_high_resolution_images: true,
+								messages: [
+									{
+										role: 'system',
+										content: [
+											{
+												type: 'text',
+												text: 'You are a professional IC package analysis expert specialized in extracting package parameters from technical documentation.',
+											},
+										],
+									},
+									{
+										role: 'user',
+										content: imageContents,
+									},
+								],
+							};
+
+							const response = await callAPI(data);
+
+							if (!response.ok) {
+								throw new Error('API请求失败');
+							}
+
+							let result;
+
+							if (isSpecialApiFormat(selectedProvider, apiUrl)) {
+								// 特殊API响应处理
+								const responseText = await response.text();
+								console.log('特殊API原始响应:', responseText);
+
+								// 首先尝试直接解析为JSON
+								try {
+									result = JSON.parse(responseText);
+									console.log('特殊API响应解析成功:', result);
+
+									// 如果直接解析成功且包含parameters数组，直接使用
+									if (result.parameters && Array.isArray(result.parameters)) {
+										console.log('特殊API直接返回了parameters数组');
+										content = JSON.stringify(result);
+									} else {
+										// 否则按照原有逻辑处理
+										if (result.context && result.context.chat && result.context.chat.input_text) {
+											content = result.context.chat.input_text;
+										} else if (result.data && result.data.content) {
+											content = result.data.content;
+										} else if (result.content) {
+											content = result.content;
+										} else if (result.response) {
+											content = result.response;
+										} else {
+											// 如果都没有找到，尝试将整个result作为内容
+											content = JSON.stringify(result);
+											console.log('使用整个result作为内容:', content);
+										}
+									}
+								} catch (parseError) {
+									// 如果JSON解析失败，直接使用原始文本
+									console.log('特殊API响应不是JSON格式，使用原始文本:', responseText);
+									content = responseText;
+								}
+							} else {
+								// 通义千问、智谱AI和自定义API响应处理
+								result = await response.json();
+								console.log('API响应JSON解析结果:', result);
+
+								// 处理不同的响应格式
+								if (selectedProvider === 'zhipu' && result.choices && result.choices[0]) {
+									// 智谱AI响应格式
+									content = result.choices[0].message.content;
+									console.log('智谱AI提取的content:', content);
+									console.log('智谱AI content类型:', typeof content);
+								} else if (Array.isArray(result) && result[0] && result[0].message) {
+									// 处理数组格式的响应
+									content = result[0].message.content;
+									console.log('数组格式提取的content:', content);
+								} else if (result.choices && result.choices[0]) {
+									// 处理标准格式的响应
+									content = result.choices[0].message.content;
+									console.log('标准格式提取的content:', content);
+								} else {
+									console.error('无法识别的API响应格式:', result);
+									throw new Error('无法解析API响应格式');
+								}
+
+								// 立即验证content
+								console.log('响应处理后的content:', content, '类型:', typeof content);
+							}
+						}
+
+						// 验证content是否有效
+						if (!content || typeof content !== 'string') {
+							console.error('content为空或不是字符串:', content);
+							throw new Error('API返回的内容为空或格式错误');
+						}
+
+						console.log(`第 ${attempt} 次提取结果:`, content);
+
+						// 存储提取结果
+						if (attempt === 1) {
+							firstResult = content;
+							// 从第一次提取结果中获取封装类型（仅在需要两次提取时）
+							if (extractionCount === 2) {
+								try {
+									const parsedResult = parseParametersFromContent(content);
+									if (parsedResult && parsedResult.package_type) {
+										detectedPackageType = parsedResult.package_type;
+										console.log(`第一次提取识别到封装类型: ${detectedPackageType}`);
+									}
+								} catch (error) {
+									console.warn('解析第一次提取结果时出错:', error);
+								}
+								console.log('第一次提取完成，准备进行第二次提取...');
+							}
+						} else {
+							secondResult = content;
 						}
 					}
-				} catch (parseError) {
-					// 如果JSON解析失败，直接使用原始文本
-					console.log('特殊API响应不是JSON格式，使用原始文本:', responseText);
-					content = responseText;
-				}
-			} else {
-				// 通义千问、智谱AI和自定义API响应处理
-				result = await response.json();
-				console.log('API响应JSON解析结果:', result);
-				
-				// 处理不同的响应格式
-				if (selectedProvider === 'zhipu' && result.choices && result.choices[0]) {
-					// 智谱AI响应格式
-					content = result.choices[0].message.content;
-					console.log('智谱AI提取的content:', content);
-					console.log('智谱AI content类型:', typeof content);
-				} else if (Array.isArray(result) && result[0] && result[0].message) {
-					// 处理数组格式的响应
-					content = result[0].message.content;
-					console.log('数组格式提取的content:', content);
-				} else if (result.choices && result.choices[0]) {
-					// 处理标准格式的响应
-					content = result.choices[0].message.content;
-					console.log('标准格式提取的content:', content);
-				} else {
-					console.error('无法识别的API响应格式:', result);
-					throw new Error('无法解析API响应格式');
-				}
-				
-				// 立即验证content
-				console.log('响应处理后的content:', content, '类型:', typeof content);
-			}
-		}
-		
-		// 验证content是否有效
-		if (!content || typeof content !== 'string') {
-			console.error('content为空或不是字符串:', content);
-			throw new Error('API返回的内容为空或格式错误');
-		}
-		
-		console.log(`第 ${attempt} 次提取结果:`, content);
-		
-		// 存储提取结果
-		if (attempt === 1) {
-			firstResult = content;
-			// 从第一次提取结果中获取封装类型（仅在需要两次提取时）
-			if (extractionCount === 2) {
-				try {
-					const parsedResult = parseParametersFromContent(content);
-					if (parsedResult && parsedResult.package_type) {
-						detectedPackageType = parsedResult.package_type;
-						console.log(`第一次提取识别到封装类型: ${detectedPackageType}`);
+
+					// 根据提取次数选择最佳结果
+					let bestResult;
+					if (extractionCount === 1) {
+						// 只提取一次，直接使用结果
+						bestResult = firstResult;
+						console.log('已选择封装类型，使用单次提取结果:', bestResult);
+					} else {
+						// 比较两次结果并选择更好的
+						bestResult = chooseBetterResult(firstResult, secondResult);
+						console.log('选择的最佳结果:', bestResult);
 					}
+
+					// 使用最佳结果进行参数解析
+					parseAndAddParams(bestResult);
+
+					// 停止计时
+					stopTiming();
+
+					// 根据提取次数显示不同的成功消息
+					const successMessage =
+						extractionCount === 1
+							? `成功提取 ${imagesWithSelections.length} 张图片的封装参数（已选择封装类型）`
+							: `成功提取 ${imagesWithSelections.length} 张图片的封装参数（智能选择最佳结果）`;
+					eda.sys_ToastMessage.showMessage(successMessage, 1);
 				} catch (error) {
-					console.warn('解析第一次提取结果时出错:', error);
+					console.error('提取参数失败:', error);
+					// 停止计时
+					stopTiming();
+					eda.sys_ToastMessage.showMessage('提取参数失败: ' + error.message, 0);
 				}
-				console.log('第一次提取完成，准备进行第二次提取...');
 			}
-		} else {
-			secondResult = content;
-		}
-	}
-	
-	// 根据提取次数选择最佳结果
-	let bestResult;
-	if (extractionCount === 1) {
-		// 只提取一次，直接使用结果
-		bestResult = firstResult;
-		console.log('已选择封装类型，使用单次提取结果:', bestResult);
-	} else {
-		// 比较两次结果并选择更好的
-		bestResult = chooseBetterResult(firstResult, secondResult);
-		console.log('选择的最佳结果:', bestResult);
-	}
-	
-	// 使用最佳结果进行参数解析
-	parseAndAddParams(bestResult);
-	
-	// 停止计时
-	stopTiming();
-	
-	// 根据提取次数显示不同的成功消息
-	const successMessage = extractionCount === 1 
-		? `成功提取 ${imagesWithSelections.length} 张图片的封装参数（已选择封装类型）`
-		: `成功提取 ${imagesWithSelections.length} 张图片的封装参数（智能选择最佳结果）`;
-	eda.sys_ToastMessage.showMessage(successMessage, 1);
-	
-} catch (error) {
-	console.error('提取参数失败:', error);
-	// 停止计时
-	stopTiming();
-	eda.sys_ToastMessage.showMessage('提取参数失败: ' + error.message, 0);
-}
-}
-			
+
 			// 手动选择状态变量
 			let manualSelectionMode = false;
 			let firstPoint = null;
 			let tempSelectionBox = null;
-			
+
 			/**
 			 * 切换手动框选模式
 			 */
@@ -2861,7 +2892,7 @@
 					manualSelectButton.textContent = '停止框选';
 				}
 			}
-			
+
 			/**
 			 * 开始手动选择模式
 			 */
@@ -2877,7 +2908,7 @@
 				}
 				eda.sys_ToastMessage.showMessage('请点击图片选择起点', 2);
 			}
-			
+
 			/**
 			 * 停止手动选择模式
 			 */
@@ -2887,37 +2918,37 @@
 				if (imageDisplay) {
 					imageDisplay.classList.remove('selecting');
 				}
-				
+
 				// 重置selectionOverlay的pointer-events
 				if (selectionOverlay) {
 					selectionOverlay.style.pointerEvents = 'none';
 				}
-				
+
 				// 清除临时选择框
 				if (tempSelectionBox) {
 					tempSelectionBox.remove();
 					tempSelectionBox = null;
 				}
 			}
-			
+
 			// 存储事件监听器引用
 			let manualSelectionHandlers = {
-				click: null
+				click: null,
 			};
-			
+
 			/**
 			 * 初始化手动选择功能
 			 */
 			function initManualSelection() {
 				if (!selectionOverlay) return;
-				
+
 				console.log('初始化手动选择功能');
-				
+
 				// 移除旧的事件监听器
 				if (manualSelectionHandlers.click) {
 					selectionOverlay.removeEventListener('click', manualSelectionHandlers.click);
 				}
-				
+
 				// 确保overlay覆盖整个图像区域
 				selectionOverlay.style.position = 'absolute';
 				selectionOverlay.style.top = '0';
@@ -2925,47 +2956,47 @@
 				selectionOverlay.style.width = '100%';
 				selectionOverlay.style.height = '100%';
 				selectionOverlay.style.zIndex = '10';
-				
+
 				// 创建点击事件监听器
 				manualSelectionHandlers.click = (e) => {
 					if (!manualSelectionMode) return;
-					
+
 					const rect = selectionOverlay.getBoundingClientRect();
 					const clickPoint = {
 						x: e.clientX - rect.left,
-						y: e.clientY - rect.top
+						y: e.clientY - rect.top,
 					};
-					
+
 					if (!firstPoint) {
 						// 第一次点击：设置起点
 						firstPoint = clickPoint;
 						console.log('设置起点:', firstPoint);
-						
+
 						// 创建起点标记
 						const startMarker = document.createElement('div');
 						startMarker.className = 'start-marker';
 						startMarker.style.position = 'absolute';
-						startMarker.style.left = (firstPoint.x - 3) + 'px';
-						startMarker.style.top = (firstPoint.y - 3) + 'px';
+						startMarker.style.left = firstPoint.x - 3 + 'px';
+						startMarker.style.top = firstPoint.y - 3 + 'px';
 						startMarker.style.width = '6px';
 						startMarker.style.height = '6px';
 						startMarker.style.backgroundColor = '#ff0000';
 						startMarker.style.borderRadius = '50%';
 						startMarker.style.zIndex = '15';
 						selectionOverlay.appendChild(startMarker);
-						
+
 						eda.sys_ToastMessage.showMessage('起点已设置，请点击终点', 2);
 					} else {
 						// 第二次点击：设置终点并创建选择框
 						const secondPoint = clickPoint;
 						console.log('设置终点:', secondPoint);
-						
+
 						// 计算选择框的位置和尺寸
 						const left = Math.min(firstPoint.x, secondPoint.x);
 						const top = Math.min(firstPoint.y, secondPoint.y);
 						const width = Math.abs(secondPoint.x - firstPoint.x);
 						const height = Math.abs(secondPoint.y - firstPoint.y);
-						
+
 						// 创建选择框
 						const selectionBox = document.createElement('div');
 						selectionBox.className = 'selection-box';
@@ -2978,10 +3009,10 @@
 						selectionBox.style.backgroundColor = 'rgba(0, 123, 255, 0.1)';
 						selectionBox.style.zIndex = '12';
 						selectionOverlay.appendChild(selectionBox);
-						
+
 						// 更新坐标显示
 						updateCoordinateDisplay(left, top, width, height);
-						
+
 						// 保存手动选择框到imageSelections
 						const imageKey = `image_${currentImageIndex}`;
 						if (!imageSelections[imageKey]) {
@@ -2994,196 +3025,194 @@
 							width: width + 'px',
 							height: height + 'px',
 							border: '2px solid #007bff',
-							backgroundColor: 'rgba(0, 123, 255, 0.1)'
+							backgroundColor: 'rgba(0, 123, 255, 0.1)',
 						});
-						
+
 						console.log('手动选择完成:', {
 							page: currentImageIndex + 1,
-							selection: { left, top, width, height }
+							selection: { left, top, width, height },
 						});
 						console.log(`保存手动框选到图片 ${currentImageIndex + 1}:`, imageSelections[imageKey]);
-						
+
 						// 更新按钮状态
 						updateButtons();
-						
+
 						// 停止选择模式
 						stopManualSelection();
 						manualSelectButton.textContent = '手动框选';
-						
+
 						eda.sys_ToastMessage.showMessage('选择框已创建', 1);
 					}
-					
+
 					e.preventDefault();
 					e.stopPropagation();
 				};
-				
+
 				// 添加点击事件监听器
 				selectionOverlay.addEventListener('click', manualSelectionHandlers.click);
 			}
-			
+
 			/**
 			 * 绘制检测框
 			 */
 			function drawDetectionBoxes() {
 				console.log('开始绘制检测框，detectionResults:', detectionResults);
-				
+
 				if (!detectionResults || !detectionResults.pdf_position_list) {
 					console.log('没有检测结果，跳过绘制');
 					return;
 				}
-				
+
 				// 清除现有检测框
 				const existingBoxes = selectionOverlay.querySelectorAll('.detection-box');
 				console.log('清除现有检测框数量:', existingBoxes.length);
-				existingBoxes.forEach(box => box.remove());
-				
+				existingBoxes.forEach((box) => box.remove());
+
 				// 获取当前图像
 				const currentImage = imageDisplay.querySelector('img');
 				if (!currentImage) {
 					console.log('没有找到当前图像');
 					return;
 				}
-				
+
 				console.log('当前图像索引:', currentImageIndex);
-				
+
 				// 等待图像加载完成后绘制
 				function drawBoxes() {
 					const imageRect = currentImage.getBoundingClientRect();
 					const overlayRect = selectionOverlay.getBoundingClientRect();
-					
+
 					console.log('图像尺寸:', {
 						imageRect: imageRect,
 						overlayRect: overlayRect,
 						naturalWidth: currentImage.naturalWidth,
-						naturalHeight: currentImage.naturalHeight
+						naturalHeight: currentImage.naturalHeight,
 					});
-					
+
 					// 修正：计算图片相对于overlay的实际偏移
 					const offsetX = imageRect.left - overlayRect.left;
 					const offsetY = imageRect.top - overlayRect.top;
-					
+
 					// 计算缩放比例
 					const scaleX = imageRect.width / currentImage.naturalWidth;
 					const scaleY = imageRect.height / currentImage.naturalHeight;
-					
+
 					console.log('缩放参数:', { offsetX, offsetY, scaleX, scaleY });
-					
+
 					// 绘制当前页面的检测框
-			const currentPageNum = currentImageIndex + 1;
-			console.log('当前页码:', currentPageNum);
-			
-			// 获取模型输入尺寸信息（如果有的话）
-			const modelInputWidth = detectionResults.input_width || currentImage.naturalWidth;
-			const modelInputHeight = detectionResults.input_height || currentImage.naturalHeight;
-			
-			console.log('坐标映射参数:', {
-				modelInputWidth,
-				modelInputHeight,
-				originalWidth: currentImage.naturalWidth,
-				originalHeight: currentImage.naturalHeight,
-				needMapping: modelInputWidth !== currentImage.naturalWidth || modelInputHeight !== currentImage.naturalHeight,
-				scaleFactorX: currentImage.naturalWidth / modelInputWidth,
-				scaleFactorY: currentImage.naturalHeight / modelInputHeight
-			});
-			
-			let drawnBoxes = 0;
-			detectionResults.pdf_position_list.forEach((detection, index) => {
-				console.log(`检测结果 ${index}:`, detection);
-				
-				if (detection.page_num === currentPageNum) {
-					const rect = detection.package_rect;
-					
-					// 坐标映射：检查是否需要从模型输入尺寸映射到原图尺寸
-					let mappedX, mappedY, mappedWidth, mappedHeight;
-					
-					// 如果模型输入尺寸与原图尺寸不同，说明需要映射
-					if (modelInputWidth !== currentImage.naturalWidth || modelInputHeight !== currentImage.naturalHeight) {
-						// 从模型输入尺寸映射到原图尺寸
-						mappedX = (rect.x / modelInputWidth) * currentImage.naturalWidth;
-						mappedY = (rect.y / modelInputHeight) * currentImage.naturalHeight;
-						mappedWidth = (rect.width / modelInputWidth) * currentImage.naturalWidth;
-						mappedHeight = (rect.height / modelInputHeight) * currentImage.naturalHeight;
-					} else {
-						// 坐标已经是基于原图尺寸的，直接使用
-						mappedX = rect.x;
-						mappedY = rect.y;
-						mappedWidth = rect.width;
-						mappedHeight = rect.height;
-					}
-					
-					const detectionBox = document.createElement('div');
-					detectionBox.className = 'detection-box';
-					
-					// 应用显示缩放
-					const left = offsetX + mappedX * scaleX;
-					const top = offsetY + mappedY * scaleY;
-					const width = mappedWidth * scaleX;
-					const height = mappedHeight * scaleY;
-					
-					// 边界检查：确保检测框不超出图片范围
-					const maxLeft = offsetX + imageRect.width;
-					const maxTop = offsetY + imageRect.height;
-					
-					if (left >= offsetX && top >= offsetY && 
-						left + width <= maxLeft && top + height <= maxTop) {
-						
-						detectionBox.style.left = left + 'px';
-						detectionBox.style.top = top + 'px';
-						detectionBox.style.width = width + 'px';
-						detectionBox.style.height = height + 'px';
-						
-						console.log(`绘制检测框 ${index}:`, {
-							original: rect,
-							mapped: { mappedX, mappedY, mappedWidth, mappedHeight },
-							scaled: { left, top, width, height },
-							mappingApplied: modelInputWidth !== currentImage.naturalWidth || modelInputHeight !== currentImage.naturalHeight,
-							scaleFactors: {
-								x: currentImage.naturalWidth / modelInputWidth,
-								y: currentImage.naturalHeight / modelInputHeight
-							}
-						});
-						
-						// 添加标签
-						const label = document.createElement('div');
-						label.className = 'detection-label';
-						label.textContent = `${detection.package_type} (${(detection.confidence * 100).toFixed(1)}%)`;
-						detectionBox.appendChild(label);
-						
-						selectionOverlay.appendChild(detectionBox);
-						drawnBoxes++;
-					} else {
-						console.warn(`检测框 ${index} 超出图片边界，跳过绘制:`, {
-							calculated: { left, top, width, height },
-							imageBounds: { offsetX, offsetY, maxLeft, maxTop }
-						});
-					}
-				}
-			});
-				
-				console.log(`成功绘制 ${drawnBoxes} 个检测框`);
-				
-				// 保存检测框到imageSelections
-				const imageKey = `image_${currentImageIndex}`;
-				const selections = [];
-				
-				// 收集所有检测框的信息
-				const detectionBoxes = selectionOverlay.querySelectorAll('.detection-box');
-				detectionBoxes.forEach(box => {
-					const label = box.querySelector('.detection-label');
-					selections.push({
-						type: 'detection',
-						left: box.style.left,
-						top: box.style.top,
-						width: box.style.width,
-						height: box.style.height,
-						labelText: label ? label.textContent : ''
+					const currentPageNum = currentImageIndex + 1;
+					console.log('当前页码:', currentPageNum);
+
+					// 获取模型输入尺寸信息（如果有的话）
+					const modelInputWidth = detectionResults.input_width || currentImage.naturalWidth;
+					const modelInputHeight = detectionResults.input_height || currentImage.naturalHeight;
+
+					console.log('坐标映射参数:', {
+						modelInputWidth,
+						modelInputHeight,
+						originalWidth: currentImage.naturalWidth,
+						originalHeight: currentImage.naturalHeight,
+						needMapping: modelInputWidth !== currentImage.naturalWidth || modelInputHeight !== currentImage.naturalHeight,
+						scaleFactorX: currentImage.naturalWidth / modelInputWidth,
+						scaleFactorY: currentImage.naturalHeight / modelInputHeight,
 					});
-				});
-				
-				imageSelections[imageKey] = selections;
-				console.log(`保存图片 ${currentImageIndex + 1} 的检测框选状态:`, selections);
+
+					let drawnBoxes = 0;
+					detectionResults.pdf_position_list.forEach((detection, index) => {
+						console.log(`检测结果 ${index}:`, detection);
+
+						if (detection.page_num === currentPageNum) {
+							const rect = detection.package_rect;
+
+							// 坐标映射：检查是否需要从模型输入尺寸映射到原图尺寸
+							let mappedX, mappedY, mappedWidth, mappedHeight;
+
+							// 如果模型输入尺寸与原图尺寸不同，说明需要映射
+							if (modelInputWidth !== currentImage.naturalWidth || modelInputHeight !== currentImage.naturalHeight) {
+								// 从模型输入尺寸映射到原图尺寸
+								mappedX = (rect.x / modelInputWidth) * currentImage.naturalWidth;
+								mappedY = (rect.y / modelInputHeight) * currentImage.naturalHeight;
+								mappedWidth = (rect.width / modelInputWidth) * currentImage.naturalWidth;
+								mappedHeight = (rect.height / modelInputHeight) * currentImage.naturalHeight;
+							} else {
+								// 坐标已经是基于原图尺寸的，直接使用
+								mappedX = rect.x;
+								mappedY = rect.y;
+								mappedWidth = rect.width;
+								mappedHeight = rect.height;
+							}
+
+							const detectionBox = document.createElement('div');
+							detectionBox.className = 'detection-box';
+
+							// 应用显示缩放
+							const left = offsetX + mappedX * scaleX;
+							const top = offsetY + mappedY * scaleY;
+							const width = mappedWidth * scaleX;
+							const height = mappedHeight * scaleY;
+
+							// 边界检查：确保检测框不超出图片范围
+							const maxLeft = offsetX + imageRect.width;
+							const maxTop = offsetY + imageRect.height;
+
+							if (left >= offsetX && top >= offsetY && left + width <= maxLeft && top + height <= maxTop) {
+								detectionBox.style.left = left + 'px';
+								detectionBox.style.top = top + 'px';
+								detectionBox.style.width = width + 'px';
+								detectionBox.style.height = height + 'px';
+
+								console.log(`绘制检测框 ${index}:`, {
+									original: rect,
+									mapped: { mappedX, mappedY, mappedWidth, mappedHeight },
+									scaled: { left, top, width, height },
+									mappingApplied: modelInputWidth !== currentImage.naturalWidth || modelInputHeight !== currentImage.naturalHeight,
+									scaleFactors: {
+										x: currentImage.naturalWidth / modelInputWidth,
+										y: currentImage.naturalHeight / modelInputHeight,
+									},
+								});
+
+								// 添加标签
+								const label = document.createElement('div');
+								label.className = 'detection-label';
+								label.textContent = `${detection.package_type} (${(detection.confidence * 100).toFixed(1)}%)`;
+								detectionBox.appendChild(label);
+
+								selectionOverlay.appendChild(detectionBox);
+								drawnBoxes++;
+							} else {
+								console.warn(`检测框 ${index} 超出图片边界，跳过绘制:`, {
+									calculated: { left, top, width, height },
+									imageBounds: { offsetX, offsetY, maxLeft, maxTop },
+								});
+							}
+						}
+					});
+
+					console.log(`成功绘制 ${drawnBoxes} 个检测框`);
+
+					// 保存检测框到imageSelections
+					const imageKey = `image_${currentImageIndex}`;
+					const selections = [];
+
+					// 收集所有检测框的信息
+					const detectionBoxes = selectionOverlay.querySelectorAll('.detection-box');
+					detectionBoxes.forEach((box) => {
+						const label = box.querySelector('.detection-label');
+						selections.push({
+							type: 'detection',
+							left: box.style.left,
+							top: box.style.top,
+							width: box.style.width,
+							height: box.style.height,
+							labelText: label ? label.textContent : '',
+						});
+					});
+
+					imageSelections[imageKey] = selections;
+					console.log(`保存图片 ${currentImageIndex + 1} 的检测框选状态:`, selections);
 				}
-				
+
 				// 如果图像已经加载，直接执行
 				if (currentImage.complete && currentImage.naturalWidth > 0) {
 					console.log('图像已加载，直接绘制');
@@ -3203,58 +3232,58 @@
 					eda.sys_ToastMessage.showMessage('请先框选要提取的区域', 2);
 					return;
 				}
-				
+
 				// 检查设置是否完整
 				if (!(selectedProvider === 'custom' && apiUrl === 'https://chat.eda.cn/ai-chat-api/complete') && (!apiKey || apiKey.trim() === '')) {
 					eda.sys_ToastMessage.showMessage('请在设置中配置API密钥', 0);
 					return;
 				}
-				
+
 				if (selectedProvider === 'custom' && (!apiUrl || apiUrl.trim() === '')) {
 					eda.sys_ToastMessage.showMessage('请在设置中配置自定义API地址', 0);
 					return;
 				}
-				
+
 				if (selectedProvider === 'custom' && (!customModel || customModel.trim() === '')) {
 					eda.sys_ToastMessage.showMessage('请在设置中配置自定义模型名称', 0);
 					return;
 				}
-				
+
 				try {
-				const currentImage = currentImages[currentImageIndex];
-			
-			// 将图片转换为base64格式
-			const canvas = document.createElement('canvas');
-			const ctx = canvas.getContext('2d');
-			const img = new Image();
-			
-			img.onload = async function() {
-				canvas.width = img.width;
-				canvas.height = img.height;
-				ctx.drawImage(img, 0, 0);
-				
-				// 自定义API需要JPEG格式，其他API使用PNG格式
-				const imageFormat = isSpecialApiFormat(selectedProvider, apiUrl) ? 'image/jpeg' : 'image/png';
-			const mimeType = isSpecialApiFormat(selectedProvider, apiUrl) ? 'jpeg' : 'png';
-				const base64Data = canvas.toDataURL(imageFormat).split(',')[1];
-				// 使用多图模式，传入单张图片的数组
-				const result = await analyzeImage([currentImage.file], [base64Data], [mimeType]);
-				
-				// 解析返回的JSON数据并添加到表格
-				parseAndAddPins(result.result);
-				
-				eda.sys_ToastMessage.showMessage('信息提取成功', 1);
-			};
-			
-			img.onerror = function() {
-				eda.sys_ToastMessage.showMessage('图片加载失败', 0);
-			};
-			
-			img.src = currentImage.src;
-			} catch (error) {
-				console.error('提取信息失败:', error);
-				eda.sys_ToastMessage.showMessage('提取信息失败: ' + error.message, 0);
-			}
+					const currentImage = currentImages[currentImageIndex];
+
+					// 将图片转换为base64格式
+					const canvas = document.createElement('canvas');
+					const ctx = canvas.getContext('2d');
+					const img = new Image();
+
+					img.onload = async function () {
+						canvas.width = img.width;
+						canvas.height = img.height;
+						ctx.drawImage(img, 0, 0);
+
+						// 自定义API需要JPEG格式，其他API使用PNG格式
+						const imageFormat = isSpecialApiFormat(selectedProvider, apiUrl) ? 'image/jpeg' : 'image/png';
+						const mimeType = isSpecialApiFormat(selectedProvider, apiUrl) ? 'jpeg' : 'png';
+						const base64Data = canvas.toDataURL(imageFormat).split(',')[1];
+						// 使用多图模式，传入单张图片的数组
+						const result = await analyzeImage([currentImage.file], [base64Data], [mimeType]);
+
+						// 解析返回的JSON数据并添加到表格
+						parseAndAddPins(result.result);
+
+						eda.sys_ToastMessage.showMessage('信息提取成功', 1);
+					};
+
+					img.onerror = function () {
+						eda.sys_ToastMessage.showMessage('图片加载失败', 0);
+					};
+
+					img.src = currentImage.src;
+				} catch (error) {
+					console.error('提取信息失败:', error);
+					eda.sys_ToastMessage.showMessage('提取信息失败: ' + error.message, 0);
+				}
 			}
 
 			/**
@@ -3263,7 +3292,7 @@
 			function updateButtons() {
 				// 搜索位置按钮：有图片时启用
 				searchPositionButton.disabled = currentImages.length === 0;
-				
+
 				// 提取参数按钮：有框选（手动框选或搜索位置的自动框选）或有检测结果时启用
 				let hasSelections = false;
 				for (let i = 0; i < currentImages.length; i++) {
@@ -3277,17 +3306,17 @@
 				// 如果有检测结果，也启用提取参数按钮
 				const hasDetectionResults = detectionResults && detectionResults.pdf_position_list && detectionResults.pdf_position_list.length > 0;
 				extractParamsButton.disabled = !hasSelections && !hasDetectionResults;
-				
+
 				// 清除框选按钮：有图片时启用
 				clearSelectionButton.disabled = currentImages.length === 0;
-				
+
 				// 手动框选按钮：有图片时启用
 				manualSelectButton.disabled = currentImages.length === 0;
-				
+
 				// 创建封装按钮：有参数数据时启用
 				createFootprintButton.disabled = paramData.length === 0;
 			}
-			
+
 			/**
 			 * 更新UI状态
 			 */
@@ -3303,9 +3332,9 @@
 					name: '新参数',
 					key: 'new_param',
 					value: '',
-					unit: 'mm'
+					unit: 'mm',
 				};
-				
+
 				paramData.push(newParam);
 				updateParamTable();
 				updateUI();
@@ -3329,7 +3358,7 @@
 					pinTableContainer.innerHTML = '<div class="empty-state">暂无封装参数</div>';
 					return;
 				}
-				
+
 				let tableHTML = `
 					<table class="pin-table">
 						<thead>
@@ -3342,7 +3371,7 @@
 						</thead>
 						<tbody>
 				`;
-				
+
 				paramData.forEach((param, index) => {
 					tableHTML += `
 						<tr>
@@ -3353,12 +3382,12 @@
 						</tr>
 					`;
 				});
-				
+
 				tableHTML += `
 						</tbody>
 					</table>
 				`;
-				
+
 				pinTableContainer.innerHTML = tableHTML;
 			}
 
@@ -3371,12 +3400,12 @@
 					// 清空现有参数数据
 					paramData = [];
 					// 根据选择的封装类型添加对应参数
-					packageParams[selectedType].forEach(param => {
+					packageParams[selectedType].forEach((param) => {
 						paramData.push({
 							name: param.name,
 							key: param.key,
 							unit: param.unit,
-							value: ''
+							value: '',
 						});
 					});
 					updateParamTable();
@@ -3395,8 +3424,6 @@
 					paramData[index][field] = value;
 				}
 			}
-
-
 
 			/**
 			 * 删除参数
@@ -3472,72 +3499,71 @@
 				}, 1000);
 
 				try {
-				if (shouldStopProcessing) {
-					progressText.textContent = `已停止: 0/${uploadedFiles.length}`;
-					return;
-				}
+					if (shouldStopProcessing) {
+						progressText.textContent = `已停止: 0/${uploadedFiles.length}`;
+						return;
+					}
 
-				// 准备所有文件的base64数据
-				progressText.textContent = '正在准备图片数据...';
-				const base64Images = [];
-				const mimeTypes = [];
-				
-				for (let i = 0; i < uploadedFiles.length; i++) {
-					const file = uploadedFiles[i];
-					const base64Data = await readFileAsBase64(file);
-					base64Images.push(base64Data);
-					mimeTypes.push(file.type.split('/')[1] || 'png');
-					
-					const progress = Math.round(((i + 1) / uploadedFiles.length) * 50); // 前50%用于准备数据
-					progressBar.style.width = `${progress}%`;
-					progressText.textContent = `准备图片数据: ${i + 1}/${uploadedFiles.length}`;
-				}
+					// 准备所有文件的base64数据
+					progressText.textContent = '正在准备图片数据...';
+					const base64Images = [];
+					const mimeTypes = [];
 
-				if (shouldStopProcessing) return;
+					for (let i = 0; i < uploadedFiles.length; i++) {
+						const file = uploadedFiles[i];
+						const base64Data = await readFileAsBase64(file);
+						base64Images.push(base64Data);
+						mimeTypes.push(file.type.split('/')[1] || 'png');
 
-				// 一次性调用API处理所有图片
-				progressBar.style.width = '75%';
-				progressText.textContent = '正在调用AI分析...';
-				
-				const resultData = await analyzeImage(uploadedFiles, base64Images, mimeTypes);
-				
-				// 处理结果
-				for (let i = 0; i < uploadedFiles.length; i++) {
-					const file = uploadedFiles[i];
-					analysisResults.push({
-						filename: file.name,
-						result: resultData.result,
-						inputTokens: resultData.inputTokens,
-						outputTokens: resultData.outputTokens,
-						base64: base64Images[i],
-						file: file,
-						index: i,
-						isError: false,
-					});
-					displayResult(file, base64Images[i], resultData.result);
+						const progress = Math.round(((i + 1) / uploadedFiles.length) * 50); // 前50%用于准备数据
+						progressBar.style.width = `${progress}%`;
+						progressText.textContent = `准备图片数据: ${i + 1}/${uploadedFiles.length}`;
+					}
+
+					if (shouldStopProcessing) return;
+
+					// 一次性调用API处理所有图片
+					progressBar.style.width = '75%';
+					progressText.textContent = '正在调用AI分析...';
+
+					const resultData = await analyzeImage(uploadedFiles, base64Images, mimeTypes);
+
+					// 处理结果
+					for (let i = 0; i < uploadedFiles.length; i++) {
+						const file = uploadedFiles[i];
+						analysisResults.push({
+							filename: file.name,
+							result: resultData.result,
+							inputTokens: resultData.inputTokens,
+							outputTokens: resultData.outputTokens,
+							base64: base64Images[i],
+							file: file,
+							index: i,
+							isError: false,
+						});
+						displayResult(file, base64Images[i], resultData.result);
+					}
+
+					calculateAndUpdateCost(selectedModel, resultData.inputTokens, resultData.outputTokens);
+				} catch (error) {
+					console.error('批量处理文件时出错:', error);
+					if (shouldStopProcessing) return;
+
+					// 如果批量处理失败，记录错误
+					for (let i = 0; i < uploadedFiles.length; i++) {
+						const file = uploadedFiles[i];
+						analysisResults.push({
+							filename: file.name,
+							errorMessage: error.message,
+							inputTokens: 0,
+							outputTokens: 0,
+							file: file,
+							index: i,
+							isError: true,
+						});
+						displayError(file, error.message);
+					}
 				}
-				
-				calculateAndUpdateCost(selectedModel, resultData.inputTokens, resultData.outputTokens);
-				
-			} catch (error) {
-				console.error('批量处理文件时出错:', error);
-				if (shouldStopProcessing) return;
-				
-				// 如果批量处理失败，记录错误
-				for (let i = 0; i < uploadedFiles.length; i++) {
-					const file = uploadedFiles[i];
-					analysisResults.push({
-						filename: file.name,
-						errorMessage: error.message,
-						inputTokens: 0,
-						outputTokens: 0,
-						file: file,
-						index: i,
-						isError: true,
-					});
-					displayError(file, error.message);
-				}
-			}
 
 				const processedCount = shouldStopProcessing ? analysisResults.length : uploadedFiles.length;
 				progressBar.style.width = '100%';
@@ -3581,108 +3607,88 @@
 			async function callAPI(data) {
 				const config = providerConfigs[selectedProvider];
 				const url = selectedProvider === 'custom' ? apiUrl : config.apiUrl;
-				
+
 				if (isSpecialApiFormat(selectedProvider, apiUrl)) {
-				// 特殊API格式
+					// 特殊API格式
 					const requestData = {
-						type: "chat.user.generic_chat",
+						type: 'chat.user.generic_chat',
 						context: {
 							chat: {
-								input_text: data.messages[data.messages.length - 1].content.find(c => c.type === 'text')?.text || '',
+								input_text: data.messages[data.messages.length - 1].content.find((c) => c.type === 'text')?.text || '',
 								base64_images: data.messages[data.messages.length - 1].content
-					.filter(c => c.type === 'image_url')
-					.map(c => c.image_url.url)
+									.filter((c) => c.type === 'image_url')
+									.map((c) => c.image_url.url),
 							},
 							history: [],
-							messages: []
-						}
+							messages: [],
+						},
 					};
-					
+
 					const headers = {
 						'Content-Type': 'application/json',
-						'Accept': 'application/json'
+						'Accept': 'application/json',
 					};
-					
-					return await eda.sys_ClientUrl.request(
-						url,
-						'POST',
-						JSON.stringify(requestData),
-						headers
-					);
+
+					return await eda.sys_ClientUrl.request(url, 'POST', JSON.stringify(requestData), headers);
 				} else if (selectedProvider === 'zhipu') {
 					// 智谱AI使用OpenAI兼容格式
 					if (!apiKey || apiKey.trim() === '') {
 						throw new Error('智谱AI需要API密钥，请在模型设置中输入您的API Key');
 					}
-					
+
 					const headers = {
 						'Content-Type': 'application/json',
-						'Authorization': `Bearer ${apiKey.trim()}`
+						'Authorization': `Bearer ${apiKey.trim()}`,
 					};
-					
+
 					// 转换为智谱AI格式
 					const zhipuData = {
 						model: data.model,
-						messages: data.messages.map(msg => ({
+						messages: data.messages.map((msg) => ({
 							role: msg.role,
-							content: msg.content
-						}))
+							content: msg.content,
+						})),
 					};
-					
+
 					console.log('智谱AI API调用参数:', {
 						url: url,
 						headers: headers,
-						data: zhipuData
+						data: zhipuData,
 					});
-					
-					return await eda.sys_ClientUrl.request(
-						url,
-						'POST',
-						JSON.stringify(zhipuData),
-						{ headers: headers }
-					);
+
+					return await eda.sys_ClientUrl.request(url, 'POST', JSON.stringify(zhipuData), { headers: headers });
 				} else if (selectedProvider === 'qwen') {
 					// 通义千问使用兼容模式格式
 					if (!apiKey || apiKey.trim() === '') {
 						throw new Error('通义千问需要API密钥，请在模型设置中输入您的API Key');
 					}
-					
+
 					const headers = {
 						'Content-Type': 'application/json',
-						'Authorization': `Bearer ${apiKey.trim()}`
+						'Authorization': `Bearer ${apiKey.trim()}`,
 					};
-					
+
 					// 转换为兼容模式格式
 					const qwenData = {
 						model: data.model,
-						messages: data.messages.map(msg => ({
+						messages: data.messages.map((msg) => ({
 							role: msg.role,
-							content: msg.content
-						}))
+							content: msg.content,
+						})),
 					};
-					
-					return await eda.sys_ClientUrl.request(
-						url,
-						'POST',
-						JSON.stringify(qwenData),
-						{ headers: headers }
-					);
+
+					return await eda.sys_ClientUrl.request(url, 'POST', JSON.stringify(qwenData), { headers: headers });
 				} else {
 					// 自定义API格式
 					const headers = {
-						'Content-Type': 'application/json'
+						'Content-Type': 'application/json',
 					};
-					
+
 					if (config.requiresApiKey && apiKey) {
 						headers['Authorization'] = `Bearer ${apiKey}`;
 					}
-					
-					return await eda.sys_ClientUrl.request(
-				url,
-				'POST',
-				JSON.stringify(data),
-				{ headers: headers }
-			);
+
+					return await eda.sys_ClientUrl.request(url, 'POST', JSON.stringify(data), { headers: headers });
 				}
 			}
 
@@ -3691,85 +3697,85 @@
 			 */
 			async function analyzeImage(files, base64Images, mimeTypes) {
 				if (shouldStopProcessing) {
-				throw new Error('用户已停止处理');
-			}
+					throw new Error('用户已停止处理');
+				}
 
-			// 构建多图内容数组
-			const imageContents = [];
-			for (let i = 0; i < base64Images.length; i++) {
-				// 自定义API需要JPEG格式，其他API使用原始格式
-				const imageFormat = isSpecialApiFormat(selectedProvider, apiUrl) ? 'jpeg' : mimeTypes[i];
+				// 构建多图内容数组
+				const imageContents = [];
+				for (let i = 0; i < base64Images.length; i++) {
+					// 自定义API需要JPEG格式，其他API使用原始格式
+					const imageFormat = isSpecialApiFormat(selectedProvider, apiUrl) ? 'jpeg' : mimeTypes[i];
+					imageContents.push({
+						type: 'image_url',
+						image_url: {
+							url: `data:image/${imageFormat};base64,${base64Images[i]}`,
+						},
+					});
+				}
+
+				// 添加文本提示
 				imageContents.push({
-					type: 'image_url',
-					image_url: {
-						url: `data:image/${imageFormat};base64,${base64Images[i]}`,
-					},
+					type: 'text',
+					text: "从芯片封装手册的符号图中提取以下信息:{['type'],['pinNumber','pinName',]}，图像 type 包括:SOP、QFN、BGA。严格输出JSON",
 				});
-			}
-			
-			// 添加文本提示
-			imageContents.push({
-				type: 'text',
-				text: "从芯片封装手册的符号图中提取以下信息:{['type'],['pinNumber','pinName',]}，图像 type 包括:SOP、QFN、BGA。严格输出JSON",
-			});
-			
-			const data = {
-				model: selectedModel,
-				vl_high_resolution_images: true,
-				messages: [
-					{
-						role: 'system',
-						content: [{ type: 'text', text: 'You are a helpful assistant.' }],
-					},
-					{
-						role: 'user',
-						content: imageContents,
-					},
-				],
-			};
 
-			try {
-				const response = await callAPI(data);
-
-				if (!response.ok) {
-					throw new Error('API请求失败');
-				}
-
-				const result = await response.json();
-				
-				if (isSpecialApiFormat(selectedProvider, apiUrl)) {
-				// 特殊API响应格式处理
-				return {
-					result: result.data?.content || result.content || '解析失败',
-					inputTokens: 0, // 特殊API可能不返回token信息
-					outputTokens: 0,
+				const data = {
+					model: selectedModel,
+					vl_high_resolution_images: true,
+					messages: [
+						{
+							role: 'system',
+							content: [{ type: 'text', text: 'You are a helpful assistant.' }],
+						},
+						{
+							role: 'user',
+							content: imageContents,
+						},
+					],
 				};
-				} else if (selectedProvider === 'zhipu') {
-					// 智谱AI响应格式
-					return {
-						result: result.choices[0].message.content,
-						inputTokens: result.usage?.prompt_tokens || 0,
-						outputTokens: result.usage?.completion_tokens || 0,
-					};
-				} else if (selectedProvider === 'qwen') {
-					// 通义千问兼容模式响应格式
-					return {
-						result: result.choices[0].message.content,
-						inputTokens: result.usage?.prompt_tokens || 0,
-						outputTokens: result.usage?.completion_tokens || 0,
-					};
-				} else {
-					// 自定义API响应格式
-					return {
-						result: result.choices[0].message.content,
-						inputTokens: result.usage?.prompt_tokens || 0,
-						outputTokens: result.usage?.completion_tokens || 0,
-					};
+
+				try {
+					const response = await callAPI(data);
+
+					if (!response.ok) {
+						throw new Error('API请求失败');
+					}
+
+					const result = await response.json();
+
+					if (isSpecialApiFormat(selectedProvider, apiUrl)) {
+						// 特殊API响应格式处理
+						return {
+							result: result.data?.content || result.content || '解析失败',
+							inputTokens: 0, // 特殊API可能不返回token信息
+							outputTokens: 0,
+						};
+					} else if (selectedProvider === 'zhipu') {
+						// 智谱AI响应格式
+						return {
+							result: result.choices[0].message.content,
+							inputTokens: result.usage?.prompt_tokens || 0,
+							outputTokens: result.usage?.completion_tokens || 0,
+						};
+					} else if (selectedProvider === 'qwen') {
+						// 通义千问兼容模式响应格式
+						return {
+							result: result.choices[0].message.content,
+							inputTokens: result.usage?.prompt_tokens || 0,
+							outputTokens: result.usage?.completion_tokens || 0,
+						};
+					} else {
+						// 自定义API响应格式
+						return {
+							result: result.choices[0].message.content,
+							inputTokens: result.usage?.prompt_tokens || 0,
+							outputTokens: result.usage?.completion_tokens || 0,
+						};
+					}
+				} catch (error) {
+					console.error('API调用错误:', error);
+					throw new Error(`API调用失败: ${error.message}`);
 				}
-			} catch (error) {
-				console.error('API调用错误:', error);
-				throw new Error(`API调用失败: ${error.message}`);
-			}
 			}
 
 			/**
@@ -3874,8 +3880,6 @@
 				resultsList.appendChild(resultCard);
 			}
 
-
-
 			/**
 			 * 下载所有结果
 			 */
@@ -3958,52 +3962,45 @@
 					'pin_width': ['PW', '引脚宽度', 'pin_width'],
 					'pin_pitch': ['PP', '引脚间距', 'pin_pitch', '间距'],
 					'pin_spacing': ['PS', '引脚间距', 'pin_spacing'],
-					'pin_width1': ['PW1', '引脚宽度1', 'pin_width1']
+					'pin_width1': ['PW1', '引脚宽度1', 'pin_width1'],
 				};
-				
+
 				// 获取API参数的名称和key
 				const apiName = apiParam.name || '';
 				const apiKey = apiParam.key || '';
-				
+
 				// 首先尝试精确匹配
-				let existingParam = paramDataArray.find(p => 
-					p.key === apiKey || p.name === apiName ||
-					p.key === apiName || p.name === apiKey
-				);
-				
+				let existingParam = paramDataArray.find((p) => p.key === apiKey || p.name === apiName || p.key === apiName || p.name === apiKey);
+
 				if (existingParam) {
 					return existingParam;
 				}
-				
+
 				// 如果精确匹配失败，尝试别名匹配
 				for (const [standardKey, aliases] of Object.entries(paramAliases)) {
 					// 检查API参数是否匹配任何别名
-					if (aliases.some(alias => 
-						alias === apiName || alias === apiKey ||
-						apiName.includes(alias) || apiKey.includes(alias)
-					)) {
+					if (aliases.some((alias) => alias === apiName || alias === apiKey || apiName.includes(alias) || apiKey.includes(alias))) {
 						// 查找对应的标准参数
-						existingParam = paramDataArray.find(p => 
-							p.key === standardKey ||
-							aliases.some(alias => p.name.includes(alias) || p.key.includes(alias))
+						existingParam = paramDataArray.find(
+							(p) => p.key === standardKey || aliases.some((alias) => p.name.includes(alias) || p.key.includes(alias)),
 						);
-						
+
 						if (existingParam) {
 							return existingParam;
 						}
 					}
 				}
-				
+
 				return null;
 			}
-			
+
 			/**
 			 * 解析并添加引脚数据
 			 */
 			function parseAndAddParams(resultText) {
 				try {
 					console.log('开始解析封装参数数据，原始内容:', resultText);
-					
+
 					// 智谱AI特殊标记处理
 					if (selectedProvider === 'zhipu') {
 						// 提取<|begin_of_box|>和<|end_of_box|>之间的内容
@@ -4013,32 +4010,32 @@
 							console.log('智谱AI提取的JSON内容:', resultText);
 						}
 					}
-					
+
 					// 方法1: 尝试解析标准的```json代码块或```代码块
 					const codeBlockRegex = /```(?:json)?\s*([\s\S]*?)\s*```/g;
 					let match;
 					const jsonContents = [];
-					
+
 					while ((match = codeBlockRegex.exec(resultText)) !== null) {
 						jsonContents.push(match[1].trim());
 					}
-					
+
 					if (jsonContents.length > 0) {
 						console.log('找到JSON代码块，数量:', jsonContents.length);
-						
+
 						// 遍历所有JSON内容，寻找包含parameters数组的
 						for (const jsonContent of jsonContents) {
 							try {
 								console.log('尝试解析JSON内容:', jsonContent);
 								const jsonData = JSON.parse(jsonContent);
-								
+
 								if (jsonData.parameters && Array.isArray(jsonData.parameters)) {
 									console.log('找到有效的parameters数组，长度:', jsonData.parameters.length);
-									
+
 									// 如果检测到封装类型，自动设置
-							if (jsonData.package_type) {
-								let packageType = jsonData.package_type;
-								// 包含BGA的封装类型自动归类到BGA
+									if (jsonData.package_type) {
+										let packageType = jsonData.package_type;
+										// 包含BGA的封装类型自动归类到BGA
 										if (packageType && packageType.includes('BGA')) {
 											packageType = 'BGA';
 										}
@@ -4046,29 +4043,29 @@
 										if (packageType && packageType.includes('DIP')) {
 											packageType = 'DIP';
 										}
-							// 包含DIP的封装类型自动归类到DIP
-							if (packageType && packageType.includes('DIP')) {
-								packageType = 'DIP';
-							}
-								packageTypeSelect.value = packageType;
-								onPackageTypeChange();
-							}
-									
-									jsonData.parameters.forEach(param => {
-												// 智能匹配参数定义
-												const existingParam = findMatchingParam(param, paramData);
-												if (existingParam) {
-													existingParam.value = param.value || '';
-												} else {
-													// 如果没有找到对应参数，添加新参数
-													paramData.push({
-														name: param.name || param.key || '',
-														key: param.key || param.name || '',
-														value: param.value || '',
-														unit: param.unit || 'mm'
-													});
-												}
+										// 包含DIP的封装类型自动归类到DIP
+										if (packageType && packageType.includes('DIP')) {
+											packageType = 'DIP';
+										}
+										packageTypeSelect.value = packageType;
+										onPackageTypeChange();
+									}
+
+									jsonData.parameters.forEach((param) => {
+										// 智能匹配参数定义
+										const existingParam = findMatchingParam(param, paramData);
+										if (existingParam) {
+											existingParam.value = param.value || '';
+										} else {
+											// 如果没有找到对应参数，添加新参数
+											paramData.push({
+												name: param.name || param.key || '',
+												key: param.key || param.name || '',
+												value: param.value || '',
+												unit: param.unit || 'mm',
 											});
+										}
+									});
 									updateParamTable();
 									updateUI();
 									eda.sys_ToastMessage.showMessage(`成功解析 ${jsonData.parameters.length} 个封装参数`, 1);
@@ -4080,30 +4077,30 @@
 							}
 						}
 					}
-					
+
 					// 方法2: 尝试直接解析整个响应作为JSON（不在代码块中）
 					try {
 						console.log('尝试直接解析整个响应作为JSON');
 						const directJsonData = JSON.parse(resultText.trim());
 						if (directJsonData.parameters && Array.isArray(directJsonData.parameters)) {
 							console.log('直接解析成功，找到有效的parameters数组，长度:', directJsonData.parameters.length);
-							
+
 							// 如果检测到封装类型，自动设置
-				if (directJsonData.package_type) {
-					let packageType = directJsonData.package_type;
-					// 包含BGA的封装类型自动归类到BGA
-					if (packageType && packageType.includes('BGA')) {
-						packageType = 'BGA';
-					}
-					// 包含DIP的封装类型自动归类到DIP
-					if (packageType && packageType.includes('DIP')) {
-						packageType = 'DIP';
-					}
-					packageTypeSelect.value = packageType;
-					onPackageTypeChange();
-				}
-							
-							directJsonData.parameters.forEach(param => {
+							if (directJsonData.package_type) {
+								let packageType = directJsonData.package_type;
+								// 包含BGA的封装类型自动归类到BGA
+								if (packageType && packageType.includes('BGA')) {
+									packageType = 'BGA';
+								}
+								// 包含DIP的封装类型自动归类到DIP
+								if (packageType && packageType.includes('DIP')) {
+									packageType = 'DIP';
+								}
+								packageTypeSelect.value = packageType;
+								onPackageTypeChange();
+							}
+
+							directJsonData.parameters.forEach((param) => {
 								// 智能匹配参数定义
 								const existingParam = findMatchingParam(param, paramData);
 								if (existingParam) {
@@ -4114,7 +4111,7 @@
 										name: param.name || param.key || '',
 										key: param.key || param.name || '',
 										value: param.value || '',
-										unit: param.unit || 'mm'
+										unit: param.unit || 'mm',
 									});
 								}
 							});
@@ -4126,44 +4123,44 @@
 					} catch (directParseError) {
 						console.log('直接解析JSON失败:', directParseError);
 					}
-					
+
 					// 方法3: 尝试查找JSON对象（使用正则表达式）
 					const directJsonMatch = resultText.match(/\{[\s\S]*?"parameters"[\s\S]*?\}/g);
 					if (directJsonMatch && directJsonMatch.length > 0) {
 						console.log('找到直接JSON对象，数量:', directJsonMatch.length);
-						
+
 						for (const jsonStr of directJsonMatch) {
 							try {
 								const jsonData = JSON.parse(jsonStr);
 								if (jsonData.parameters && Array.isArray(jsonData.parameters)) {
 									console.log('找到有效的parameters数组，长度:', jsonData.parameters.length);
-									
+
 									// 如果检测到封装类型，自动设置
-											if (jsonData.package_type) {
-												let packageType = jsonData.package_type;
-												// 包含BGA的封装类型自动归类到BGA
-												if (packageType && packageType.includes('BGA')) {
-													packageType = 'BGA';
-												}
-												packageTypeSelect.value = packageType;
-												onPackageTypeChange();
-											}
-									
-									jsonData.parameters.forEach(param => {
-													// 智能匹配参数定义
-													const existingParam = findMatchingParam(param, paramData);
-													if (existingParam) {
-														existingParam.value = param.value || '';
-													} else {
-														// 如果没有找到对应参数，添加新参数
-														paramData.push({
-															name: param.name || param.key || '',
-															key: param.key || param.name || '',
-															value: param.value || '',
-															unit: param.unit || 'mm'
-														});
-													}
-												});
+									if (jsonData.package_type) {
+										let packageType = jsonData.package_type;
+										// 包含BGA的封装类型自动归类到BGA
+										if (packageType && packageType.includes('BGA')) {
+											packageType = 'BGA';
+										}
+										packageTypeSelect.value = packageType;
+										onPackageTypeChange();
+									}
+
+									jsonData.parameters.forEach((param) => {
+										// 智能匹配参数定义
+										const existingParam = findMatchingParam(param, paramData);
+										if (existingParam) {
+											existingParam.value = param.value || '';
+										} else {
+											// 如果没有找到对应参数，添加新参数
+											paramData.push({
+												name: param.name || param.key || '',
+												key: param.key || param.name || '',
+												value: param.value || '',
+												unit: param.unit || 'mm',
+											});
+										}
+									});
 									updateParamTable();
 									updateUI();
 									eda.sys_ToastMessage.showMessage(`成功解析 ${jsonData.parameters.length} 个封装参数`, 1);
@@ -4175,11 +4172,10 @@
 							}
 						}
 					}
-					
+
 					// 如果所有方法都失败了
 					console.error('所有解析方法都失败了');
 					eda.sys_ToastMessage.showMessage('无法解析封装参数，请检查API返回格式', 0);
-					
 				} catch (error) {
 					console.error('解析封装参数数据失败:', error);
 					console.error('原始内容:', resultText);
@@ -4196,32 +4192,31 @@
 					eda.sys_ToastMessage.showMessage('请先选择封装类型', 2);
 					return;
 				}
-				
+
 				if (paramData.length === 0) {
 					eda.sys_ToastMessage.showMessage('请先添加封装参数', 2);
 					return;
 				}
-				
+
 				try {
-					
 					// 构建封装参数对象
 					const footprintParams = {};
-					paramData.forEach(param => {
+					paramData.forEach((param) => {
 						if (param.value && param.value.trim() !== '') {
 							footprintParams[param.key] = parseFloat(param.value) || param.value;
 						}
 					});
-					
+
 					console.log('封装类型:', selectedType);
-				console.log('封装参数:', footprintParams);
-				
-				// 创建封装
-				const success = createFootprint(selectedType, footprintParams);
-				
-				if (success) {
-					eda.sys_IFrame.hideIFrame('footprint');
-					eda.sys_ToastMessage.showMessage('封装创建成功，支持在菜单中通过点击"继续创建"选项以重新打开窗口', 3);
-				}
+					console.log('封装参数:', footprintParams);
+
+					// 创建封装
+					const success = createFootprint(selectedType, footprintParams);
+
+					if (success) {
+						eda.sys_IFrame.hideIFrame('footprint');
+						eda.sys_ToastMessage.showMessage('封装创建成功，支持在菜单中通过点击"继续创建"选项以重新打开窗口', 3);
+					}
 				} catch (error) {
 					console.error('创建封装失败:', error);
 					eda.sys_ToastMessage.showMessage('创建封装失败，请检查控制台日志以获取详细信息', 0);
@@ -4373,693 +4368,765 @@
 					}
 
 					console.log('创建引脚:', pinNumber, pinName, x, y, rotation);
-				eda.sch_PrimitivePin.create(x, y, pinNumber, pinName, rotation);
-			});
-		}
+					eda.sch_PrimitivePin.create(x, y, pinNumber, pinName, rotation);
+				});
+			}
 
-		/**
-		 * 创建封装
-		 * @returns {boolean} 是否成功创建封装
-		 */
-		function createFootprint(packageType, params) {
-			console.log('开始创建封装:', packageType, params);
-			
-			// 检查是否为暂不支持的封装类型
-			const unsupportedTypes = ['SOD', 'SOT23', 'SOT223'];
-			if (unsupportedTypes.includes(packageType)) {
-				eda.sys_ToastMessage.showMessage('该封装类型暂不支持创建', 2);
-				return false;
-			}
-			
-			// 这里应该调用EDA的封装创建API
-			// 由于不同的封装类型需要不同的创建逻辑，这里提供一个基础框架
-			
-			switch (packageType) {
-				case 'BGA':
-				case 'CSP_BGA':
-					createBGAFootprint(params);
-					break;
-				case 'DIP':
-					createDIPFootprint(params);
-					break;
-				case 'QFN':
-					createQFNFootprint(params);
-					break;
-				case 'QFP':
-					createQFPFootprint(params);
-					break;
-				case 'SOP':
-					createSOPFootprint(params);
-					break;
-				default:
-					throw new Error('不支持的封装类型: ' + packageType);
-			}
-			
-			return true;
-		}
+			/**
+			 * 创建封装
+			 * @returns {boolean} 是否成功创建封装
+			 */
+			function createFootprint(packageType, params) {
+				console.log('开始创建封装:', packageType, params);
 
-		/**
-		 * 创建BGA封装
-		 */
-		function createBGAFootprint(params) {
-			console.log('创建BGA封装:', params);
-			
-			// 获取参数，设置默认值
-			const pinRows = parseInt(params['引脚行数']) || parseInt(params.pin_rows) || 11; // 引脚行数
-			const pinCols = parseInt(params['引脚列数']) || parseInt(params.pin_cols) || 11; // 引脚列数
-			const bodyLength = parseFloat(params['本体长度']) || parseFloat(params['本体长度(BL)']) || parseFloat(params.body_length) || parseFloat(params.BL) || 6.2; // 本体长度(BL)
-			const bodyWidth = parseFloat(params['本体宽度']) || parseFloat(params['本体宽度(BW)']) || parseFloat(params.body_width) || parseFloat(params.BW) || 6.2; // 本体宽度(BW)
-			const pinDiameter = parseFloat(params['引脚直径']) || parseFloat(params['引脚直径(PD)']) || parseFloat(params.pin_diameter) || parseFloat(params.PD) || 0.3; // 引脚直径(PD)
-			const pinSpacing = parseFloat(params['引脚间距']) || parseFloat(params['引脚间距(PS)']) || parseFloat(params.pin_spacing) || parseFloat(params.PS) || 0.5; // 引脚间距(PS)
-			// 引脚纵向间距(PP)，如果没有提供PP参数，则使用PS的值
-			const pinPitchVertical = parseFloat(params['引脚纵向间距']) || parseFloat(params['引脚纵向间距(PP)']) || parseFloat(params.pin_pitch_vertical) || parseFloat(params.PP) || pinSpacing; // 引脚纵向间距(PP)
-			
-			console.log('BGA参数:', {
-				pinRows, pinCols, bodyLength, bodyWidth, 
-				pinDiameter, pinSpacing, pinPitchVertical
-			});
-			
-			// 转换为EDA单位(mil，1mm = 39.3701mil)
-			const mmToMil = 39.3701;
-			const bodyLengthMil = bodyLength * mmToMil;
-			const bodyWidthMil = bodyWidth * mmToMil;
-			const pinDiameterMil = pinDiameter * mmToMil;
-			const pinSpacingMil = pinSpacing * mmToMil;
-			const pinPitchVerticalMil = pinPitchVertical * mmToMil;
-			
-			// 计算引脚阵列的起始位置（左上角）
-			const startX = -(pinCols - 1) * pinSpacingMil / 2;
-			const startY = (pinRows - 1) * pinPitchVerticalMil / 2;
-			
-			// 生成BGA引脚标号（A1, A2, ..., B1, B2, ...）
-			function getBGAPinName(row, col) {
-				const rowLetter = String.fromCharCode(65 + row); // A, B, C, ...
-				const colNumber = col + 1; // 1, 2, 3, ...
-				return rowLetter + colNumber;
+				// 检查是否为暂不支持的封装类型
+				const unsupportedTypes = ['SOD', 'SOT23', 'SOT223'];
+				if (unsupportedTypes.includes(packageType)) {
+					eda.sys_ToastMessage.showMessage('该封装类型暂不支持创建', 2);
+					return false;
+				}
+
+				// 这里应该调用EDA的封装创建API
+				// 由于不同的封装类型需要不同的创建逻辑，这里提供一个基础框架
+
+				switch (packageType) {
+					case 'BGA':
+					case 'CSP_BGA':
+						createBGAFootprint(params);
+						break;
+					case 'DIP':
+						createDIPFootprint(params);
+						break;
+					case 'QFN':
+						createQFNFootprint(params);
+						break;
+					case 'QFP':
+						createQFPFootprint(params);
+						break;
+					case 'SOP':
+						createSOPFootprint(params);
+						break;
+					default:
+						throw new Error('不支持的封装类型: ' + packageType);
+				}
+
+				return true;
 			}
-			
-			// 创建BGA引脚阵列
-			for (let row = 0; row < pinRows; row++) {
-				for (let col = 0; col < pinCols; col++) {
-					const x = startX + col * pinSpacingMil;
-					const y = startY - row * pinPitchVerticalMil;
-					const pinName = getBGAPinName(row, col);
-					
-					// 创建圆形焊盘（BGA引脚为球形焊点）
+
+			/**
+			 * 创建BGA封装
+			 */
+			function createBGAFootprint(params) {
+				console.log('创建BGA封装:', params);
+
+				// 获取参数，设置默认值
+				const pinRows = parseInt(params['引脚行数']) || parseInt(params.pin_rows) || 11; // 引脚行数
+				const pinCols = parseInt(params['引脚列数']) || parseInt(params.pin_cols) || 11; // 引脚列数
+				const bodyLength =
+					parseFloat(params['本体长度']) ||
+					parseFloat(params['本体长度(BL)']) ||
+					parseFloat(params.body_length) ||
+					parseFloat(params.BL) ||
+					6.2; // 本体长度(BL)
+				const bodyWidth =
+					parseFloat(params['本体宽度']) ||
+					parseFloat(params['本体宽度(BW)']) ||
+					parseFloat(params.body_width) ||
+					parseFloat(params.BW) ||
+					6.2; // 本体宽度(BW)
+				const pinDiameter =
+					parseFloat(params['引脚直径']) ||
+					parseFloat(params['引脚直径(PD)']) ||
+					parseFloat(params.pin_diameter) ||
+					parseFloat(params.PD) ||
+					0.3; // 引脚直径(PD)
+				const pinSpacing =
+					parseFloat(params['引脚间距']) ||
+					parseFloat(params['引脚间距(PS)']) ||
+					parseFloat(params.pin_spacing) ||
+					parseFloat(params.PS) ||
+					0.5; // 引脚间距(PS)
+				// 引脚纵向间距(PP)，如果没有提供PP参数，则使用PS的值
+				const pinPitchVertical =
+					parseFloat(params['引脚纵向间距']) ||
+					parseFloat(params['引脚纵向间距(PP)']) ||
+					parseFloat(params.pin_pitch_vertical) ||
+					parseFloat(params.PP) ||
+					pinSpacing; // 引脚纵向间距(PP)
+
+				console.log('BGA参数:', {
+					pinRows,
+					pinCols,
+					bodyLength,
+					bodyWidth,
+					pinDiameter,
+					pinSpacing,
+					pinPitchVertical,
+				});
+
+				// 转换为EDA单位(mil，1mm = 39.3701mil)
+				const mmToMil = 39.3701;
+				const bodyLengthMil = bodyLength * mmToMil;
+				const bodyWidthMil = bodyWidth * mmToMil;
+				const pinDiameterMil = pinDiameter * mmToMil;
+				const pinSpacingMil = pinSpacing * mmToMil;
+				const pinPitchVerticalMil = pinPitchVertical * mmToMil;
+
+				// 计算引脚阵列的起始位置（左上角）
+				const startX = (-(pinCols - 1) * pinSpacingMil) / 2;
+				const startY = ((pinRows - 1) * pinPitchVerticalMil) / 2;
+
+				// 生成BGA引脚标号（A1, A2, ..., B1, B2, ...）
+				function getBGAPinName(row, col) {
+					const rowLetter = String.fromCharCode(65 + row); // A, B, C, ...
+					const colNumber = col + 1; // 1, 2, 3, ...
+					return rowLetter + colNumber;
+				}
+
+				// 创建BGA引脚阵列
+				for (let row = 0; row < pinRows; row++) {
+					for (let col = 0; col < pinCols; col++) {
+						const x = startX + col * pinSpacingMil;
+						const y = startY - row * pinPitchVerticalMil;
+						const pinName = getBGAPinName(row, col);
+
+						// 创建圆形焊盘（BGA引脚为球形焊点）
+						eda.pcb_PrimitivePad.create(EPCB_LayerId.TOP, pinName, x, y, 0, [
+							EPCB_PrimitivePadShapeType.ELLIPSE,
+							pinDiameterMil,
+							pinDiameterMil,
+						]);
+					}
+				}
+
+				// 创建丝印轮廓（封装外形）- 使用固定尺寸
+				const outlineX = silkWidth / 2; // 丝印框宽度的一半
+				const outlineY = silkLength / 2; // 丝印框长度的一半
+
+				// 创建三边矩形外框（不包含上边，为圆弧留出空间）
+				// 左边
+				const leftLine = eda.pcb_MathPolygon.createPolygon([-outlineX, outlineY, 'L', -outlineX, -outlineY]);
+				// 下边
+				const bottomLine = eda.pcb_MathPolygon.createPolygon([-outlineX, -outlineY, 'L', outlineX, -outlineY]);
+				// 右边
+				const rightLine = eda.pcb_MathPolygon.createPolygon([outlineX, -outlineY, 'L', outlineX, outlineY]);
+
+				eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, leftLine, 6);
+				eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, bottomLine, 6);
+				eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, rightLine, 6);
+
+				// 在A1角落（左上角）添加指示标记
+				const markSize = 12; // 标记大小(mil)
+				const markOffset = 4; // 标记偏移量(mil)
+
+				// 创建A1角落的三角形标记
+				const triangleMark = eda.pcb_MathPolygon.createPolygon([
+					-outlineX + markOffset,
+					outlineY - markOffset,
+					'L',
+					-outlineX + markOffset + markSize,
+					outlineY - markOffset,
+					'L',
+					-outlineX + markOffset,
+					outlineY - markOffset - markSize,
+					'L',
+					-outlineX + markOffset,
+					outlineY - markOffset,
+				]);
+				eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, triangleMark, 6);
+
+				// 添加A1标识圆点
+				const dotX = -outlineX + markOffset + markSize / 2;
+				const dotY = outlineY - markOffset - markSize / 2;
+				const dotRadius = 2; // 小圆点半径(mil)
+				const dotCircle = eda.pcb_MathPolygon.createPolygon([dotX, dotY, 'A', dotX + dotRadius, dotY, dotX, dotY]);
+				eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, dotCircle, 6);
+
+				console.log('BGA封装创建完成，总引脚数:', pinRows * pinCols);
+			}
+
+			/**
+			 * 创建DIP封装
+			 */
+			function createDIPFootprint(params) {
+				console.log('创建DIP封装:', params);
+
+				// 获取参数，设置默认值
+				const pinCount = parseInt(params.pin_count) || 16; // 引脚数量
+				const leadSpan = parseFloat(params.LS) || 7.62; // 引脚跨距(LS)
+				const bodyLength = parseFloat(params.BL) || 9.27; // 本体长度(BL)
+				const bodyWidth = parseFloat(params.BW) || 7.87; // 本体宽度(BW)
+				const pinDiameter = parseFloat(params.PD) || 0.46; // 引脚直径(PD)
+				const pinPitch = parseFloat(params.PP) || 2.54; // 引脚间距(PP)
+				// 可选孔径参数（若未提供则使用引脚直径）
+				const holeDiameter = parseFloat(params['孔径']) || parseFloat(params.HD) || parseFloat(params.hole_diameter) || pinDiameter;
+
+				console.log('DIP参数:', {
+					pinCount,
+					leadSpan,
+					bodyLength,
+					bodyWidth,
+					pinDiameter,
+					pinPitch,
+					holeDiameter,
+				});
+
+				// 转换为EDA单位(mil，1mm = 39.3701mil)
+				const mmToMil = 39.3701;
+				const leadSpanMil = leadSpan * mmToMil;
+				const bodyLengthMil = bodyLength * mmToMil;
+				const bodyWidthMil = bodyWidth * mmToMil;
+				const pinDiameterMil = pinDiameter * mmToMil;
+				const pinPitchMil = pinPitch * mmToMil;
+				const holeDiameterMil = holeDiameter * mmToMil;
+
+				// 固定焊盘直径为65mil
+				const padDiameter = 65; // 焊盘直径(mil)
+
+				// 计算每侧引脚数量（需在使用前声明，避免TDZ错误）
+				const pinsPerSide = pinCount / 2;
+
+				// 丝印边框与引脚/本体的关系（动态计算）
+				const silkClearance = 10; // 丝印与实体的安全间距(mil)
+				const padRadius = padDiameter / 2;
+				const verticalSpanMil = (pinsPerSide - 1) * pinPitchMil; // 最上到最下引脚中心的距离
+
+				// 动态计算丝印长度（Y方向）
+				// 取本体长度与引脚覆盖范围（二者加上安全间距）中的较大者
+				const silkLength = Math.max(bodyLengthMil + 2 * silkClearance, verticalSpanMil + padDiameter + 2 * silkClearance);
+
+				// 动态计算丝印宽度（X方向）
+				// 取本体宽度与两列引脚跨距（含焊盘直径）加上安全间距中的较大者
+				const silkWidth = Math.max(bodyWidthMil + 2 * silkClearance, leadSpanMil + padDiameter + 2 * silkClearance);
+
+				// 创建引脚
+				let pinNumber = 1;
+
+				// 左侧引脚 (引脚1开始，从上到下)
+				for (let i = 0; i < pinsPerSide; i++) {
+					const y = ((pinsPerSide - 1) * pinPitchMil) / 2 - i * pinPitchMil;
+					const x = -leadSpanMil / 2;
+					eda.pcb_PrimitivePad.create(
+						EPCB_LayerId.MULTI,
+						pinNumber.toString(),
+						x,
+						y,
+						0,
+						[EPCB_PrimitivePadShapeType.ELLIPSE, padDiameter, padDiameter],
+						undefined,
+						[EPCB_PrimitivePadHoleType.ROUND, holeDiameterMil, holeDiameterMil],
+					);
+					pinNumber++;
+				}
+
+				// 右侧引脚 (从下到上)
+				for (let i = 0; i < pinsPerSide; i++) {
+					const y = (-(pinsPerSide - 1) * pinPitchMil) / 2 + i * pinPitchMil;
+					const x = leadSpanMil / 2;
+					eda.pcb_PrimitivePad.create(
+						EPCB_LayerId.MULTI,
+						pinNumber.toString(),
+						x,
+						y,
+						0,
+						[EPCB_PrimitivePadShapeType.ELLIPSE, padDiameter, padDiameter],
+						undefined,
+						[EPCB_PrimitivePadHoleType.ROUND, holeDiameterMil, holeDiameterMil],
+					);
+					pinNumber++;
+				}
+
+				// 创建丝印轮廓（封装外形）
+				const outlineX = silkWidth / 2; // 使用固定的丝印宽度
+				const outlineY = silkLength / 2; // 使用固定的丝印长度
+
+				// 创建左边线
+				const leftLine = eda.pcb_MathPolygon.createPolygon([-outlineX, outlineY, 'L', -outlineX, -outlineY]);
+				eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, leftLine, 6);
+
+				// 创建右边线
+				const rightLine = eda.pcb_MathPolygon.createPolygon([outlineX, outlineY, 'L', outlineX, -outlineY]);
+				eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, rightLine, 6);
+
+				// 创建下边线
+				const bottomLine = eda.pcb_MathPolygon.createPolygon([-outlineX, -outlineY, 'L', outlineX, -outlineY]);
+				eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, bottomLine, 6);
+
+				// 在上边创建两条短线和连接圆弧（参考文档结构）
+				// 圆弧间隙随整体宽度动态调整（限定最小/最大范围以避免过大或过小）
+				const minArcGap = 60; // mil
+				const maxArcGap = 140; // mil
+				const arcGap = Math.max(minArcGap, Math.min(maxArcGap, silkWidth * 0.35));
+
+				// 创建左侧短线
+				const leftShortLine = eda.pcb_MathPolygon.createPolygon([-outlineX, outlineY, 'L', -arcGap / 2, outlineY]);
+				eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, leftShortLine, 6);
+
+				// 创建右侧短线
+				const rightShortLine = eda.pcb_MathPolygon.createPolygon([arcGap / 2, outlineY, 'L', outlineX, outlineY]);
+				eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, rightShortLine, 6);
+
+				// 创建连接圆弧（180度圆弧）
+				const connectingArc = eda.pcb_MathPolygon.createPolygon([-arcGap / 2, outlineY, 'ARC', 180, arcGap / 2, outlineY]);
+				eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, connectingArc, 6);
+
+				console.log('DIP封装创建完成，总引脚数:', pinCount);
+			}
+
+			/**
+			 * 创建QFN封装
+			 */
+			function createQFNFootprint(params) {
+				console.log('创建QFN封装:', params);
+
+				// 获取参数，设置默认值
+				const pinCountLR = parseInt(params.pin_count_lr) || 6; // 左右引脚数
+				const pinCountTB = parseInt(params.pin_count_tb) || 8; // 上下引脚数
+				const bodyLength = parseFloat(params.body_length) || 5.0; // 本体长度(BL)
+				const bodyWidth = parseFloat(params.body_width) || 4.0; // 本体宽度(BW)
+				const pinLength = parseFloat(params.pin_length) || 0.4; // 引脚长度(PL)
+				const pinWidth = parseFloat(params.pin_width) || 0.25; // 引脚宽度(PW)
+				const pinPitch = parseFloat(params.pin_pitch) || 0.5; // 引脚间距(PP)
+
+				console.log('QFN参数:', {
+					pinCountLR,
+					pinCountTB,
+					bodyLength,
+					bodyWidth,
+					pinLength,
+					pinWidth,
+					pinPitch,
+				});
+
+				// 转换为EDA单位(mil，1mm = 39.3701mil)
+				const mmToMil = 39.3701;
+				const bodyLengthMil = bodyLength * mmToMil;
+				const bodyWidthMil = bodyWidth * mmToMil;
+				const pinLengthMil = pinLength * mmToMil;
+				const pinWidthMil = pinWidth * mmToMil;
+				const pinPitchMil = pinPitch * mmToMil;
+
+				// 计算引脚位置
+				let pinNumber = 1;
+
+				// 左侧引脚 (引脚1开始，从上到下)
+				for (let i = 0; i < pinCountLR; i++) {
+					const y = ((pinCountLR - 1) * pinPitchMil) / 2 - i * pinPitchMil;
+					const x = -bodyWidthMil / 2 - pinLengthMil / 2;
+					eda.pcb_PrimitivePad.create(EPCB_LayerId.TOP, pinNumber.toString(), x, y, 0, [
+						EPCB_PrimitivePadShapeType.RECTANGLE,
+						pinLengthMil,
+						pinWidthMil,
+						0,
+					]);
+					pinNumber++;
+				}
+
+				// 底部引脚 (从左到右)
+				for (let i = 0; i < pinCountTB; i++) {
+					const x = (-(pinCountTB - 1) * pinPitchMil) / 2 + i * pinPitchMil;
+					const y = -bodyLengthMil / 2 - pinLengthMil / 2;
 					eda.pcb_PrimitivePad.create(
 						EPCB_LayerId.TOP,
-						pinName,
-						x, y, 0,
-						[EPCB_PrimitivePadShapeType.ELLIPSE, pinDiameterMil, pinDiameterMil]
+						pinNumber.toString(),
+						x,
+						y,
+						1.57, // 90度旋转
+						[EPCB_PrimitivePadShapeType.RECTANGLE, pinLengthMil, pinWidthMil, 0],
 					);
+					pinNumber++;
 				}
-			}
-			
-			// 创建丝印轮廓（封装外形）- 使用固定尺寸
-			const outlineX = silkWidth / 2; // 丝印框宽度的一半
-			const outlineY = silkLength / 2; // 丝印框长度的一半
-			
-			// 创建三边矩形外框（不包含上边，为圆弧留出空间）
-			// 左边
-			const leftLine = eda.pcb_MathPolygon.createPolygon([
-				-outlineX, outlineY, 'L', -outlineX, -outlineY
-			]);
-			// 下边
-			const bottomLine = eda.pcb_MathPolygon.createPolygon([
-				-outlineX, -outlineY, 'L', outlineX, -outlineY
-			]);
-			// 右边
-			const rightLine = eda.pcb_MathPolygon.createPolygon([
-				outlineX, -outlineY, 'L', outlineX, outlineY
-			]);
-			
-			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, leftLine, 6);
-			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, bottomLine, 6);
-			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, rightLine, 6);
-			
-			// 在A1角落（左上角）添加指示标记
-			const markSize = 12; // 标记大小(mil)
-			const markOffset = 4; // 标记偏移量(mil)
-			
-			// 创建A1角落的三角形标记
-			const triangleMark = eda.pcb_MathPolygon.createPolygon([
-				-outlineX + markOffset, outlineY - markOffset, 'L',
-				-outlineX + markOffset + markSize, outlineY - markOffset, 'L',
-				-outlineX + markOffset, outlineY - markOffset - markSize, 'L',
-				-outlineX + markOffset, outlineY - markOffset
-			]);
-			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, triangleMark, 6);
-			
-			// 添加A1标识圆点
-			const dotX = -outlineX + markOffset + markSize / 2;
-			const dotY = outlineY - markOffset - markSize / 2;
-			const dotRadius = 2; // 小圆点半径(mil)
-			const dotCircle = eda.pcb_MathPolygon.createPolygon([dotX, dotY, 'A', dotX + dotRadius, dotY, dotX, dotY]);
-			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, dotCircle, 6);
-			
-			console.log('BGA封装创建完成，总引脚数:', pinRows * pinCols);
-		}
 
-		/**
-		 * 创建DIP封装
-		 */
-		function createDIPFootprint(params) {
-			console.log('创建DIP封装:', params);
-			
-			// 获取参数，设置默认值
-			const pinCount = parseInt(params.pin_count) || 16; // 引脚数量
-			const leadSpan = parseFloat(params.LS) || 7.62; // 引脚跨距(LS)
-			const bodyLength = parseFloat(params.BL) || 9.27; // 本体长度(BL)
-			const bodyWidth = parseFloat(params.BW) || 7.87; // 本体宽度(BW)
-			const pinDiameter = parseFloat(params.PD) || 0.46; // 引脚直径(PD)
-			const pinPitch = parseFloat(params.PP) || 2.54; // 引脚间距(PP)
-			
-			console.log('DIP参数:', {
-				pinCount, leadSpan, bodyLength, bodyWidth, 
-				pinDiameter, pinPitch
-			});
-			
-			// 转换为EDA单位(mil，1mm = 39.3701mil)
-			const mmToMil = 39.3701;
-			const leadSpanMil = leadSpan * mmToMil;
-			const bodyLengthMil = bodyLength * mmToMil;
-			const bodyWidthMil = bodyWidth * mmToMil;
-			const pinDiameterMil = pinDiameter * mmToMil;
-			const pinPitchMil = pinPitch * mmToMil;
-			
-			// 固定焊盘直径为65mil，丝印框尺寸为371×230.2mil
-			const padDiameter = 65; // 焊盘直径(mil)
-			const silkLength = 371; // 丝印框长度(mil)
-			const silkWidth = 230.2; // 丝印框宽度(mil)
-			
-			// 计算每侧引脚数量
-			const pinsPerSide = pinCount / 2;
-			
-			// 创建引脚
-			let pinNumber = 1;
-			
-			// 左侧引脚 (引脚1开始，从上到下)
-			for (let i = 0; i < pinsPerSide; i++) {
-				const y = (pinsPerSide - 1) * pinPitchMil / 2 - i * pinPitchMil;
-				const x = -leadSpanMil / 2;
-				eda.pcb_PrimitivePad.create(
-					EPCB_LayerId.TOP,
-					pinNumber.toString(),
-					x, y, 0,
-					[EPCB_PrimitivePadShapeType.ELLIPSE, padDiameter, padDiameter]
-				);
-				pinNumber++;
-			}
-			
-			// 右侧引脚 (从下到上)
-			for (let i = 0; i < pinsPerSide; i++) {
-				const y = -(pinsPerSide - 1) * pinPitchMil / 2 + i * pinPitchMil;
-				const x = leadSpanMil / 2;
-				eda.pcb_PrimitivePad.create(
-					EPCB_LayerId.TOP,
-					pinNumber.toString(),
-					x, y, 0,
-					[EPCB_PrimitivePadShapeType.ELLIPSE, padDiameter, padDiameter]
-				);
-				pinNumber++;
-			}
-			
-			// 创建丝印轮廓（封装外形）
-			const outlineX = silkWidth / 2;  // 使用固定的丝印宽度
-			const outlineY = silkLength / 2; // 使用固定的丝印长度
-			
-			// 创建左边线
-			const leftLine = eda.pcb_MathPolygon.createPolygon([
-				-outlineX, outlineY, 'L', -outlineX, -outlineY
-			]);
-			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, leftLine, 6);
-			
-			// 创建右边线
-			const rightLine = eda.pcb_MathPolygon.createPolygon([
-				outlineX, outlineY, 'L', outlineX, -outlineY
-			]);
-			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, rightLine, 6);
-			
-			// 创建下边线
-			const bottomLine = eda.pcb_MathPolygon.createPolygon([
-				-outlineX, -outlineY, 'L', outlineX, -outlineY
-			]);
-			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, bottomLine, 6);
-			
-			// 在上边创建两条短线和连接圆弧（参考文档结构）
-			const arcGap = 86.8; // 圆弧两端的间隙长度(mil)，根据参考文档计算
-			
-			// 创建左侧短线
-			const leftShortLine = eda.pcb_MathPolygon.createPolygon([
-				-outlineX, outlineY, 'L', -arcGap/2, outlineY
-			]);
-			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, leftShortLine, 6);
-			
-			// 创建右侧短线
-			const rightShortLine = eda.pcb_MathPolygon.createPolygon([
-				arcGap/2, outlineY, 'L', outlineX, outlineY
-			]);
-			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, rightShortLine, 6);
-			
-			// 创建连接圆弧（180度圆弧）
-			const connectingArc = eda.pcb_MathPolygon.createPolygon([
-				-arcGap/2, outlineY, 'ARC', 180, arcGap/2, outlineY
-			]);
-			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, connectingArc, 6);
-			
-			console.log('DIP封装创建完成，总引脚数:', pinCount);
-		}
+				// 右侧引脚 (从下到上)
+				for (let i = 0; i < pinCountLR; i++) {
+					const y = (-(pinCountLR - 1) * pinPitchMil) / 2 + i * pinPitchMil;
+					const x = bodyWidthMil / 2 + pinLengthMil / 2;
+					eda.pcb_PrimitivePad.create(EPCB_LayerId.TOP, pinNumber.toString(), x, y, 0, [
+						EPCB_PrimitivePadShapeType.RECTANGLE,
+						pinLengthMil,
+						pinWidthMil,
+						0,
+					]);
+					pinNumber++;
+				}
 
-		/**
-		 * 创建QFN封装
-		 */
-		function createQFNFootprint(params) {
-			console.log('创建QFN封装:', params);
-			
-			// 获取参数，设置默认值
-			const pinCountLR = parseInt(params.pin_count_lr) || 6; // 左右引脚数
-			const pinCountTB = parseInt(params.pin_count_tb) || 8; // 上下引脚数
-			const bodyLength = parseFloat(params.body_length) || 5.0; // 本体长度(BL)
-			const bodyWidth = parseFloat(params.body_width) || 4.0; // 本体宽度(BW)
-			const pinLength = parseFloat(params.pin_length) || 0.4; // 引脚长度(PL)
-			const pinWidth = parseFloat(params.pin_width) || 0.25; // 引脚宽度(PW)
-			const pinPitch = parseFloat(params.pin_pitch) || 0.5; // 引脚间距(PP)
-			
-			console.log('QFN参数:', {
-				pinCountLR, pinCountTB, bodyLength, bodyWidth, 
-				pinLength, pinWidth, pinPitch
-			});
-			
-			// 转换为EDA单位(mil，1mm = 39.3701mil)
-			const mmToMil = 39.3701;
-			const bodyLengthMil = bodyLength * mmToMil;
-			const bodyWidthMil = bodyWidth * mmToMil;
-			const pinLengthMil = pinLength * mmToMil;
-			const pinWidthMil = pinWidth * mmToMil;
-			const pinPitchMil = pinPitch * mmToMil;
-			
-			// 计算引脚位置
-			let pinNumber = 1;
-			
-			// 左侧引脚 (引脚1开始，从上到下)
-			for (let i = 0; i < pinCountLR; i++) {
-				const y = (pinCountLR - 1) * pinPitchMil / 2 - i * pinPitchMil;
-				const x = -bodyWidthMil / 2 - pinLengthMil / 2;
-				eda.pcb_PrimitivePad.create(
-					EPCB_LayerId.TOP,
-					pinNumber.toString(),
-					x, y, 0,
-					[EPCB_PrimitivePadShapeType.RECTANGLE, pinLengthMil, pinWidthMil, 0]
-				);
-				pinNumber++;
-			}
-			
-			// 底部引脚 (从左到右)
-			for (let i = 0; i < pinCountTB; i++) {
-				const x = -(pinCountTB - 1) * pinPitchMil / 2 + i * pinPitchMil;
-				const y = -bodyLengthMil / 2 - pinLengthMil / 2;
-				eda.pcb_PrimitivePad.create(
-					EPCB_LayerId.TOP,
-					pinNumber.toString(),
-					x, y, 1.57, // 90度旋转
-					[EPCB_PrimitivePadShapeType.RECTANGLE, pinLengthMil, pinWidthMil, 0]
-				);
-				pinNumber++;
-			}
-			
-			// 右侧引脚 (从下到上)
-			for (let i = 0; i < pinCountLR; i++) {
-				const y = -(pinCountLR - 1) * pinPitchMil / 2 + i * pinPitchMil;
-				const x = bodyWidthMil / 2 + pinLengthMil / 2;
-				eda.pcb_PrimitivePad.create(
-					EPCB_LayerId.TOP,
-					pinNumber.toString(),
-					x, y, 0,
-					[EPCB_PrimitivePadShapeType.RECTANGLE, pinLengthMil, pinWidthMil, 0]
-				);
-				pinNumber++;
-			}
-			
-			// 顶部引脚 (从右到左)
-			for (let i = 0; i < pinCountTB; i++) {
-				const x = (pinCountTB - 1) * pinPitchMil / 2 - i * pinPitchMil;
-				const y = bodyLengthMil / 2 + pinLengthMil / 2;
-				eda.pcb_PrimitivePad.create(
-					EPCB_LayerId.TOP,
-					pinNumber.toString(),
-					x, y, 1.57, // 90度旋转
-					[EPCB_PrimitivePadShapeType.RECTANGLE, pinLengthMil, pinWidthMil, 0]
-				);
-				pinNumber++;
-			}
-			
-			// 创建丝印轮廓
-			const silkOffset = 6; // 丝印偏移量(mil)
-			const silkLength = 18; // 丝印线段长度(mil)
-			const outlineX = bodyWidthMil / 2 + silkOffset;
-			const outlineY = bodyLengthMil / 2 + silkOffset;
-			
-			// 创建四个角的丝印线段
-			// 左上角
-			const line1 = eda.pcb_MathPolygon.createPolygon([-outlineX, outlineY, 'L', -outlineX + silkLength, outlineY]);
-			const line2 = eda.pcb_MathPolygon.createPolygon([-outlineX, outlineY, 'L', -outlineX, outlineY - silkLength]);
-			
-			// 左下角
-			const line3 = eda.pcb_MathPolygon.createPolygon([-outlineX, -outlineY, 'L', -outlineX, -outlineY + silkLength]);
-			const line4 = eda.pcb_MathPolygon.createPolygon([-outlineX, -outlineY, 'L', -outlineX + silkLength, -outlineY]);
-			
-			// 右下角
-			const line5 = eda.pcb_MathPolygon.createPolygon([outlineX, -outlineY, 'L', outlineX - silkLength, -outlineY]);
-			const line6 = eda.pcb_MathPolygon.createPolygon([outlineX, -outlineY, 'L', outlineX, -outlineY + silkLength]);
-			
-			// 右上角
-			const line7 = eda.pcb_MathPolygon.createPolygon([outlineX, outlineY, 'L', outlineX - silkLength, outlineY]);
-			const line8 = eda.pcb_MathPolygon.createPolygon([outlineX, outlineY, 'L', outlineX, outlineY - silkLength]);
-			
-			// 创建丝印
-			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line1, 6);
-			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line2, 6);
-			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line3, 6);
-			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line4, 6);
-			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line5, 6);
-			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line6, 6);
-			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line7, 6);
-			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line8, 6);
-			
-			console.log('QFN封装创建完成，总引脚数:', pinNumber - 1);
-		}
+				// 顶部引脚 (从右到左)
+				for (let i = 0; i < pinCountTB; i++) {
+					const x = ((pinCountTB - 1) * pinPitchMil) / 2 - i * pinPitchMil;
+					const y = bodyLengthMil / 2 + pinLengthMil / 2;
+					eda.pcb_PrimitivePad.create(
+						EPCB_LayerId.TOP,
+						pinNumber.toString(),
+						x,
+						y,
+						1.57, // 90度旋转
+						[EPCB_PrimitivePadShapeType.RECTANGLE, pinLengthMil, pinWidthMil, 0],
+					);
+					pinNumber++;
+				}
 
-		/**
-		 * 创建QFP封装 (Quad Flat Package - 四方扁平封装)
-		 */
-		function createQFPFootprint(params) {
-			console.log('创建QFP封装:', params);
-			
-			// 获取参数，设置默认值
-			const pinCountLR = parseInt(params.pin_count_lr) || parseInt(params['引脚数(左右)']) || 14; // 左右引脚数
-			const pinCountTB = parseInt(params.pin_count_tb) || parseInt(params['引脚数(上下)']) || 14; // 上下引脚数
-			const leadSpan1 = parseFloat(params.lead_span1) || parseFloat(params.LS1) || parseFloat(params['引脚跨距(LS1)']) || 9.0; // 引脚跨距(LS1)
-			const leadSpan2 = parseFloat(params.lead_span2) || parseFloat(params.LS2) || parseFloat(params['引脚纵向跨距(LS2)']) || 9.0; // 引脚纵向跨距(LS2)
-			const bodyLength = parseFloat(params.body_length) || parseFloat(params.BL) || parseFloat(params['本体长度(BL)']) || 7.0; // 本体长度(BL)
-			const bodyWidth = parseFloat(params.body_width) || parseFloat(params.BW) || parseFloat(params['本体宽度(BW)']) || 7.0; // 本体宽度(BW)
-			const pinLength = parseFloat(params.pin_length) || parseFloat(params.PL) || parseFloat(params['引脚长度(PL)']) || 0.6; // 引脚长度(PL)
-			const pinWidth = parseFloat(params.pin_width) || parseFloat(params.PW) || parseFloat(params['引脚宽度(PW)']) || 0.3; // 引脚宽度(PW)
-			const pinPitch = parseFloat(params.pin_pitch) || parseFloat(params.PP) || parseFloat(params['引脚间距(PP)']) || 0.5; // 引脚间距(PP)
-			
-			console.log('QFP参数:', {
-				pinCountLR, pinCountTB, leadSpan1, leadSpan2,
-				bodyLength, bodyWidth, pinLength, pinWidth, pinPitch
-			});
-			
-			// 转换为EDA单位(mil，1mm = 39.3701mil)
-			const mmToMil = 39.3701;
-			const leadSpan1Mil = leadSpan1 * mmToMil;
-			const leadSpan2Mil = leadSpan2 * mmToMil;
-			const bodyLengthMil = bodyLength * mmToMil;
-			const bodyWidthMil = bodyWidth * mmToMil;
-			const pinLengthMil = pinLength * mmToMil;
-			const pinWidthMil = pinWidth * mmToMil;
-			const pinPitchMil = pinPitch * mmToMil;
-			
-			// 计算引脚位置
-			let pinNumber = 1;
-			
-			// 左侧引脚 (引脚1开始，从上到下)
-			for (let i = 0; i < pinCountLR; i++) {
-				const y = (pinCountLR - 1) * pinPitchMil / 2 - i * pinPitchMil;
-				const x = -leadSpan1Mil / 2;
-				eda.pcb_PrimitivePad.create(
-					EPCB_LayerId.TOP,
-					pinNumber.toString(),
-					x, y, 0,
-					[EPCB_PrimitivePadShapeType.RECTANGLE, pinLengthMil, pinWidthMil, 0]
-				);
-				pinNumber++;
-			}
-			
-			// 底部引脚 (从左到右)
-			for (let i = 0; i < pinCountTB; i++) {
-				const x = -(pinCountTB - 1) * pinPitchMil / 2 + i * pinPitchMil;
-				const y = -leadSpan2Mil / 2;
-				eda.pcb_PrimitivePad.create(
-					EPCB_LayerId.TOP,
-					pinNumber.toString(),
-					x, y, 1.57, // 90度旋转
-					[EPCB_PrimitivePadShapeType.RECTANGLE, pinLengthMil, pinWidthMil, 0]
-				);
-				pinNumber++;
-			}
-			
-			// 右侧引脚 (从下到上)
-			for (let i = 0; i < pinCountLR; i++) {
-				const y = -(pinCountLR - 1) * pinPitchMil / 2 + i * pinPitchMil;
-				const x = leadSpan1Mil / 2;
-				eda.pcb_PrimitivePad.create(
-					EPCB_LayerId.TOP,
-					pinNumber.toString(),
-					x, y, 0,
-					[EPCB_PrimitivePadShapeType.RECTANGLE, pinLengthMil, pinWidthMil, 0]
-				);
-				pinNumber++;
-			}
-			
-			// 顶部引脚 (从右到左)
-			for (let i = 0; i < pinCountTB; i++) {
-				const x = (pinCountTB - 1) * pinPitchMil / 2 - i * pinPitchMil;
-				const y = leadSpan2Mil / 2;
-				eda.pcb_PrimitivePad.create(
-					EPCB_LayerId.TOP,
-					pinNumber.toString(),
-					x, y, 1.57, // 90度旋转
-					[EPCB_PrimitivePadShapeType.RECTANGLE, pinLengthMil, pinWidthMil, 0]
-				);
-				pinNumber++;
-			}
-			
-			// 创建丝印轮廓（四个角的L形标记）
-			const silkOffset = 8; // 丝印偏移量(mil)
-			const silkLength = 20; // 丝印线段长度(mil)
-			const outlineX = bodyWidthMil / 2 + silkOffset;
-			const outlineY = bodyLengthMil / 2 + silkOffset;
-			
-			// 创建四个角的丝印线段
-			// 左上角 - 带有第一引脚标记
-			const line1 = eda.pcb_MathPolygon.createPolygon([-outlineX, outlineY, 'L', -outlineX + silkLength, outlineY]);
-			const line2 = eda.pcb_MathPolygon.createPolygon([-outlineX, outlineY, 'L', -outlineX, outlineY - silkLength]);
-			
-			// 左下角
-			const line3 = eda.pcb_MathPolygon.createPolygon([-outlineX, -outlineY, 'L', -outlineX, -outlineY + silkLength]);
-			const line4 = eda.pcb_MathPolygon.createPolygon([-outlineX, -outlineY, 'L', -outlineX + silkLength, -outlineY]);
-			
-			// 右下角
-			const line5 = eda.pcb_MathPolygon.createPolygon([outlineX, -outlineY, 'L', outlineX - silkLength, -outlineY]);
-			const line6 = eda.pcb_MathPolygon.createPolygon([outlineX, -outlineY, 'L', outlineX, -outlineY + silkLength]);
-			
-			// 右上角
-			const line7 = eda.pcb_MathPolygon.createPolygon([outlineX, outlineY, 'L', outlineX - silkLength, outlineY]);
-			const line8 = eda.pcb_MathPolygon.createPolygon([outlineX, outlineY, 'L', outlineX, outlineY - silkLength]);
-			
-			// 创建丝印
-			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line1, 6);
-			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line2, 6);
-			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line3, 6);
-			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line4, 6);
-			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line5, 6);
-			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line6, 6);
-			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line7, 6);
-			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line8, 6);
-			
-			// 在左上角添加第一引脚标记（小圆点）
-			const dotX = -outlineX + silkLength / 2;
-			const dotY = outlineY - silkLength / 2;
-			const dotRadius = 3; // 小圆点半径(mil)
-			const dotCircle = eda.pcb_MathPolygon.createPolygon([dotX, dotY, 'A', dotX + dotRadius, dotY, dotX, dotY]);
-			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, dotCircle, 6);
-			
-			console.log('QFP封装创建完成，总引脚数:', pinNumber - 1);
-		}
+				// 创建丝印轮廓
+				const silkOffset = 6; // 丝印偏移量(mil)
+				const silkLength = 18; // 丝印线段长度(mil)
+				const outlineX = bodyWidthMil / 2 + silkOffset;
+				const outlineY = bodyLengthMil / 2 + silkOffset;
 
-		/**
-		 * 创建SOP封装 (Small Outline Package - 小外形封装)
-		 */
-		function createSOPFootprint(params) {
-			console.log('创建SOP封装:', params);
-			
-			// 获取参数，设置默认值
-			const pinCount = parseInt(params.pin_count) || parseInt(params['引脚数量']) || 8;
-			const leadSpan = parseFloat(params.lead_span) || parseFloat(params.LS) || parseFloat(params['引脚跨距(LS)']) || 5.8;
-			const bodyLength = parseFloat(params.body_length) || parseFloat(params.BL) || parseFloat(params['本体长度(BL)']) || 4.9;
-			const bodyWidth = parseFloat(params.body_width) || parseFloat(params.BW) || parseFloat(params['本体宽度(BW)']) || 3.9;
-			const pinLength = parseFloat(params.pin_length) || parseFloat(params.PL) || parseFloat(params['引脚长度(PL)']) || 0.6;
-			const pinWidth = parseFloat(params.pin_width) || parseFloat(params.PW) || parseFloat(params['引脚宽度(PW)']) || 0.4;
-			const pinPitch = parseFloat(params.pin_pitch) || parseFloat(params.PP) || parseFloat(params['引脚间距(PP)']) || 1.27;
-			
-			console.log('SOP参数:', { pinCount, leadSpan, bodyLength, bodyWidth, pinLength, pinWidth, pinPitch });
-			
-			// 转换为EDA单位(mil，1mm = 39.3701mil)
-			const mmToMil = 39.3701;
-			const leadSpanMil = leadSpan * mmToMil;
-			const bodyLengthMil = bodyLength * mmToMil;
-			const bodyWidthMil = bodyWidth * mmToMil;
-			const pinLengthMil = pinLength * mmToMil;
-			const pinWidthMil = pinWidth * mmToMil;
-			const pinPitchMil = pinPitch * mmToMil;
-			
-			const pinsPerSide = pinCount / 2;
-			let pinNumber = 1;
-			
-			// 左侧引脚
-			for (let i = 0; i < pinsPerSide; i++) {
-				const y = (pinsPerSide - 1) * pinPitchMil / 2 - i * pinPitchMil;
-				const x = -leadSpanMil / 2;
-				eda.pcb_PrimitivePad.create(
-					EPCB_LayerId.TOP, pinNumber.toString(), x, y, 0,
-					[EPCB_PrimitivePadShapeType.RECTANGLE, pinLengthMil, pinWidthMil, 0]
-				);
-				pinNumber++;
-			}
-			
-			// 右侧引脚
-			for (let i = 0; i < pinsPerSide; i++) {
-				const y = -(pinsPerSide - 1) * pinPitchMil / 2 + i * pinPitchMil;
-				const x = leadSpanMil / 2;
-				eda.pcb_PrimitivePad.create(
-					EPCB_LayerId.TOP, pinNumber.toString(), x, y, 0,
-					[EPCB_PrimitivePadShapeType.RECTANGLE, pinLengthMil, pinWidthMil, 0]
-				);
-				pinNumber++;
-			}
-			
-			// 创建丝印轮廓
-			const silkOffset = 6;
-			const outlineX = bodyWidthMil / 2 + silkOffset;
-			const outlineY = bodyLengthMil / 2 + silkOffset;
-			
-			const leftLine = eda.pcb_MathPolygon.createPolygon([-outlineX, outlineY, 'L', -outlineX, -outlineY]);
-			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, leftLine, 6);
-			
-			const rightLine = eda.pcb_MathPolygon.createPolygon([outlineX, outlineY, 'L', outlineX, -outlineY]);
-			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, rightLine, 6);
-			
-			const bottomLine = eda.pcb_MathPolygon.createPolygon([-outlineX, -outlineY, 'L', outlineX, -outlineY]);
-			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, bottomLine, 6);
-			
-			const arcGap = 40;
-			const leftShortLine = eda.pcb_MathPolygon.createPolygon([-outlineX, outlineY, 'L', -arcGap/2, outlineY]);
-			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, leftShortLine, 6);
-			
-			const rightShortLine = eda.pcb_MathPolygon.createPolygon([arcGap/2, outlineY, 'L', outlineX, outlineY]);
-			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, rightShortLine, 6);
-			
-			const connectingArc = eda.pcb_MathPolygon.createPolygon([-arcGap/2, outlineY, 'ARC', 180, arcGap/2, outlineY]);
-			eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, connectingArc, 6);
-			
-			console.log('SOP封装创建完成，总引脚数:', pinCount);
-		}
+				// 创建四个角的丝印线段
+				// 左上角
+				const line1 = eda.pcb_MathPolygon.createPolygon([-outlineX, outlineY, 'L', -outlineX + silkLength, outlineY]);
+				const line2 = eda.pcb_MathPolygon.createPolygon([-outlineX, outlineY, 'L', -outlineX, outlineY - silkLength]);
 
-		/**
-		 * 创建SOD封装
-		 */
-		function createSODFootprint(params) {
-			console.log('创建SOD封装:', params);
-			// 实际的SOD封装创建逻辑
-		}
+				// 左下角
+				const line3 = eda.pcb_MathPolygon.createPolygon([-outlineX, -outlineY, 'L', -outlineX, -outlineY + silkLength]);
+				const line4 = eda.pcb_MathPolygon.createPolygon([-outlineX, -outlineY, 'L', -outlineX + silkLength, -outlineY]);
 
-		/**
-		 * 创建SOT23封装
-		 */
-		function createSOT23Footprint(params) {
-			console.log('创建SOT23封装:', params);
-			// 实际的SOT23封装创建逻辑
-		}
+				// 右下角
+				const line5 = eda.pcb_MathPolygon.createPolygon([outlineX, -outlineY, 'L', outlineX - silkLength, -outlineY]);
+				const line6 = eda.pcb_MathPolygon.createPolygon([outlineX, -outlineY, 'L', outlineX, -outlineY + silkLength]);
 
-		/**
-		 * 创建SOT223封装
-		 */
-		function createSOT223Footprint(params) {
-			console.log('创建SOT223封装:', params);
-			// 实际的SOT223封装创建逻辑
-		}
-		
-		/**
-		 * 初始化图片预览功能
-		 */
-		function initImagePreview() {
-			const imagePreviewModal = document.getElementById('image-preview-modal');
-			const previewImage = document.getElementById('preview-image');
-			const closePreviewBtn = document.getElementById('close-preview');
-			const previewInfo = document.getElementById('preview-info');
-			
-			// 关闭预览
-			function closePreview() {
-				imagePreviewModal.style.display = 'none';
-				previewImage.src = '';
+				// 右上角
+				const line7 = eda.pcb_MathPolygon.createPolygon([outlineX, outlineY, 'L', outlineX - silkLength, outlineY]);
+				const line8 = eda.pcb_MathPolygon.createPolygon([outlineX, outlineY, 'L', outlineX, outlineY - silkLength]);
+
+				// 创建丝印
+				eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line1, 6);
+				eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line2, 6);
+				eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line3, 6);
+				eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line4, 6);
+				eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line5, 6);
+				eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line6, 6);
+				eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line7, 6);
+				eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line8, 6);
+
+				console.log('QFN封装创建完成，总引脚数:', pinNumber - 1);
 			}
-			
-			// 关闭按钮点击事件
-			closePreviewBtn.addEventListener('click', (e) => {
-				e.stopPropagation();
-				closePreview();
-			});
-			
-			// 点击模态框背景关闭
-			imagePreviewModal.addEventListener('click', (e) => {
-				if (e.target === imagePreviewModal) {
+
+			/**
+			 * 创建QFP封装 (Quad Flat Package - 四方扁平封装)
+			 */
+			function createQFPFootprint(params) {
+				console.log('创建QFP封装:', params);
+
+				// 获取参数，设置默认值
+				const pinCountLR = parseInt(params.pin_count_lr) || parseInt(params['引脚数(左右)']) || 14; // 左右引脚数
+				const pinCountTB = parseInt(params.pin_count_tb) || parseInt(params['引脚数(上下)']) || 14; // 上下引脚数
+				const leadSpan1 = parseFloat(params.lead_span1) || parseFloat(params.LS1) || parseFloat(params['引脚跨距(LS1)']) || 9.0; // 引脚跨距(LS1)
+				const leadSpan2 = parseFloat(params.lead_span2) || parseFloat(params.LS2) || parseFloat(params['引脚纵向跨距(LS2)']) || 9.0; // 引脚纵向跨距(LS2)
+				const bodyLength = parseFloat(params.body_length) || parseFloat(params.BL) || parseFloat(params['本体长度(BL)']) || 7.0; // 本体长度(BL)
+				const bodyWidth = parseFloat(params.body_width) || parseFloat(params.BW) || parseFloat(params['本体宽度(BW)']) || 7.0; // 本体宽度(BW)
+				const pinLength = parseFloat(params.pin_length) || parseFloat(params.PL) || parseFloat(params['引脚长度(PL)']) || 0.6; // 引脚长度(PL)
+				const pinWidth = parseFloat(params.pin_width) || parseFloat(params.PW) || parseFloat(params['引脚宽度(PW)']) || 0.3; // 引脚宽度(PW)
+				const pinPitch = parseFloat(params.pin_pitch) || parseFloat(params.PP) || parseFloat(params['引脚间距(PP)']) || 0.5; // 引脚间距(PP)
+
+				console.log('QFP参数:', {
+					pinCountLR,
+					pinCountTB,
+					leadSpan1,
+					leadSpan2,
+					bodyLength,
+					bodyWidth,
+					pinLength,
+					pinWidth,
+					pinPitch,
+				});
+
+				// 转换为EDA单位(mil，1mm = 39.3701mil)
+				const mmToMil = 39.3701;
+				const leadSpan1Mil = leadSpan1 * mmToMil;
+				const leadSpan2Mil = leadSpan2 * mmToMil;
+				const bodyLengthMil = bodyLength * mmToMil;
+				const bodyWidthMil = bodyWidth * mmToMil;
+				const pinLengthMil = pinLength * mmToMil;
+				const pinWidthMil = pinWidth * mmToMil;
+				const pinPitchMil = pinPitch * mmToMil;
+
+				// 计算引脚位置
+				let pinNumber = 1;
+
+				// 左侧引脚 (引脚1开始，从上到下)
+				for (let i = 0; i < pinCountLR; i++) {
+					const y = ((pinCountLR - 1) * pinPitchMil) / 2 - i * pinPitchMil;
+					const x = -leadSpan1Mil / 2;
+					eda.pcb_PrimitivePad.create(EPCB_LayerId.TOP, pinNumber.toString(), x, y, 0, [
+						EPCB_PrimitivePadShapeType.RECTANGLE,
+						pinLengthMil,
+						pinWidthMil,
+						0,
+					]);
+					pinNumber++;
+				}
+
+				// 底部引脚 (从左到右)
+				for (let i = 0; i < pinCountTB; i++) {
+					const x = (-(pinCountTB - 1) * pinPitchMil) / 2 + i * pinPitchMil;
+					const y = -leadSpan2Mil / 2;
+					eda.pcb_PrimitivePad.create(
+						EPCB_LayerId.TOP,
+						pinNumber.toString(),
+						x,
+						y,
+						1.57, // 90度旋转
+						[EPCB_PrimitivePadShapeType.RECTANGLE, pinLengthMil, pinWidthMil, 0],
+					);
+					pinNumber++;
+				}
+
+				// 右侧引脚 (从下到上)
+				for (let i = 0; i < pinCountLR; i++) {
+					const y = (-(pinCountLR - 1) * pinPitchMil) / 2 + i * pinPitchMil;
+					const x = leadSpan1Mil / 2;
+					eda.pcb_PrimitivePad.create(EPCB_LayerId.TOP, pinNumber.toString(), x, y, 0, [
+						EPCB_PrimitivePadShapeType.RECTANGLE,
+						pinLengthMil,
+						pinWidthMil,
+						0,
+					]);
+					pinNumber++;
+				}
+
+				// 顶部引脚 (从右到左)
+				for (let i = 0; i < pinCountTB; i++) {
+					const x = ((pinCountTB - 1) * pinPitchMil) / 2 - i * pinPitchMil;
+					const y = leadSpan2Mil / 2;
+					eda.pcb_PrimitivePad.create(
+						EPCB_LayerId.TOP,
+						pinNumber.toString(),
+						x,
+						y,
+						1.57, // 90度旋转
+						[EPCB_PrimitivePadShapeType.RECTANGLE, pinLengthMil, pinWidthMil, 0],
+					);
+					pinNumber++;
+				}
+
+				// 创建丝印轮廓（四个角的L形标记）
+				const silkOffset = 8; // 丝印偏移量(mil)
+				const silkLength = 20; // 丝印线段长度(mil)
+				const outlineX = bodyWidthMil / 2 + silkOffset;
+				const outlineY = bodyLengthMil / 2 + silkOffset;
+
+				// 创建四个角的丝印线段
+				// 左上角 - 带有第一引脚标记
+				const line1 = eda.pcb_MathPolygon.createPolygon([-outlineX, outlineY, 'L', -outlineX + silkLength, outlineY]);
+				const line2 = eda.pcb_MathPolygon.createPolygon([-outlineX, outlineY, 'L', -outlineX, outlineY - silkLength]);
+
+				// 左下角
+				const line3 = eda.pcb_MathPolygon.createPolygon([-outlineX, -outlineY, 'L', -outlineX, -outlineY + silkLength]);
+				const line4 = eda.pcb_MathPolygon.createPolygon([-outlineX, -outlineY, 'L', -outlineX + silkLength, -outlineY]);
+
+				// 右下角
+				const line5 = eda.pcb_MathPolygon.createPolygon([outlineX, -outlineY, 'L', outlineX - silkLength, -outlineY]);
+				const line6 = eda.pcb_MathPolygon.createPolygon([outlineX, -outlineY, 'L', outlineX, -outlineY + silkLength]);
+
+				// 右上角
+				const line7 = eda.pcb_MathPolygon.createPolygon([outlineX, outlineY, 'L', outlineX - silkLength, outlineY]);
+				const line8 = eda.pcb_MathPolygon.createPolygon([outlineX, outlineY, 'L', outlineX, outlineY - silkLength]);
+
+				// 创建丝印
+				eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line1, 6);
+				eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line2, 6);
+				eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line3, 6);
+				eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line4, 6);
+				eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line5, 6);
+				eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line6, 6);
+				eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line7, 6);
+				eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, line8, 6);
+
+				// 在左上角添加第一引脚标记（小圆点）
+				const dotX = -outlineX + silkLength / 2;
+				const dotY = outlineY - silkLength / 2;
+				const dotRadius = 3; // 小圆点半径(mil)
+				const dotCircle = eda.pcb_MathPolygon.createPolygon([dotX, dotY, 'A', dotX + dotRadius, dotY, dotX, dotY]);
+				eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, dotCircle, 6);
+
+				console.log('QFP封装创建完成，总引脚数:', pinNumber - 1);
+			}
+
+			/**
+			 * 创建SOP封装 (Small Outline Package - 小外形封装)
+			 */
+			function createSOPFootprint(params) {
+				console.log('创建SOP封装:', params);
+
+				// 获取参数，设置默认值
+				const pinCount = parseInt(params.pin_count) || parseInt(params['引脚数量']) || 8;
+				const leadSpan = parseFloat(params.lead_span) || parseFloat(params.LS) || parseFloat(params['引脚跨距(LS)']) || 5.8;
+				const bodyLength = parseFloat(params.body_length) || parseFloat(params.BL) || parseFloat(params['本体长度(BL)']) || 4.9;
+				const bodyWidth = parseFloat(params.body_width) || parseFloat(params.BW) || parseFloat(params['本体宽度(BW)']) || 3.9;
+				const pinLength = parseFloat(params.pin_length) || parseFloat(params.PL) || parseFloat(params['引脚长度(PL)']) || 0.6;
+				const pinWidth = parseFloat(params.pin_width) || parseFloat(params.PW) || parseFloat(params['引脚宽度(PW)']) || 0.4;
+				const pinPitch = parseFloat(params.pin_pitch) || parseFloat(params.PP) || parseFloat(params['引脚间距(PP)']) || 1.27;
+
+				console.log('SOP参数:', { pinCount, leadSpan, bodyLength, bodyWidth, pinLength, pinWidth, pinPitch });
+
+				// 转换为EDA单位(mil，1mm = 39.3701mil)
+				const mmToMil = 39.3701;
+				const leadSpanMil = leadSpan * mmToMil;
+				const bodyLengthMil = bodyLength * mmToMil;
+				const bodyWidthMil = bodyWidth * mmToMil;
+				const pinLengthMil = pinLength * mmToMil;
+				const pinWidthMil = pinWidth * mmToMil;
+				const pinPitchMil = pinPitch * mmToMil;
+
+				const pinsPerSide = pinCount / 2;
+				let pinNumber = 1;
+
+				// 左侧引脚
+				for (let i = 0; i < pinsPerSide; i++) {
+					const y = ((pinsPerSide - 1) * pinPitchMil) / 2 - i * pinPitchMil;
+					const x = -leadSpanMil / 2;
+					eda.pcb_PrimitivePad.create(EPCB_LayerId.TOP, pinNumber.toString(), x, y, 0, [
+						EPCB_PrimitivePadShapeType.RECTANGLE,
+						pinLengthMil,
+						pinWidthMil,
+						0,
+					]);
+					pinNumber++;
+				}
+
+				// 右侧引脚
+				for (let i = 0; i < pinsPerSide; i++) {
+					const y = (-(pinsPerSide - 1) * pinPitchMil) / 2 + i * pinPitchMil;
+					const x = leadSpanMil / 2;
+					eda.pcb_PrimitivePad.create(EPCB_LayerId.TOP, pinNumber.toString(), x, y, 0, [
+						EPCB_PrimitivePadShapeType.RECTANGLE,
+						pinLengthMil,
+						pinWidthMil,
+						0,
+					]);
+					pinNumber++;
+				}
+
+				// 创建丝印轮廓
+				const silkOffset = 6;
+				const outlineX = bodyWidthMil / 2 + silkOffset;
+				const outlineY = bodyLengthMil / 2 + silkOffset;
+
+				const leftLine = eda.pcb_MathPolygon.createPolygon([-outlineX, outlineY, 'L', -outlineX, -outlineY]);
+				eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, leftLine, 6);
+
+				const rightLine = eda.pcb_MathPolygon.createPolygon([outlineX, outlineY, 'L', outlineX, -outlineY]);
+				eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, rightLine, 6);
+
+				const bottomLine = eda.pcb_MathPolygon.createPolygon([-outlineX, -outlineY, 'L', outlineX, -outlineY]);
+				eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, bottomLine, 6);
+
+				const arcGap = 40;
+				const leftShortLine = eda.pcb_MathPolygon.createPolygon([-outlineX, outlineY, 'L', -arcGap / 2, outlineY]);
+				eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, leftShortLine, 6);
+
+				const rightShortLine = eda.pcb_MathPolygon.createPolygon([arcGap / 2, outlineY, 'L', outlineX, outlineY]);
+				eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, rightShortLine, 6);
+
+				const connectingArc = eda.pcb_MathPolygon.createPolygon([-arcGap / 2, outlineY, 'ARC', 180, arcGap / 2, outlineY]);
+				eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, connectingArc, 6);
+
+				console.log('SOP封装创建完成，总引脚数:', pinCount);
+			}
+
+			/**
+			 * 创建SOD封装
+			 */
+			function createSODFootprint(params) {
+				console.log('创建SOD封装:', params);
+				// 实际的SOD封装创建逻辑
+			}
+
+			/**
+			 * 创建SOT23封装
+			 */
+			function createSOT23Footprint(params) {
+				console.log('创建SOT23封装:', params);
+				// 实际的SOT23封装创建逻辑
+			}
+
+			/**
+			 * 创建SOT223封装
+			 */
+			function createSOT223Footprint(params) {
+				console.log('创建SOT223封装:', params);
+				// 实际的SOT223封装创建逻辑
+			}
+
+			/**
+			 * 初始化图片预览功能
+			 */
+			function initImagePreview() {
+				const imagePreviewModal = document.getElementById('image-preview-modal');
+				const previewImage = document.getElementById('preview-image');
+				const closePreviewBtn = document.getElementById('close-preview');
+				const previewInfo = document.getElementById('preview-info');
+
+				// 关闭预览
+				function closePreview() {
+					imagePreviewModal.style.display = 'none';
+					previewImage.src = '';
+				}
+
+				// 关闭按钮点击事件
+				closePreviewBtn.addEventListener('click', (e) => {
+					e.stopPropagation();
 					closePreview();
+				});
+
+				// 点击模态框背景关闭
+				imagePreviewModal.addEventListener('click', (e) => {
+					if (e.target === imagePreviewModal) {
+						closePreview();
+					}
+				});
+
+				// ESC键关闭
+				document.addEventListener('keydown', (e) => {
+					if (e.key === 'Escape' && imagePreviewModal.style.display === 'flex') {
+						closePreview();
+					}
+				});
+
+				// 为图片添加点击预览功能
+				function addImageClickPreview() {
+					const currentImage = document.getElementById('current-image');
+					if (currentImage && currentImages.length > 0) {
+						// 移除之前的事件监听器（如果有的话）
+						const newImage = currentImage.cloneNode(true);
+						currentImage.parentNode.replaceChild(newImage, currentImage);
+
+						// 重新获取新的图片元素
+						const freshImage = document.getElementById('current-image');
+						freshImage.style.cursor = 'pointer';
+						freshImage.style.pointerEvents = 'auto';
+
+						freshImage.addEventListener('click', (e) => {
+							// 阻止事件冒泡，避免触发框选功能
+							e.stopPropagation();
+
+							// 如果正在手动选择模式，不触发预览
+							if (manualSelectionMode) {
+								return;
+							}
+
+							// 显示预览
+							const currentImageData = currentImages[currentImageIndex];
+							previewImage.src = currentImageData.src;
+							previewInfo.textContent = currentImageData.name || `页面 ${currentImageIndex + 1}`;
+							imagePreviewModal.style.display = 'flex';
+						});
+					}
 				}
-			});
-			
-			// ESC键关闭
-			document.addEventListener('keydown', (e) => {
-				if (e.key === 'Escape' && imagePreviewModal.style.display === 'flex') {
-					closePreview();
-				}
-			});
-			
-			// 为图片添加点击预览功能
-			function addImageClickPreview() {
-				const currentImage = document.getElementById('current-image');
-				if (currentImage && currentImages.length > 0) {
-					// 移除之前的事件监听器（如果有的话）
-					const newImage = currentImage.cloneNode(true);
-					currentImage.parentNode.replaceChild(newImage, currentImage);
-					
-					// 重新获取新的图片元素
-					const freshImage = document.getElementById('current-image');
-					freshImage.style.cursor = 'pointer';
-					freshImage.style.pointerEvents = 'auto';
-					
-					freshImage.addEventListener('click', (e) => {
-						// 阻止事件冒泡，避免触发框选功能
-						e.stopPropagation();
-						
-						// 如果正在手动选择模式，不触发预览
-						if (manualSelectionMode) {
-							return;
-						}
-						
-						// 显示预览
-						const currentImageData = currentImages[currentImageIndex];
-						previewImage.src = currentImageData.src;
-						previewInfo.textContent = currentImageData.name || `页面 ${currentImageIndex + 1}`;
-						imagePreviewModal.style.display = 'flex';
-					});
-				}
+
+				// 监听图片显示更新，为新图片添加预览功能
+				const originalDisplayCurrentImage = displayCurrentImage;
+				displayCurrentImage = function () {
+					originalDisplayCurrentImage.apply(this, arguments);
+					// 延迟添加点击事件，确保图片已经加载
+					setTimeout(addImageClickPreview, 100);
+				};
 			}
-			
-			// 监听图片显示更新，为新图片添加预览功能
-			const originalDisplayCurrentImage = displayCurrentImage;
-			displayCurrentImage = function() {
-				originalDisplayCurrentImage.apply(this, arguments);
-				// 延迟添加点击事件，确保图片已经加载
-				setTimeout(addImageClickPreview, 100);
-			};
-		}
-		
-		// 在页面加载完成后初始化图片预览功能
-		document.addEventListener('DOMContentLoaded', function() {
-			initImagePreview();
-		});
-	</script>
-</body>
+
+			// 在页面加载完成后初始化图片预览功能
+			document.addEventListener('DOMContentLoaded', function () {
+				initImagePreview();
+			});
+		</script>
+	</body>
 </html>

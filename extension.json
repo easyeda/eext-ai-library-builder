@@ -3,7 +3,7 @@
 	"uuid": "d2d0caf8ebc4449cb71ebed875826d0c",
 	"displayName": "AI 智能建库",
 	"description": "基于大模型的符号封装生成器",
-	"version": "1.10.3",
+	"version": "1.10.4",
 	"publisher": "JLCEDA <support@lceda.cn>",
 	"engines": {
 		"eda": "^2.3.0"
