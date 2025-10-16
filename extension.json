@@ -1,5 +1,5 @@
 {
-	"name": "ai-library-building-helper",
+	"name": "ai-library-builder",
 	"uuid": "d2d0caf8ebc4449cb71ebed875826d0c",
 	"displayName": "AI 智能建库",
 	"description": "基于大模型的符号封装生成器",
@@ -18,8 +18,8 @@
 	"images": {
 		"logo": "./images/logo.png"
 	},
-	"homepage": "https://github.com/easyeda/eext-ai-library-building-helper",
-	"bugs": "https://github.com/easyeda/eext-ai-library-building-helper/issues",
+	"homepage": "https://github.com/easyeda/eext-ai-library-builder",
+	"bugs": "https://github.com/easyeda/eext-ai-library-builder/issues",
 	"activationEvents": {},
 	"entry": "./dist/index",
 	"dependentExtensions": {},
