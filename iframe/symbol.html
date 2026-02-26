@@ -1065,7 +1065,7 @@
 					name: '自定义',
 					apiUrl: '',
 					models: [],
-					requiresApiKey: false,
+					requiresApiKey: true,
 				},
 			};
 
@@ -2396,9 +2396,7 @@
 			 */
 			async function extractParams() {
 				apiKey = apiKeyInput.value.trim();
-				selectedModel = modelSelect.value;
-
-				// 检查设置是否完整
+				selectedModel = selectedProvider === 'custom' ? customModel : modelSelect.value;
 				if (!isSpecialApiFormat(selectedProvider, apiUrl) && (!apiKey || apiKey.trim() === '')) {
 					eda.sys_ToastMessage.showMessage('请在设置中配置API密钥', 0);
 					return;

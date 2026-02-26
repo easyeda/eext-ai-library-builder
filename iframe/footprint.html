@@ -1109,7 +1109,7 @@
 					name: '自定义',
 					apiUrl: '',
 					models: [],
-					requiresApiKey: false,
+					requiresApiKey: true,
 				},
 			};
 
@@ -1378,9 +1378,9 @@
 			function saveSettings() {
 				apiKey = apiKeyInput.value;
 				selectedProvider = providerSelect.value;
-				selectedModel = modelSelect.value;
 				apiUrl = apiUrlInput.value;
 				customModel = customModelInput.value;
+				selectedModel = selectedProvider === 'custom' ? customModel : modelSelect.value;
 
 				eda.sys_Storage.setExtensionUserConfig('api_key', apiKey);
 				eda.sys_Storage.setExtensionUserConfig('selected_provider', selectedProvider);
@@ -2252,8 +2252,9 @@
 				}
 
 				apiKey = apiKeyInput.value.trim();
-				selectedModel = modelSelect.value;
 				selectedProvider = providerSelect.value;
+				selectedModel = selectedProvider === 'custom' ? customModelInput.value.trim() : modelSelect.value;
+				if (selectedProvider === 'custom') customModel = selectedModel;
 				apiUrl = apiUrlInput.value.trim();
 				customApiUrl = apiUrlInput.value.trim();
 
@@ -2605,8 +2606,9 @@
 			 */
 			async function extractParams() {
 				apiKey = apiKeyInput.value.trim();
-				selectedModel = modelSelect.value;
 				selectedProvider = providerSelect.value;
+				selectedModel = selectedProvider === 'custom' ? customModelInput.value.trim() : modelSelect.value;
+				if (selectedProvider === 'custom') customModel = selectedModel;
 				apiUrl = apiUrlInput.value.trim();
 				customApiUrl = apiUrlInput.value.trim();
 
@@ -3451,8 +3453,9 @@
 				// 获取当前API密钥和模型
 				eda.sys_ToastMessage.showMessage('图片识别正在进行中，等待期间可选择隐藏窗口', 3);
 				apiKey = apiKeyInput.value.trim();
-				selectedModel = modelSelect.value;
 				selectedProvider = providerSelect.value;
+				selectedModel = selectedProvider === 'custom' ? customModelInput.value.trim() : modelSelect.value;
+				if (selectedProvider === 'custom') customModel = selectedModel;
 				customApiUrl = apiUrlInput.value.trim();
 
 				// 特殊API不需要API密钥
