@@ -1083,6 +1083,7 @@
 				'qwen2.5-vl-72b-instruct': { input: 0.016, output: 0.048 },
 				'qvq-72b-preview': { input: 0.012, output: 0.036 },
 				'qwen3-vl-plus': { input: 0.0015, output: 0.0045 },
+				'qwen3.5-plus': { input: 0.0015, output: 0.0045 },
 			};
 
 			// 模型厂商配置
@@ -1091,6 +1092,7 @@
 					name: '通义千问',
 					apiUrl: 'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions',
 					models: [
+						{ value: 'qwen3.5-plus', name: 'qwen3.5-plus' },
 						{ value: 'qwen3-vl-plus', name: 'qwen3-vl-plus' },
 						{ value: 'qwen-vl-max-latest', name: 'qwen-vl-max-latest' },
 						{ value: 'qwen2.5-vl-7b-instruct', name: 'qwen2.5-vl-7b-instruct' },
@@ -1109,7 +1111,7 @@
 					name: '自定义',
 					apiUrl: '',
 					models: [],
-					requiresApiKey: true,
+					requiresApiKey: false,
 				},
 			};
 
@@ -3687,7 +3689,7 @@
 						'Content-Type': 'application/json',
 					};
 
-					if (config.requiresApiKey && apiKey) {
+					if (apiKey && apiKey.trim() !== '') {
 						headers['Authorization'] = `Bearer ${apiKey}`;
 					}
 
