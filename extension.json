@@ -13,12 +13,12 @@
     "type": "github",
     "url": "https://github.com/easyeda/eext-ai-library-builder"
   },
-  "categories": "Other",
+  "categories": "Library",
   "keywords": [
-    "AI",
-    "Symbol",
-    "Footprint",
-    "Lib"
+    "ai",
+    "library-builder",
+    "symbol",
+    "component"
   ],
   "images": {
     "logo": "./images/logo.png"
