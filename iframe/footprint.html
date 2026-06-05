@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<script src="/iframe/assets/jszip.min.js"></script>
 		<script src="/iframe/assets/pdf.min.js"></script>
-		<title id="pageTitle"></title>
+		<title id="pageTitle" data-i18n="footprint_generator"></title>
 		<style>
 			body {
 				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -893,19 +893,19 @@
 		<div id="settings-modal" class="settings-modal">
 			<div class="settings-content" style="width: 500px">
 				<div class="settings-header">
-					<h3 class="settings-title" id="settingsTitle"></h3>
+					<h3 class="settings-title" id="settingsTitle" data-i18n="settings"></h3>
 					<button class="close-btn" id="close-settings">×</button>
 				</div>
 				<div class="form-group">
-					<label for="provider-select" id="labelProvider"></label>
+					<label for="provider-select" id="labelProvider" data-i18n="model_provider"></label>
 					<select id="provider-select">
-						<option value="qwen" id="optQwen"></option>
-						<option value="zhipu" id="optZhipu"></option>
-						<option value="custom" id="optCustom"></option>
+						<option value="qwen" id="optQwen" data-i18n="tongyi_qianwen"></option>
+						<option value="zhipu" id="optZhipu" data-i18n="zhipu_ai"></option>
+						<option value="custom" id="optCustom" data-i18n="custom"></option>
 					</select>
 				</div>
 				<div class="form-group" id="model-group">
-					<label for="model-select" id="labelModel"></label>
+					<label for="model-select" id="labelModel" data-i18n="select_model"></label>
 					<select id="model-select">
 						<option value="qwen3-vl-plus" selected>qwen3-vl-plus</option>
 						<option value="qwen-vl-max-latest">qwen-vl-max-latest</option>
@@ -915,20 +915,20 @@
 					</select>
 				</div>
 				<div class="form-group" id="api-key-group">
-					<label for="api-key" id="labelApiKey"></label>
-					<input type="text" id="api-key" />
+					<label for="api-key" id="labelApiKey" data-i18n="api_key"></label>
+					<input type="text" id="api-key" data-i18n-placeholder="enter_api_key" />
 				</div>
 				<div class="form-group" id="api-url-group" style="display: none">
-					<label for="api-url" id="labelApiUrl"></label>
-					<input type="text" id="api-url" />
+					<label for="api-url" id="labelApiUrl" data-i18n="api_url"></label>
+					<input type="text" id="api-url" data-i18n-placeholder="enter_api_url" />
 				</div>
 				<div class="form-group" id="custom-model-group" style="display: none">
-					<label for="custom-model" id="labelCustomModel"></label>
-					<input type="text" id="custom-model" />
+					<label for="custom-model" id="labelCustomModel" data-i18n="model_name"></label>
+					<input type="text" id="custom-model" data-i18n-placeholder="enter_model_name" />
 				</div>
 				<div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px">
-					<button type="button" id="cancel-settings" style="background: #e9ecef; color: #495057"></button>
-					<button type="button" id="save-settings" class="btn-primary"></button>
+					<button type="button" id="cancel-settings" style="background: #e9ecef; color: #495057" data-i18n="cancel"></button>
+					<button type="button" id="save-settings" class="btn-primary" data-i18n="save"></button>
 				</div>
 			</div>
 		</div>
@@ -937,14 +937,14 @@
 			<!-- 左侧面板 -->
 			<div class="left-panel">
 				<div class="header">
-					<h1 id="headerTitle"></h1>
-					<button class="settings-btn" id="open-settings"></button>
+					<h1 id="headerTitle" data-i18n="footprint_generator"></h1>
+					<button class="settings-btn" id="open-settings" data-i18n="settings"></button>
 				</div>
 
 				<!-- 上传区域 -->
 				<div class="upload-section">
 					<div id="drop-area" class="upload-area">
-						<p id="uploadText"></p>
+						<p id="uploadText" data-i18n="drag_upload"></p>
 						<input type="file" id="file-input" multiple accept=".pdf,image/*" style="display: none" />
 					</div>
 				</div>
@@ -953,17 +953,17 @@
 				<div class="controls-section">
 					<div class="control-row single-row">
 						<div class="control-buttons">
-							<button id="search-position" class="btn-primary" disabled></button>
-							<button id="extract-params" class="btn-success" disabled></button>
-							<button id="clear-selection"></button>
-							<button id="manual-select"></button>
-							<button class="btn-secondary" id="hideButton"></button>
-							<button class="settings-btn" id="open-settings-control"></button>
+							<button id="search-position" class="btn-primary" disabled data-i18n="search_footprint_position"></button>
+							<button id="extract-params" class="btn-success" disabled data-i18n="extract_parameters"></button>
+							<button id="clear-selection" data-i18n="clear_selection"></button>
+							<button id="manual-select" data-i18n="manual_select"></button>
+							<button class="btn-secondary" id="hideButton" data-i18n="hide_window"></button>
+							<button class="settings-btn" id="open-settings-control" data-i18n="settings"></button>
 						</div>
-						<div class="timing-display" id="timing-display"></div>
+						<div class="timing-display" id="timing-display" data-i18n="elapsed_dash"></div>
 					</div>
 					<div class="progress-container">
-						<div class="coordinate-display" id="coordinate-display"></div>
+						<div class="coordinate-display" id="coordinate-display" data-i18n="coordinates_no_selection"></div>
 						<div class="progress-bar" id="progress-bar">
 							<div class="progress-fill" id="progress-fill"></div>
 						</div>
@@ -974,14 +974,14 @@
 				<!-- 图片显示区域 -->
 				<div class="image-display" id="image-display">
 					<div class="selection-overlay" id="selection-overlay"></div>
-					<div class="empty-state" id="emptyState"></div>
+					<div class="empty-state" id="emptyState" data-i18n="upload_prompt"></div>
 					<input type="file" id="file-input" multiple accept=".pdf,image/*" style="display: none" />
 				</div>
 
 				<!-- 图片导航区域 -->
 				<div class="image-navigation" id="image-navigation" style="display: none">
 					<div class="nav-controls">
-						<button id="prev-image" class="nav-btn"></button>
+						<button id="prev-image" class="nav-btn" data-i18n="previous_image"></button>
 						<input
 							type="number"
 							id="page-input"
@@ -989,6 +989,8 @@
 							value="1"
 							placeholder=""
 							title=""
+							data-i18n-placeholder="page"
+							data-i18n-title="page_jump_hint"
 							style="
 								width: 40px;
 								text-align: center;
@@ -1002,7 +1004,7 @@
 							"
 						/>
 						/ <span id="total-pages">1</span>
-						<button id="next-image" class="nav-btn"></button>
+						<button id="next-image" class="nav-btn" data-i18n="next_image"></button>
 					</div>
 					<div class="image-info" id="image-info"></div>
 				</div>
@@ -1012,9 +1014,9 @@
 			<div class="right-panel">
 				<div class="pin-table-section">
 					<div class="table-controls">
-						<button id="add-param"></button>
-						<button id="clear-table"></button>
-						<button id="create-footprint" class="btn-success"></button>
+						<button id="add-param" data-i18n="add_parameter"></button>
+						<button id="clear-table" data-i18n="clear_table"></button>
+						<button id="create-footprint" class="btn-success" data-i18n="create_footprint"></button>
 						<select
 							id="package-type-select"
 							style="
@@ -1027,7 +1029,7 @@
 								margin-left: 8px;
 							"
 						>
-							<option value="" id="optPackageType"></option>
+							<option value="" id="optPackageType" data-i18n="package_type"></option>
 							<option value="BGA">BGA</option>
 							<option value="DIP">DIP</option>
 							<option value="QFN">QFN</option>
@@ -1040,7 +1042,7 @@
 					</div>
 					<div class="pin-table-content">
 						<div id="pin-table-container">
-							<div class="empty-state" id="emptyPinState"></div>
+							<div class="empty-state" id="emptyPinState" data-i18n="no_footprint_params"></div>
 						</div>
 					</div>
 				</div>
@@ -1054,6 +1056,18 @@
 				if (edaObj && edaObj.sys_I18n) return edaObj.sys_I18n.text(tag, undefined, undefined, ...args);
 				return tag;
 			}
+			function applyI18n() {
+				document.querySelectorAll('[data-i18n]').forEach(function(el) {
+					el.textContent = t(el.getAttribute('data-i18n'));
+				});
+				document.querySelectorAll('[data-i18n-title]').forEach(function(el) {
+					el.setAttribute('title', t(el.getAttribute('data-i18n-title')));
+				});
+				document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
+					el.setAttribute('placeholder', t(el.getAttribute('data-i18n-placeholder')));
+				});
+			}
+			applyI18n();
 
 			// 设置PDF.js的worker路径
 			pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
@@ -1125,67 +1139,67 @@
 			// 封装类型参数配置
 			const packageParams = {
 				'BGA': [
-					{ name: '引脚行数', key: 'pin_rows', unit: '' },
-					{ name: '引脚列数', key: 'pin_cols', unit: '' },
-					{ name: '本体长度(BL)', key: 'body_length', unit: 'mm' },
-					{ name: '本体宽度(BW)', key: 'body_width', unit: 'mm' },
-					{ name: '引脚直径(PD)', key: 'pin_diameter', unit: 'mm' },
-					{ name: '引脚间距(PS)', key: 'pin_spacing', unit: 'mm' },
-					{ name: '引脚纵向间距(PP)', key: 'pin_pitch', unit: 'mm' },
+					{ name: t('Pin Rows'), key: 'pin_rows', unit: '' },
+					{ name: t('Pin Columns'), key: 'pin_cols', unit: '' },
+					{ name: t('Body Length (BL)'), key: 'body_length', unit: 'mm' },
+					{ name: t('Body Width (BW)'), key: 'body_width', unit: 'mm' },
+					{ name: t('Pin Diameter (PD)'), key: 'pin_diameter', unit: 'mm' },
+					{ name: t('Pin Spacing (PS)'), key: 'pin_spacing', unit: 'mm' },
+					{ name: t('Pin Pitch Vertical (PP)'), key: 'pin_pitch', unit: 'mm' },
 				],
 				'DIP': [
-					{ name: '引脚数量', key: 'pin_count', unit: '' },
-					{ name: '引脚跨距', key: 'LS', unit: 'mm' },
-					{ name: '本体长度', key: 'BL', unit: 'mm' },
-					{ name: '本体宽度', key: 'BW', unit: 'mm' },
-					{ name: '引脚直径', key: 'PD', unit: 'mm' },
-					{ name: '引脚间距', key: 'PS', unit: 'mm' },
+					{ name: t('Pin Count'), key: 'pin_count', unit: '' },
+					{ name: t('Lead Span'), key: 'LS', unit: 'mm' },
+					{ name: t('Body Length'), key: 'BL', unit: 'mm' },
+					{ name: t('Body Width'), key: 'BW', unit: 'mm' },
+					{ name: t('Pin Diameter'), key: 'PD', unit: 'mm' },
+					{ name: t('Pin Spacing'), key: 'PS', unit: 'mm' },
 				],
 				'QFN': [
-					{ name: '引脚数(左右)', key: 'pin_count_lr', unit: '' },
-					{ name: '引脚数(上下)', key: 'pin_count_tb', unit: '' },
-					{ name: '本体长度(BL)', key: 'body_length', unit: 'mm' },
-					{ name: '本体宽度(BW)', key: 'body_width', unit: 'mm' },
-					{ name: '引脚长度(PL)', key: 'pin_length', unit: 'mm' },
-					{ name: '引脚宽度(PW)', key: 'pin_width', unit: 'mm' },
-					{ name: '引脚间距(PP)', key: 'pin_pitch', unit: 'mm' },
+					{ name: t('Pin Count (Left/Right)'), key: 'pin_count_lr', unit: '' },
+					{ name: t('Pin Count (Top/Bottom)'), key: 'pin_count_tb', unit: '' },
+					{ name: t('Body Length (BL)'), key: 'body_length', unit: 'mm' },
+					{ name: t('Body Width (BW)'), key: 'body_width', unit: 'mm' },
+					{ name: t('Pin Length (PL)'), key: 'pin_length', unit: 'mm' },
+					{ name: t('Pin Width (PW)'), key: 'pin_width', unit: 'mm' },
+					{ name: t('Pin Pitch (PP)'), key: 'pin_pitch', unit: 'mm' },
 				],
 				'QFP': [
-					{ name: '引脚数(左右)', key: 'pin_count_lr', unit: '' },
-					{ name: '引脚数(上下)', key: 'pin_count_tb', unit: '' },
-					{ name: '引脚跨距(LS1)', key: 'lead_span1', unit: 'mm' },
-					{ name: '引脚纵向跨距(LS2)', key: 'lead_span2', unit: 'mm' },
-					{ name: '本体长度(BL)', key: 'body_length', unit: 'mm' },
-					{ name: '本体宽度(BW)', key: 'body_width', unit: 'mm' },
-					{ name: '引脚长度(PL)', key: 'pin_length', unit: 'mm' },
-					{ name: '引脚宽度(PW)', key: 'pin_width', unit: 'mm' },
-					{ name: '引脚间距(PP)', key: 'pin_pitch', unit: 'mm' },
+					{ name: t('Pin Count (Left/Right)'), key: 'pin_count_lr', unit: '' },
+					{ name: t('Pin Count (Top/Bottom)'), key: 'pin_count_tb', unit: '' },
+					{ name: t('Lead Span (LS1)'), key: 'lead_span1', unit: 'mm' },
+					{ name: t('Lead Span Vertical (LS2)'), key: 'lead_span2', unit: 'mm' },
+					{ name: t('Body Length (BL)'), key: 'body_length', unit: 'mm' },
+					{ name: t('Body Width (BW)'), key: 'body_width', unit: 'mm' },
+					{ name: t('Pin Length (PL)'), key: 'pin_length', unit: 'mm' },
+					{ name: t('Pin Width (PW)'), key: 'pin_width', unit: 'mm' },
+					{ name: t('Pin Pitch (PP)'), key: 'pin_pitch', unit: 'mm' },
 				],
 				'SOD': [
-					{ name: '引脚跨距(LS)', key: 'lead_span', unit: 'mm' },
-					{ name: '本体长度(BL)', key: 'body_length', unit: 'mm' },
-					{ name: '本体宽度(BW)', key: 'body_width', unit: 'mm' },
-					{ name: '引脚长度(PL)', key: 'pin_length', unit: 'mm' },
-					{ name: '引脚宽度(PW)', key: 'pin_width', unit: 'mm' },
+					{ name: t('Lead Span (LS)'), key: 'lead_span', unit: 'mm' },
+					{ name: t('Body Length (BL)'), key: 'body_length', unit: 'mm' },
+					{ name: t('Body Width (BW)'), key: 'body_width', unit: 'mm' },
+					{ name: t('Pin Length (PL)'), key: 'pin_length', unit: 'mm' },
+					{ name: t('Pin Width (PW)'), key: 'pin_width', unit: 'mm' },
 				],
 				'SOT23': [
-					{ name: '引脚数量', key: 'pin_count', unit: '' },
-					{ name: '引脚跨距(LS)', key: 'lead_span', unit: 'mm' },
-					{ name: '本体长度(BL)', key: 'body_length', unit: 'mm' },
-					{ name: '本体宽度(BW)', key: 'body_width', unit: 'mm' },
-					{ name: '引脚长度(PL)', key: 'pin_length', unit: 'mm' },
-					{ name: '引脚宽度(PW)', key: 'pin_width', unit: 'mm' },
-					{ name: '引脚间距(PP)', key: 'pin_pitch', unit: 'mm' },
+					{ name: t('Pin Count'), key: 'pin_count', unit: '' },
+					{ name: t('Lead Span (LS)'), key: 'lead_span', unit: 'mm' },
+					{ name: t('Body Length (BL)'), key: 'body_length', unit: 'mm' },
+					{ name: t('Body Width (BW)'), key: 'body_width', unit: 'mm' },
+					{ name: t('Pin Length (PL)'), key: 'pin_length', unit: 'mm' },
+					{ name: t('Pin Width (PW)'), key: 'pin_width', unit: 'mm' },
+					{ name: t('Pin Pitch (PP)'), key: 'pin_pitch', unit: 'mm' },
 				],
 				'SOT223': [
-					{ name: '引脚数量', key: 'pin_count', unit: '' },
-					{ name: '引脚跨距(LS)', key: 'lead_span', unit: 'mm' },
-					{ name: '本体长度(BL)', key: 'body_length', unit: 'mm' },
-					{ name: '本体宽度(BW)', key: 'body_width', unit: 'mm' },
-					{ name: '引脚长度(PL)', key: 'pin_length', unit: 'mm' },
-					{ name: '引脚宽度(PW)', key: 'pin_width', unit: 'mm' },
-					{ name: '引脚间距(PS)', key: 'pin_spacing', unit: 'mm' },
-					{ name: '引脚宽度(PW1)', key: 'pin_width1', unit: 'mm' },
+					{ name: t('Pin Count'), key: 'pin_count', unit: '' },
+					{ name: t('Lead Span (LS)'), key: 'lead_span', unit: 'mm' },
+					{ name: t('Body Length (BL)'), key: 'body_length', unit: 'mm' },
+					{ name: t('Body Width (BW)'), key: 'body_width', unit: 'mm' },
+					{ name: t('Pin Length (PL)'), key: 'pin_length', unit: 'mm' },
+					{ name: t('Pin Width (PW)'), key: 'pin_width', unit: 'mm' },
+					{ name: t('Pin Spacing (PS)'), key: 'pin_spacing', unit: 'mm' },
+					{ name: t('Pin Width (PW1)'), key: 'pin_width1', unit: 'mm' },
 				],
 			};
 
@@ -2869,7 +2883,7 @@
 						// 验证content是否有效
 						if (!content || typeof content !== 'string') {
 							console.error('content为空或不是字符串:', content);
-							throw new Error('API返回的内容为空或格式错误');
+							throw new Error(t('Empty response returned'));
 						}
 
 						console.log(`第 ${attempt} 次提取结果:`, content);
@@ -2916,8 +2930,8 @@
 					// 根据提取次数显示不同的成功消息
 					const successMessage =
 						extractionCount === 1
-							? `成功提取 ${imagesWithSelections.length} 张图片的封装参数（已选择封装类型）`
-							: `成功提取 ${imagesWithSelections.length} 张图片的封装参数（智能选择最佳结果）`;
+							? t('Successfully extracted package parameters from ${1} images (package type selected)', imagesWithSelections.length)
+							: t('Successfully extracted package parameters from ${1} images (intelligent best result)', imagesWithSelections.length);
 					eda.sys_ToastMessage.showMessage(successMessage, 1);
 				} catch (error) {
 					console.error('提取参数失败:', error);
@@ -4286,7 +4300,7 @@
 
 					// 检查JSON数据是否包含必要的字段
 					if (!data || typeof data !== 'object' || !data.type || !Array.isArray(data.pins)) {
-						throw new Error('JSON数据格式不正确，缺少type或pins字段');
+						throw new Error(t('Invalid JSON data format, missing type or pins field'));
 					}
 
 					const type = data.type;
