@@ -1,3 +1,13 @@
 {
-	"About...": "About..."
+	"About...": "About...",
+	"AI智能建库": "AI Library Builder",
+	"基于大模型的符号封装生成器": "AI-powered symbol and footprint generator",
+	"智能建库": "AI Library",
+	"创建符号...": "Create Symbol...",
+	"继续创建...": "Continue Create...",
+	"创建封装...": "Create Footprint...",
+	"ai": "ai",
+	"library-builder": "library-builder",
+	"symbol": "symbol",
+	"component": "component"
 }

@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<script src="/iframe/assets/jszip.min.js"></script>
 		<script src="/iframe/assets/pdf.min.js"></script>
-		<title>符号提取助手</title>
+		<title id="pageTitle"></title>
 		<style>
 			body {
 				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -866,9 +866,9 @@
 		<!-- 图片预览模态框 -->
 		<div id="image-preview-modal" class="image-preview-modal">
 			<div class="image-preview-content">
-				<img id="preview-image" src="" alt="预览图片" />
+				<img id="preview-image" src="" alt="" />
 				<button class="image-preview-close" id="close-preview">×</button>
-				<div class="image-preview-info" id="preview-info">图片信息</div>
+				<div class="image-preview-info" id="preview-info"></div>
 			</div>
 		</div>
 
@@ -876,19 +876,19 @@
 		<div id="settings-modal" class="settings-modal">
 			<div class="settings-content" style="width: 500px">
 				<div class="settings-header">
-					<h3 class="settings-title">设置</h3>
+					<h3 class="settings-title" id="settingsTitle"></h3>
 					<button class="close-btn" id="close-settings">×</button>
 				</div>
 				<div class="form-group">
-					<label for="provider-select">模型厂商</label>
+					<label for="provider-select" id="labelProvider"></label>
 					<select id="provider-select">
-						<option value="qwen">通义千问</option>
-						<option value="zhipu">智谱AI</option>
-						<option value="custom">自定义</option>
+						<option value="qwen" id="optQwen"></option>
+						<option value="zhipu" id="optZhipu"></option>
+						<option value="custom" id="optCustom"></option>
 					</select>
 				</div>
 				<div class="form-group" id="model-group">
-					<label for="model-select">选择模型</label>
+					<label for="model-select" id="labelModel"></label>
 					<select id="model-select">
 						<option value="qwen3-vl-plus" selected>qwen3-vl-plus</option>
 						<option value="qwen-vl-max-latest">qwen-vl-max-latest</option>
@@ -899,20 +899,20 @@
 					</select>
 				</div>
 				<div class="form-group" id="api-key-group">
-					<label for="api-key">API密钥</label>
-					<input type="text" id="api-key" placeholder="请输入您的API密钥" />
+					<label for="api-key" id="labelApiKey"></label>
+					<input type="text" id="api-key" />
 				</div>
 				<div class="form-group" id="api-url-group" style="display: none">
-					<label for="api-url">API地址</label>
-					<input type="text" id="api-url" placeholder="请输入API地址" />
+					<label for="api-url" id="labelApiUrl"></label>
+					<input type="text" id="api-url" />
 				</div>
 				<div class="form-group" id="custom-model-group" style="display: none">
-					<label for="custom-model">模型名称</label>
-					<input type="text" id="custom-model" placeholder="请输入模型名称" />
+					<label for="custom-model" id="labelCustomModel"></label>
+					<input type="text" id="custom-model" />
 				</div>
 				<div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px">
-					<button type="button" id="cancel-settings" style="background: #e9ecef; color: #495057">取消</button>
-					<button type="button" id="save-settings" class="btn-primary">保存</button>
+					<button type="button" id="cancel-settings" style="background: #e9ecef; color: #495057"></button>
+					<button type="button" id="save-settings" class="btn-primary"></button>
 				</div>
 			</div>
 		</div>
@@ -924,17 +924,17 @@
 				<div class="controls-section">
 					<div class="control-row single-row">
 						<div class="control-buttons">
-							<button id="search-position" class="btn-primary" disabled>搜索符号位置</button>
-							<button id="extract-params" class="btn-success" disabled>提取参数</button>
-							<button id="clear-selection">清除框选</button>
-							<button id="manual-select">手动框选</button>
-							<button class="btn-secondary" id="hideButton">隐藏窗口</button>
-							<button class="settings-btn" id="open-settings">设置</button>
+							<button id="search-position" class="btn-primary" disabled></button>
+							<button id="extract-params" class="btn-success" disabled></button>
+							<button id="clear-selection"></button>
+							<button id="manual-select"></button>
+							<button class="btn-secondary" id="hideButton"></button>
+							<button class="settings-btn" id="open-settings"></button>
 						</div>
-						<div class="timing-display" id="timing-display">耗时: --</div>
+						<div class="timing-display" id="timing-display"></div>
 					</div>
 					<div class="progress-container">
-						<div class="coordinate-display" id="coordinate-display">坐标信息: 未选择区域</div>
+						<div class="coordinate-display" id="coordinate-display"></div>
 						<div class="progress-bar" id="progress-bar">
 							<div class="progress-fill" id="progress-fill"></div>
 						</div>
@@ -946,24 +946,24 @@
 				<div class="image-display" id="image-display">
 					<div class="selection-overlay" id="selection-overlay"></div>
 					<div class="replace-pdf-overlay" id="replace-pdf-overlay">
-						<button id="replace-pdf-btn">替换PDF</button>
+						<button id="replace-pdf-btn"></button>
 					</div>
-					<div class="empty-state">拖拽PDF或图片到此处或点击上传</div>
+					<div class="empty-state" id="emptyState"></div>
 					<input type="file" id="file-input" multiple accept=".pdf,image/*" style="display: none" />
 				</div>
 
 				<!-- 图片导航区域 -->
 				<div class="image-navigation" id="image-navigation" style="display: none">
 					<div class="nav-controls">
-						<button id="prev-image" class="nav-btn">‹ 上一张</button>
+						<button id="prev-image" class="nav-btn"></button>
 						<input
 							type="number"
 							id="page-input"
 							min="1"
 							max="1"
 							value="1"
-							placeholder="页码"
-							title="输入页码按回车键快速跳转到指定页面"
+							placeholder=""
+							title=""
 							style="
 								width: 40px;
 								text-align: center;
@@ -978,9 +978,9 @@
 						/>
 						<span> / </span>
 						<span id="total-pages">1</span>
-						<button id="next-image" class="nav-btn">下一张 ›</button>
+						<button id="next-image" class="nav-btn"></button>
 					</div>
-					<div class="image-info" id="image-info">当前图片</div>
+					<div class="image-info" id="image-info"></div>
 				</div>
 			</div>
 
@@ -988,14 +988,14 @@
 			<div class="right-panel">
 				<div class="pin-table-section">
 					<div class="table-controls">
-						<button id="add-pin">添加引脚</button>
-						<button id="clear-table">清空表格</button>
-						<button id="create-symbol" class="btn-success">创建符号</button>
-						<button id="copy-symbol-info" class="btn-secondary" disabled>复制符号信息</button>
+						<button id="add-pin"></button>
+						<button id="clear-table"></button>
+						<button id="create-symbol" class="btn-success"></button>
+						<button id="copy-symbol-info" class="btn-secondary" disabled></button>
 					</div>
 					<div class="pin-table-content">
 						<div id="pin-table-container">
-							<div class="empty-state">暂无引脚信息</div>
+							<div class="empty-state" id="emptyPinState"></div>
 						</div>
 					</div>
 				</div>
@@ -1003,6 +1003,13 @@
 		</div>
 
 		<script>
+			// i18n initialization
+			var edaObj = (typeof eda !== 'undefined') ? eda : (window.parent && window.parent.eda);
+			function t(tag, ...args) {
+				if (edaObj && edaObj.sys_I18n) return edaObj.sys_I18n.text(tag, undefined, undefined, ...args);
+				return tag;
+			}
+
 			// 设置PDF.js的worker路径
 			pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
@@ -1044,7 +1051,7 @@
 			// 模型厂商配置
 			const providerConfigs = {
 				qwen: {
-					name: '通义千问',
+					name: t('Tongyi Qianwen'),
 					apiUrl: 'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions',
 					models: [
 						{ value: 'qwen3.5-plus', name: 'qwen3.5-plus' },
@@ -1058,13 +1065,13 @@
 					requiresApiKey: true,
 				},
 				zhipu: {
-					name: '智谱AI',
+					name: t('Zhipu AI'),
 					apiUrl: 'https://open.bigmodel.cn/api/paas/v4/chat/completions',
 					models: [{ value: 'glm-4.5v', name: 'GLM-4.5V' }],
 					requiresApiKey: true,
 				},
 				custom: {
-					name: '自定义',
+					name: t('Custom'),
 					apiUrl: '',
 					models: [],
 					requiresApiKey: false,
@@ -1113,6 +1120,45 @@
 
 			// 初始化
 			document.addEventListener('DOMContentLoaded', function () {
+				// Initialize i18n text for all elements
+				document.getElementById('pageTitle').textContent = t('Symbol Extractor');
+				document.getElementById('preview-image').alt = t('Preview Image');
+				document.getElementById('preview-info').textContent = t('Image Info');
+				document.getElementById('settingsTitle').textContent = t('Settings');
+				document.getElementById('labelProvider').textContent = t('Model Provider');
+				document.getElementById('optQwen').textContent = t('Tongyi Qianwen');
+				document.getElementById('optZhipu').textContent = t('Zhipu AI');
+				document.getElementById('optCustom').textContent = t('Custom');
+				document.getElementById('labelModel').textContent = t('Select Model');
+				document.getElementById('labelApiKey').textContent = t('API Key');
+				document.getElementById('api-key').placeholder = t('Enter your API key');
+				document.getElementById('labelApiUrl').textContent = t('API URL');
+				document.getElementById('api-url').placeholder = t('Enter API URL');
+				document.getElementById('labelCustomModel').textContent = t('Model Name');
+				document.getElementById('custom-model').placeholder = t('Enter model name');
+				document.getElementById('cancel-settings').textContent = t('Cancel');
+				document.getElementById('save-settings').textContent = t('Save');
+				document.getElementById('search-position').textContent = t('Search Symbol Position');
+				document.getElementById('extract-params').textContent = t('Extract Parameters');
+				document.getElementById('clear-selection').textContent = t('Clear Selection');
+				document.getElementById('manual-select').textContent = t('Manual Select');
+				document.getElementById('hideButton').textContent = t('Hide Window');
+				document.getElementById('open-settings').textContent = t('Settings');
+				document.getElementById('timing-display').textContent = t('Elapsed: --');
+				document.getElementById('coordinate-display').textContent = t('Coordinates: No Selection');
+				document.getElementById('emptyState').textContent = t('Please upload PDF or image file');
+				document.getElementById('replace-pdf-btn').textContent = t('Replace PDF');
+				document.getElementById('prev-image').textContent = '‹ ' + t('Previous Image');
+				document.getElementById('next-image').textContent = t('Next Image') + ' ›';
+				document.getElementById('page-input').placeholder = t('Page');
+				document.getElementById('page-input').title = t('Enter page number and press Enter to jump');
+				document.getElementById('image-info').textContent = t('Current Image');
+				document.getElementById('add-pin').textContent = t('Add Pin');
+				document.getElementById('clear-table').textContent = t('Clear Table');
+				document.getElementById('create-symbol').textContent = t('Create Symbol');
+				document.getElementById('copy-symbol-info').textContent = t('Copy Symbol Info');
+				document.getElementById('emptyPinState').textContent = t('No Pin Information');
+
 				// EDA兼容性检查
 				if (typeof eda === 'undefined') {
 					window.eda = {
@@ -1154,7 +1200,7 @@
 					saveSettings();
 					settingsModal.style.display = 'none';
 					if (typeof eda !== 'undefined' && eda.sys_ToastMessage) {
-						eda.sys_ToastMessage.showMessage('设置已保存！', 1);
+						eda.sys_ToastMessage.showMessage(t('Settings saved!'), 1);
 					}
 				});
 
@@ -1318,7 +1364,7 @@
 				} else if (selectedProvider === 'zhipu') {
 					// 智谱AI使用OpenAI兼容格式
 					if (!apiKey || apiKey.trim() === '') {
-						throw new Error('智谱AI需要API密钥，请在模型设置中输入您的API Key');
+						throw new Error(t('Zhipu AI requires API key, please enter your API Key in model settings'));
 					}
 
 					const headers = {
@@ -1345,7 +1391,7 @@
 				} else if (selectedProvider === 'qwen') {
 					// 通义千问使用兼容模式格式
 					if (!apiKey || apiKey.trim() === '') {
-						throw new Error('通义千问需要API密钥，请在模型设置中输入您的API Key');
+						throw new Error(t('Tongyi Qianwen requires API key, please enter your API Key in model settings'));
 					}
 
 					const headers = {
@@ -1464,7 +1510,7 @@
 						// 处理图片文件
 						await processImage(file);
 					} else {
-						eda.sys_ToastMessage.showMessage(`文件 "${file.name}" 格式不支持，请上传PDF或图片文件`, 2);
+						eda.sys_ToastMessage.showMessage(t('File format not supported', file.name), 2);
 						continue;
 					}
 				}
@@ -1510,14 +1556,14 @@
 
 					// 显示进度条
 					showProgress();
-					updateProgress(0, '开始解析PDF...');
+					updateProgress(0, t('Starting PDF parsing...'));
 
 					const arrayBuffer = await file.arrayBuffer();
 					const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
 
 					for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
 						const progress = Math.round((pageNum / pdf.numPages) * 100);
-						updateProgress(progress, `正在转换第 ${pageNum}/${pdf.numPages} 页...`);
+						updateProgress(progress, t('Converting page ${1}/${2}...', pageNum, pdf.numPages));
 
 						const page = await pdf.getPage(pageNum);
 						const viewport = page.getViewport({ scale: 1.0 });
@@ -1532,13 +1578,13 @@
 						const imageData = canvas.toDataURL('image/png');
 						currentImages.push({
 							src: imageData,
-							name: `${file.name} - 第${pageNum}页`,
+							name: t('${1} - Page ${2}', file.name, pageNum),
 							type: 'pdf-page',
 							file: file,
 						});
 					}
 
-					updateProgress(100, `PDF解析完成，共${pdf.numPages}页`);
+					updateProgress(100, t('PDF parsing completed, ${1} pages', pdf.numPages));
 
 					if (currentImages.length > 0) {
 						currentImageIndex = 0;
@@ -1550,11 +1596,11 @@
 						hideProgress();
 					}, 1500);
 
-					eda.sys_ToastMessage.showMessage(`PDF解析完成，共${pdf.numPages}页`, 1);
+					eda.sys_ToastMessage.showMessage(t('PDF parsing completed, ${1} pages', pdf.numPages), 1);
 				} catch (error) {
 					console.error('PDF处理失败:', error);
 					hideProgress();
-					eda.sys_ToastMessage.showMessage('PDF处理失败，请检查文件格式', 0);
+					eda.sys_ToastMessage.showMessage(t('PDF processing failed, please check file format'), 0);
 				}
 			}
 
@@ -1700,7 +1746,7 @@
 				// 注意：框选状态的保存现在在图片切换时进行，而不是在这里
 
 				if (currentImages.length === 0) {
-					imageDisplay.innerHTML = '<div class="empty-state">请上传PDF或图片文件</div>';
+					imageDisplay.innerHTML = '<div class="empty-state">' + t('Please upload PDF or image file') + '</div>';
 					imageNavigation.style.display = 'none';
 					// 恢复虚线边框
 					imageDisplay.style.border = '2px dashed #ced4da';
@@ -1743,7 +1789,7 @@
 				replacePdfOverlay.id = 'replace-pdf-overlay';
 				const replacePdfBtn = document.createElement('button');
 				replacePdfBtn.id = 'replace-pdf-btn';
-				replacePdfBtn.textContent = '替换PDF';
+				replacePdfBtn.textContent = t('Replace PDF');
 				replacePdfBtn.addEventListener('click', (e) => {
 					e.stopPropagation();
 					fileInput.click();
@@ -1781,9 +1827,9 @@
 
 				// 更新图片信息
 				if (currentImage.name) {
-					imageInfo.textContent = `文件: ${currentImage.name}`;
+					imageInfo.textContent = `${t('File')}: ${currentImage.name}`;
 				} else {
-					imageInfo.textContent = `页面 ${currentImageIndex + 1}`;
+					imageInfo.textContent = `${t('Page')} ${currentImageIndex + 1}`;
 				}
 
 				// 重新初始化选择功能
@@ -1909,9 +1955,9 @@
 								}, 1000);
 							}
 							if (typeof eda !== 'undefined' && eda.sys_ToastMessage) {
-								eda.sys_ToastMessage.showMessage(`请输入有效的页码 (1-${currentImages.length})`, 0);
+								eda.sys_ToastMessage.showMessage(t('Invalid page number, please enter 1-${1}', currentImages.length), 0);
 							} else {
-								alert(`请输入有效的页码 (1-${currentImages.length})`);
+								alert(t('Invalid page number, please enter 1-${1}', currentImages.length));
 							}
 						}
 					});
@@ -2007,7 +2053,7 @@
 			 * 更新坐标显示
 			 */
 			function updateCoordinateDisplay(x, y, width, height) {
-				coordinateDisplay.textContent = `坐标信息: X=${Math.round(x)}, Y=${Math.round(y)}, 宽=${Math.round(width)}, 高=${Math.round(height)}`;
+				coordinateDisplay.textContent = `${t('Coordinates')}: X=${Math.round(x)}, Y=${Math.round(y)}, ${t('Width')}=${Math.round(width)}, ${t('Height')}=${Math.round(height)}`;
 			}
 
 			/**
@@ -2017,7 +2063,7 @@
 				// 隐藏窗口
 				hideButton.addEventListener('click', () => {
 					eda.sys_IFrame.hideIFrame('symbol');
-					eda.sys_ToastMessage.showMessage('页面已隐藏，可点击继续创建重新打开', 1);
+					eda.sys_ToastMessage.showMessage(t('Page hidden, click Continue Create to reopen'), 1);
 				});
 
 				// 清除框选
@@ -2053,7 +2099,7 @@
 			 */
 			function startTiming() {
 				startTime = Date.now();
-				timingDisplay.textContent = '耗时: 0.0s';
+				timingDisplay.textContent = t('Elapsed: 0.0s');
 
 				// 清除之前的计时器
 				if (timingInterval) {
@@ -2064,7 +2110,7 @@
 				timingInterval = setInterval(() => {
 					if (startTime) {
 						const elapsed = (Date.now() - startTime) / 1000;
-						timingDisplay.textContent = `耗时: ${elapsed.toFixed(1)}s`;
+						timingDisplay.textContent = t('Elapsed: ${1}s', elapsed.toFixed(1));
 					}
 				}, 100);
 			}
@@ -2080,7 +2126,7 @@
 
 				if (startTime) {
 					const elapsed = (Date.now() - startTime) / 1000;
-					timingDisplay.textContent = `耗时: ${elapsed.toFixed(1)}s`;
+					timingDisplay.textContent = t('Elapsed: ${1}s', elapsed.toFixed(1));
 					startTime = null;
 				}
 			}
@@ -2094,7 +2140,7 @@
 					timingInterval = null;
 				}
 				startTime = null;
-				timingDisplay.textContent = '耗时: --';
+				timingDisplay.textContent = t('Elapsed: --');
 			}
 
 			/**
@@ -2104,7 +2150,7 @@
 				// 停止手动选择模式
 				if (manualSelectionMode) {
 					stopManualSelection();
-					manualSelectButton.textContent = '手动框选';
+					manualSelectButton.textContent = t('Manual Select');
 				}
 
 				// 清除旧版选择框
@@ -2146,7 +2192,7 @@
 				detectionResults = null;
 				console.log('清除检测结果');
 
-				coordinateDisplay.textContent = '坐标信息: 未选择区域';
+				coordinateDisplay.textContent = t('Coordinates: No Selection');
 
 				// 更新按钮状态
 				updateButtons();
@@ -2157,34 +2203,34 @@
 			 */
 			async function searchPosition() {
 				if (currentImages.length === 0) {
-					eda.sys_ToastMessage.showMessage('请先上传图片', 0);
+					eda.sys_ToastMessage.showMessage(t('Please first upload an image'), 0);
 					return;
 				}
 
 				// 检查智谱AI模型限制
 				if (selectedProvider === 'zhipu') {
-					eda.sys_ToastMessage.showMessage('智谱AI模型不支持搜索位置功能，该模型传输图片有上限', 0);
+					eda.sys_ToastMessage.showMessage(t('Zhipu AI does not support search position'), 0);
 					return;
 				}
 
 				// 检查设置是否完整
 				if (!isSpecialApiFormat(selectedProvider, apiUrl) && (!apiKey || apiKey.trim() === '')) {
-					eda.sys_ToastMessage.showMessage('请在设置中配置API密钥', 0);
+					eda.sys_ToastMessage.showMessage(t('Please enter API key in settings'), 0);
 					return;
 				}
 
 				if (selectedProvider === 'custom' && (!apiUrl || apiUrl.trim() === '')) {
-					eda.sys_ToastMessage.showMessage('请在设置中配置自定义API地址', 0);
+					eda.sys_ToastMessage.showMessage(t('Please configure custom API URL in settings'), 0);
 					return;
 				}
 
 				if (selectedProvider === 'custom' && (!customModel || customModel.trim() === '')) {
-					eda.sys_ToastMessage.showMessage('请在设置中配置自定义模型名称', 0);
+					eda.sys_ToastMessage.showMessage(t('Please configure custom model name in settings'), 0);
 					return;
 				}
 
 				try {
-					eda.sys_ToastMessage.showMessage('正在搜索符号位置...', 3);
+					eda.sys_ToastMessage.showMessage(t('Searching for symbol position...'), 3);
 
 					// 开始计时
 					startTiming();
@@ -2237,7 +2283,7 @@
 					const response = await callAPI(data);
 
 					if (!response.ok) {
-						throw new Error('API请求失败');
+						throw new Error(t('API request failed'));
 					}
 
 					let result, content;
@@ -2300,7 +2346,7 @@
 							detectionResults = result;
 							content = null; // 跳过content解析
 						} else {
-							throw new Error('无法解析API响应格式');
+							throw new Error(t('Unable to parse API response format'));
 						}
 					}
 
@@ -2352,7 +2398,7 @@
 
 						// 验证检测结果数据结构
 						if (!detectionResults || !detectionResults.pdf_position_list || !Array.isArray(detectionResults.pdf_position_list)) {
-							throw new Error('检测结果数据格式不正确');
+							throw new Error(t('Cannot parse detection result format'));
 						}
 
 						// 绘制检测框
@@ -2370,26 +2416,26 @@
 								// 跳转到目标页面
 								currentImageIndex = targetImageIndex;
 								displayCurrentImage();
-								eda.sys_ToastMessage.showMessage(`已自动跳转到第 ${firstDetectionPage} 页`, 1);
+								eda.sys_ToastMessage.showMessage(t('Auto-jumped to page ${1}', firstDetectionPage), 1);
 							}
 						}
 
 						// 更新按钮状态
 						updateButtons();
 
-						eda.sys_ToastMessage.showMessage(`检测到 ${detectionResults.pdf_position_list.length} 个符号`, 1);
+						eda.sys_ToastMessage.showMessage(t('Detected ${1} symbols', detectionResults.pdf_position_list.length), 1);
 					} catch (parseError) {
 						console.error('解析检测结果失败:', parseError);
 						console.error('原始内容:', content);
 						// 停止计时
 						stopTiming();
-						eda.sys_ToastMessage.showMessage('解析检测结果失败', 0);
+						eda.sys_ToastMessage.showMessage(t('Failed to parse detection result'), 0);
 					}
 				} catch (error) {
 					console.error('搜索位置失败:', error);
 					// 停止计时
 					stopTiming();
-					eda.sys_ToastMessage.showMessage('搜索位置失败: ' + error.message, 0);
+					eda.sys_ToastMessage.showMessage(t('Search position failed') + ': ' + error.message, 0);
 				}
 			}
 
@@ -2400,17 +2446,17 @@
 				apiKey = apiKeyInput.value.trim();
 				selectedModel = selectedProvider === 'custom' ? customModel : modelSelect.value;
 				if (!isSpecialApiFormat(selectedProvider, apiUrl) && (!apiKey || apiKey.trim() === '')) {
-					eda.sys_ToastMessage.showMessage('请在设置中配置API密钥', 0);
+					eda.sys_ToastMessage.showMessage(t('Please enter API key in settings'), 0);
 					return;
 				}
 
 				if (selectedProvider === 'custom' && (!apiUrl || apiUrl.trim() === '')) {
-					eda.sys_ToastMessage.showMessage('请在设置中配置自定义API地址', 0);
+					eda.sys_ToastMessage.showMessage(t('Please configure custom API URL in settings'), 0);
 					return;
 				}
 
 				if (selectedProvider === 'custom' && (!customModel || customModel.trim() === '')) {
-					eda.sys_ToastMessage.showMessage('请在设置中配置自定义模型名称', 0);
+					eda.sys_ToastMessage.showMessage(t('Please configure custom model name in settings'), 0);
 					return;
 				}
 
@@ -2431,12 +2477,12 @@
 				}
 
 				if (imagesWithSelections.length === 0) {
-					eda.sys_ToastMessage.showMessage('请先进行手动框选或搜索位置', 0);
+					eda.sys_ToastMessage.showMessage(t('Please first perform manual selection or search position'), 0);
 					return;
 				}
 
 				try {
-					eda.sys_ToastMessage.showMessage(`正在提取 ${imagesWithSelections.length} 张图片的引脚信息...`, 3);
+					eda.sys_ToastMessage.showMessage(t('Extracting symbol pin information from ${1} images...', imagesWithSelections.length), 3);
 
 					// 开始计时
 					startTiming();
@@ -2479,7 +2525,7 @@
 					const response = await callAPI(data);
 
 					if (!response.ok) {
-						throw new Error('API请求失败');
+						throw new Error(t('API request failed'));
 					}
 
 					let result, content;
@@ -2537,7 +2583,7 @@
 							// 处理标准格式的响应
 							content = result.choices[0].message.content;
 						} else {
-							throw new Error('无法解析API响应格式');
+							throw new Error(t('Unable to parse API response format'));
 						}
 					}
 
@@ -2547,12 +2593,12 @@
 					// 停止计时
 					stopTiming();
 
-					eda.sys_ToastMessage.showMessage(`成功提取 ${imagesWithSelections.length} 张图片的引脚信息`, 1);
+					eda.sys_ToastMessage.showMessage(t('Successfully extracted pin information from ${1} images', imagesWithSelections.length), 1);
 				} catch (error) {
 					console.error('提取参数失败:', error);
 					// 停止计时
 					stopTiming();
-					eda.sys_ToastMessage.showMessage('提取参数失败: ' + error.message, 0);
+					eda.sys_ToastMessage.showMessage(t('Extract parameters failed') + ': ' + error.message, 0);
 				}
 			}
 
@@ -2567,10 +2613,10 @@
 			function toggleManualSelection() {
 				if (manualSelectionMode) {
 					stopManualSelection();
-					manualSelectButton.textContent = '手动框选';
+					manualSelectButton.textContent = t('Manual Select');
 				} else {
 					startManualSelection();
-					manualSelectButton.textContent = '停止框选';
+					manualSelectButton.textContent = t('Stop Selecting');
 				}
 			}
 
@@ -2587,7 +2633,7 @@
 				if (selectionOverlay) {
 					selectionOverlay.style.pointerEvents = 'all';
 				}
-				eda.sys_ToastMessage.showMessage('请点击图片选择起点', 2);
+				eda.sys_ToastMessage.showMessage(t('Please select start point on image'), 2);
 			}
 
 			/**
@@ -2666,7 +2712,7 @@
 						startMarker.style.zIndex = '15';
 						selectionOverlay.appendChild(startMarker);
 
-						eda.sys_ToastMessage.showMessage('起点已设置，请点击终点', 2);
+						eda.sys_ToastMessage.showMessage(t('Start point set, please click end point'), 2);
 					} else {
 						// 第二次点击：设置终点并创建选择框
 						const secondPoint = clickPoint;
@@ -2720,9 +2766,9 @@
 
 						// 停止选择模式
 						stopManualSelection();
-						manualSelectButton.textContent = '手动框选';
+						manualSelectButton.textContent = t('Manual Select');
 
-						eda.sys_ToastMessage.showMessage('选择框已创建', 1);
+						eda.sys_ToastMessage.showMessage(t('Selection box created'), 1);
 					}
 
 					e.preventDefault();
@@ -2913,23 +2959,23 @@
 			 */
 			async function extractInfo() {
 				if (!selectionBox || selectionBox.style.display === 'none') {
-					eda.sys_ToastMessage.showMessage('请先框选要提取的区域', 2);
+					eda.sys_ToastMessage.showMessage(t('Please select an area to extract first'), 2);
 					return;
 				}
 
 				// 检查设置是否完整
 				if (!isSpecialApiFormat(selectedProvider, apiUrl) && (!apiKey || apiKey.trim() === '')) {
-					eda.sys_ToastMessage.showMessage('请在设置中配置API密钥', 0);
+					eda.sys_ToastMessage.showMessage(t('Please enter API key in settings'), 0);
 					return;
 				}
 
 				if (selectedProvider === 'custom' && (!apiUrl || apiUrl.trim() === '')) {
-					eda.sys_ToastMessage.showMessage('请在设置中配置自定义API地址', 0);
+					eda.sys_ToastMessage.showMessage(t('Please configure custom API URL in settings'), 0);
 					return;
 				}
 
 				if (selectedProvider === 'custom' && (!customModel || customModel.trim() === '')) {
-					eda.sys_ToastMessage.showMessage('请在设置中配置自定义模型名称', 0);
+					eda.sys_ToastMessage.showMessage(t('Please configure custom model name in settings'), 0);
 					return;
 				}
 
@@ -2953,17 +2999,17 @@
 						// 解析返回的JSON数据并添加到表格
 						parseAndAddPins(result.result);
 
-						eda.sys_ToastMessage.showMessage('信息提取成功', 1);
+						eda.sys_ToastMessage.showMessage(t('Information extraction successful'), 1);
 					};
 
 					img.onerror = function () {
-						eda.sys_ToastMessage.showMessage('图片加载失败', 0);
+						eda.sys_ToastMessage.showMessage(t('Image loading failed'), 0);
 					};
 
 					img.src = currentImage.src;
 				} catch (error) {
 					console.error('提取信息失败:', error);
-					eda.sys_ToastMessage.showMessage('提取信息失败: ' + error.message, 0);
+					eda.sys_ToastMessage.showMessage(t('Extract information failed') + ': ' + error.message, 0);
 				}
 			}
 
@@ -3036,7 +3082,7 @@
 			 */
 			function updatePinTable() {
 				if (pinData.length === 0) {
-					pinTableContainer.innerHTML = '<div class="empty-state">暂无引脚信息</div>';
+					pinTableContainer.innerHTML = '<div class="empty-state">' + t('No Pin Information') + '</div>';
 					return;
 				}
 
@@ -3044,10 +3090,10 @@
 					<table class="pin-table">
 						<thead>
 							<tr>
-								<th>引脚号</th>
-								<th>引脚名</th>
-								<th>类型</th>
-								<th>操作</th>
+								<th>${t('Pin Number')}</th>
+								<th>${t('Pin Name')}</th>
+								<th>${t('Type')}</th>
+								<th>${t('Action')}</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -3060,20 +3106,20 @@
 							<td><input type="text" value="${pin.pinName}" onchange="updatePin(${index}, 'pinName', this.value)"></td>
 							<td>
 								<select onchange="updatePin(${index}, 'pinType', this.value)">
-									<option value="未定义" ${pin.pinType === '未定义' ? 'selected' : ''}>未定义</option>
-									<option value="双向" ${pin.pinType === '双向' ? 'selected' : ''}>双向</option>
-									<option value="地" ${pin.pinType === '地' ? 'selected' : ''}>地</option>
-									<option value="高阻" ${pin.pinType === '高阻' ? 'selected' : ''}>高阻</option>
-									<option value="输入" ${pin.pinType === '输入' ? 'selected' : ''}>输入</option>
-									<option value="开集电极" ${pin.pinType === '开集电极' ? 'selected' : ''}>开集电极</option>
-									<option value="开发射极" ${pin.pinType === '开发射极' ? 'selected' : ''}>开发射极</option>
-									<option value="输出" ${pin.pinType === '输出' ? 'selected' : ''}>输出</option>
-									<option value="无源" ${pin.pinType === '无源' ? 'selected' : ''}>无源</option>
-									<option value="电源" ${pin.pinType === '电源' ? 'selected' : ''}>电源</option>
-									<option value="信号终端" ${pin.pinType === '信号终端' ? 'selected' : ''}>信号终端</option>
+									<option value="未定义" ${pin.pinType === '未定义' ? 'selected' : ''}>${t('Undefined')}</option>
+									<option value="双向" ${pin.pinType === '双向' ? 'selected' : ''}>${t('Bidirectional')}</option>
+									<option value="地" ${pin.pinType === '地' ? 'selected' : ''}>${t('Ground')}</option>
+									<option value="高阻" ${pin.pinType === '高阻' ? 'selected' : ''}>${t('High Impedance')}</option>
+									<option value="输入" ${pin.pinType === '输入' ? 'selected' : ''}>${t('Input')}</option>
+									<option value="开集电极" ${pin.pinType === '开集电极' ? 'selected' : ''}>${t('Open Collector')}</option>
+									<option value="开发射极" ${pin.pinType === '开发射极' ? 'selected' : ''}>${t('Open Emitter')}</option>
+									<option value="输出" ${pin.pinType === '输出' ? 'selected' : ''}>${t('Output')}</option>
+									<option value="无源" ${pin.pinType === '无源' ? 'selected' : ''}>${t('Passive')}</option>
+									<option value="电源" ${pin.pinType === '电源' ? 'selected' : ''}>${t('Power')}</option>
+									<option value="信号终端" ${pin.pinType === '信号终端' ? 'selected' : ''}>${t('Signal Terminator')}</option>
 								</select>
 							</td>
-							<td><button onclick="removePin(${index})">删除</button></td>
+							<td><button onclick="removePin(${index})">${t('Delete')}</button></td>
 						</tr>
 					`;
 				});
@@ -3111,7 +3157,7 @@
 				if (!isProcessing) return;
 				shouldStopProcessing = true;
 				stopButton.disabled = true;
-				stopButton.textContent = '正在停止...';
+				stopButton.textContent = t('Stopping...');
 			}
 
 			/**
@@ -3119,20 +3165,20 @@
 			 */
 			async function startAnalysis() {
 				// 获取当前API密钥和模型
-				eda.sys_ToastMessage.showMessage('图片识别正在进行中，等待期间可选择隐藏窗口', 3);
+				eda.sys_ToastMessage.showMessage(t('Image recognition in progress, you can hide window while waiting'), 3);
 				// 检查设置是否完整
 				if (!isSpecialApiFormat(selectedProvider, apiUrl) && (!apiKey || apiKey.trim() === '')) {
-					eda.sys_ToastMessage.showMessage('请在设置中配置API密钥', 0);
+					eda.sys_ToastMessage.showMessage(t('Please enter API key in settings'), 0);
 					return;
 				}
 
 				if (selectedProvider === 'custom' && (!apiUrl || apiUrl.trim() === '')) {
-					eda.sys_ToastMessage.showMessage('请在设置中配置自定义API地址', 0);
+					eda.sys_ToastMessage.showMessage(t('Please configure custom API URL in settings'), 0);
 					return;
 				}
 
 				if (selectedProvider === 'custom' && (!customModel || customModel.trim() === '')) {
-					eda.sys_ToastMessage.showMessage('请在设置中配置自定义模型名称', 0);
+					eda.sys_ToastMessage.showMessage(t('Please configure custom model name in settings'), 0);
 					return;
 				}
 				if (uploadedFiles.length === 0 || isProcessing) {
@@ -3143,7 +3189,7 @@
 				updateUI();
 				progressContainer.style.display = 'block';
 				progressBar.style.width = '0%';
-				progressText.textContent = `处理中: 0/${uploadedFiles.length}`;
+				progressText.textContent = t('Processing: ${1}/${2}', 0, uploadedFiles.length);
 				resultsList.innerHTML = '';
 				analysisResults = [];
 				totalInputTokens = 0;
@@ -3155,17 +3201,17 @@
 					const elapsedTime = Date.now() - startTime;
 					const minutes = Math.floor(elapsedTime / 60000);
 					const seconds = Math.floor((elapsedTime % 60000) / 1000);
-					timerElement.textContent = `已用时: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+					timerElement.textContent = t('Elapsed: ${1}m ${2}s', minutes.toString().padStart(2, '0'), seconds.toString().padStart(2, '0'));
 				}, 1000);
 
 				try {
 					if (shouldStopProcessing) {
-						progressText.textContent = `已停止: 0/${uploadedFiles.length}`;
+						progressText.textContent = t('Stopped: ${1}/${2}', 0, uploadedFiles.length);
 						return;
 					}
 
 					// 准备所有文件的base64数据
-					progressText.textContent = '正在准备图片数据...';
+					progressText.textContent = t('Preparing image data...');
 					const base64Images = [];
 					const mimeTypes = [];
 
@@ -3177,14 +3223,14 @@
 
 						const progress = Math.round(((i + 1) / uploadedFiles.length) * 50); // 前50%用于准备数据
 						progressBar.style.width = `${progress}%`;
-						progressText.textContent = `准备图片数据: ${i + 1}/${uploadedFiles.length}`;
+						progressText.textContent = t('Preparing image data: ${1}/${2}', i + 1, uploadedFiles.length);
 					}
 
 					if (shouldStopProcessing) return;
 
 					// 一次性调用API处理所有图片
 					progressBar.style.width = '75%';
-					progressText.textContent = '正在调用AI分析...';
+					progressText.textContent = t('Calling AI analysis...');
 
 					const resultData = await analyzeImage(uploadedFiles, base64Images, mimeTypes);
 
@@ -3227,7 +3273,7 @@
 
 				const processedCount = shouldStopProcessing ? analysisResults.length : uploadedFiles.length;
 				progressBar.style.width = '100%';
-				progressText.textContent = `处理完成: ${processedCount}/${uploadedFiles.length}`;
+				progressText.textContent = t('Completed: ${1}/${2}', processedCount, uploadedFiles.length);
 				setTimeout(() => {
 					progressContainer.style.display = 'none';
 					progressBar.style.width = '0%';
@@ -3255,7 +3301,7 @@
 						resolve(base64);
 					};
 					reader.onerror = function (e) {
-						reject(new Error('读取文件失败'));
+						reject(new Error(t('Reading file failed')));
 					};
 					reader.readAsDataURL(file);
 				});
@@ -3266,7 +3312,7 @@
 			 */
 			async function analyzeImage(files, base64Images, mimeTypes) {
 				if (shouldStopProcessing) {
-					throw new Error('用户已停止处理');
+					throw new Error(t('User stopped processing'));
 				}
 
 				// 构建多图内容数组
@@ -3305,7 +3351,7 @@
 					const response = await callAPI(data);
 
 					if (!response.ok) {
-						throw new Error('API请求失败');
+						throw new Error(t('API request failed'));
 					}
 
 					let result, content;
@@ -3383,7 +3429,7 @@
 						}
 					}
 				} catch (error) {
-					throw new Error('API调用失败');
+					throw new Error(t('API call failed: ${1}', error.message));
 				}
 			}
 
@@ -3400,15 +3446,15 @@
 				title.className = 'result-card-title';
 				title.textContent = file.name;
 				const toggleBtn = document.createElement('button');
-				toggleBtn.textContent = '展开';
+				toggleBtn.textContent = t('Expand');
 				toggleBtn.addEventListener('click', () => {
 					const content = resultCard.querySelector('.result-card-content');
 					if (content.style.display === 'none' || content.style.display === '') {
 						content.style.display = 'block';
-						toggleBtn.textContent = '收起';
+						toggleBtn.textContent = t('Collapse');
 					} else {
 						content.style.display = 'none';
-						toggleBtn.textContent = '展开';
+						toggleBtn.textContent = t('Expand');
 					}
 				});
 				header.appendChild(title);
@@ -3421,24 +3467,24 @@
 				const footer = document.createElement('div');
 				footer.className = 'result-card-footer';
 				const copyBtn = document.createElement('button');
-				copyBtn.textContent = '复制结果';
+				copyBtn.textContent = t('Copy Result');
 				copyBtn.addEventListener('click', () => {
 					navigator.clipboard
 						.writeText(result)
 						.then(() => {
-							copyBtn.textContent = '已复制';
+							copyBtn.textContent = t('Copied');
 							setTimeout(() => {
-								copyBtn.textContent = '复制结果';
+								copyBtn.textContent = t('Copy Result');
 							}, 2000);
 						})
 						.catch((err) => {
 							console.error('复制失败:', err);
-							eda.sys_ToastMessage.showMessage('复制失败，请手动复制', 0);
+							eda.sys_ToastMessage.showMessage(t('Copy failed, please copy manually'), 0);
 						});
 				});
 				const createSymbolBtn = document.createElement('button');
 				createSymbolBtn.className = 'create-symbol-btn';
-				createSymbolBtn.textContent = '创建符号';
+				createSymbolBtn.textContent = t('Create Symbol');
 				createSymbolBtn.addEventListener('click', () => {
 					createSymbol(result);
 				});
@@ -3465,15 +3511,15 @@
 				title.className = 'result-card-title';
 				title.textContent = file.name;
 				const toggleBtn = document.createElement('button');
-				toggleBtn.textContent = '展开';
+				toggleBtn.textContent = t('Expand');
 				toggleBtn.addEventListener('click', () => {
 					const content = resultCard.querySelector('.result-card-content');
 					if (content.style.display === 'none' || content.style.display === '') {
 						content.style.display = 'block';
-						toggleBtn.textContent = '收起';
+						toggleBtn.textContent = t('Collapse');
 					} else {
 						content.style.display = 'none';
-						toggleBtn.textContent = '展开';
+						toggleBtn.textContent = t('Expand');
 					}
 				});
 				header.appendChild(title);
@@ -3481,7 +3527,7 @@
 
 				const content = document.createElement('div');
 				content.className = 'result-card-content';
-				content.textContent = `处理失败: ${errorMessage}`;
+				content.textContent = t('Processing Failed') + ': ' + errorMessage;
 
 				resultCard.appendChild(header);
 				resultCard.appendChild(content);
@@ -3494,7 +3540,7 @@
 			 */
 			function downloadAllResults() {
 				if (analysisResults.length === 0) {
-					eda.sys_ToastMessage.showMessage('没有可下载的结果', 2);
+					eda.sys_ToastMessage.showMessage(t('No results to download'), 2);
 					return;
 				}
 
@@ -3509,7 +3555,7 @@
 						const link = document.createElement('a');
 						link.href = URL.createObjectURL(blob);
 						const timestamp = new Date().toISOString().replace(/[:.]/g, '-').substring(0, 19);
-						link.download = `图片分析结果_${timestamp}.zip`;
+						link.download = `${t('Image analysis results')}_${timestamp}.zip`;
 						document.body.appendChild(link);
 						link.click();
 						document.body.removeChild(link);
@@ -3517,7 +3563,7 @@
 					})
 					.catch((err) => {
 						console.error('创建ZIP文件失败:', err);
-						eda.sys_ToastMessage.showMessage('创建ZIP文件失败，将逐个下载结果', 2);
+						eda.sys_ToastMessage.showMessage(t('ZIP file creation failed, downloading individually'), 2);
 						analysisResults.forEach((result) => {
 							downloadResult(result.filename, result.result);
 						});
@@ -3637,7 +3683,7 @@
 
 							updatePinTable();
 							updateUI();
-							eda.sys_ToastMessage.showMessage(`成功解析 ${fullJsonData.pins.length} 个引脚信息`, 1);
+							eda.sys_ToastMessage.showMessage(t('Successfully parsed ${1} pin information', fullJsonData.pins.length), 1);
 							return;
 						}
 					} catch (fullJsonError) {
@@ -3667,7 +3713,7 @@
 									});
 									updatePinTable();
 									updateUI();
-									eda.sys_ToastMessage.showMessage(`成功解析 ${jsonData.pins.length} 个引脚信息`, 1);
+									eda.sys_ToastMessage.showMessage(t('Successfully parsed ${1} pin information', jsonData.pins.length), 1);
 									return;
 								}
 							} catch (parseError) {
@@ -3765,7 +3811,7 @@
 
 									updatePinTable();
 									updateUI();
-									eda.sys_ToastMessage.showMessage(`成功解析 ${jsonData.pins.length} 个引脚信息`, 1);
+									eda.sys_ToastMessage.showMessage(t('Successfully parsed ${1} pin information', jsonData.pins.length), 1);
 									return;
 								}
 							} catch (parseError) {
@@ -3825,17 +3871,17 @@
 						console.log('通过文本解析找到引脚数量:', foundPins);
 						updatePinTable();
 						updateUI();
-						eda.sys_ToastMessage.showMessage(`成功解析 ${foundPins} 个引脚信息`, 1);
+						eda.sys_ToastMessage.showMessage(t('Successfully parsed ${1} pin information', foundPins), 1);
 						return;
 					}
 
 					// 如果所有方法都失败了
 					console.error('所有解析方法都失败了');
-					eda.sys_ToastMessage.showMessage('无法解析引脚信息，请检查API返回格式', 0);
+					eda.sys_ToastMessage.showMessage(t('Cannot parse pin information, please check API response format'), 0);
 				} catch (error) {
 					console.error('解析引脚数据失败:', error);
 					console.error('原始内容:', resultText);
-					eda.sys_ToastMessage.showMessage('解析引脚数据失败: ' + error.message, 0);
+					eda.sys_ToastMessage.showMessage(t('Parse pin data failed') + ': ' + error.message, 0);
 				}
 			}
 
@@ -3844,7 +3890,7 @@
 			 */
 			function createSymbolFromTable() {
 				if (pinData.length === 0) {
-					eda.sys_ToastMessage.showMessage('请先添加引脚信息', 2);
+					eda.sys_ToastMessage.showMessage(t('Please add pin information first'), 2);
 					return;
 				}
 
@@ -3858,10 +3904,10 @@
 					console.log('引脚创建完成');
 
 					eda.sys_IFrame.hideIFrame('symbol');
-					eda.sys_ToastMessage.showMessage('符号创建成功，支持在菜单中通过点击"继续创建"选项以重新打开窗口', 3);
+					eda.sys_ToastMessage.showMessage(t('Symbol created successfully'), 3);
 				} catch (error) {
 					console.error('创建符号失败:', error);
-					eda.sys_ToastMessage.showMessage('创建符号失败，请检查控制台日志以获取详细信息', 0);
+					eda.sys_ToastMessage.showMessage(t('Create symbol failed, check console log for details'), 0);
 				}
 			}
 
@@ -3871,9 +3917,9 @@
 			function copySymbolInfo() {
 				if (pinData.length === 0) {
 					if (typeof eda !== 'undefined' && eda.sys_ToastMessage) {
-						eda.sys_ToastMessage.showMessage('暂无引脚信息可复制', 2);
+						eda.sys_ToastMessage.showMessage(t('No pin information to copy'), 2);
 					} else {
-						alert('暂无引脚信息可复制');
+						alert(t('No pin information to copy'));
 					}
 					return;
 				}
@@ -3896,9 +3942,9 @@
 						.writeText(copyText)
 						.then(() => {
 							if (typeof eda !== 'undefined' && eda.sys_ToastMessage) {
-								eda.sys_ToastMessage.showMessage(`已复制 ${pinData.length} 个引脚信息到剪贴板`, 1);
+								eda.sys_ToastMessage.showMessage(t('Copied ${1} pin information to clipboard', pinData.length), 1);
 							} else {
-								alert(`已复制 ${pinData.length} 个引脚信息到剪贴板`);
+								alert(t('Copied ${1} pin information to clipboard', pinData.length));
 							}
 						})
 						.catch((err) => {
@@ -3911,16 +3957,16 @@
 							try {
 								document.execCommand('copy');
 								if (typeof eda !== 'undefined' && eda.sys_ToastMessage) {
-									eda.sys_ToastMessage.showMessage(`已复制 ${pinData.length} 个引脚信息到剪贴板`, 1);
+									eda.sys_ToastMessage.showMessage(t('Copied ${1} pin information to clipboard', pinData.length), 1);
 								} else {
-									alert(`已复制 ${pinData.length} 个引脚信息到剪贴板`);
+									alert(t('Copied ${1} pin information to clipboard', pinData.length));
 								}
 							} catch (fallbackErr) {
 								console.error('降级复制也失败:', fallbackErr);
 								if (typeof eda !== 'undefined' && eda.sys_ToastMessage) {
-									eda.sys_ToastMessage.showMessage('复制失败，请手动复制', 0);
+									eda.sys_ToastMessage.showMessage(t('Copy failed, please copy manually'), 0);
 								} else {
-									alert('复制失败，请手动复制');
+									alert(t('Copy failed, please copy manually'));
 								}
 							}
 							document.body.removeChild(textArea);
@@ -3928,9 +3974,9 @@
 				} catch (error) {
 					console.error('复制符号信息失败:', error);
 					if (typeof eda !== 'undefined' && eda.sys_ToastMessage) {
-						eda.sys_ToastMessage.showMessage('复制失败: ' + error.message, 0);
+						eda.sys_ToastMessage.showMessage(t('Copy symbol info failed') + ': ' + error.message, 0);
 					} else {
-						alert('复制失败: ' + error.message);
+						alert(t('Copy symbol info failed') + ': ' + error.message);
 					}
 				}
 			}
@@ -3945,7 +3991,7 @@
 
 					// 检查JSON数据是否包含必要的字段
 					if (!data || typeof data !== 'object' || !data.type || !Array.isArray(data.pins)) {
-						throw new Error('JSON数据格式不正确，缺少type或pins字段');
+						throw new Error(t('Invalid JSON data format, missing type or pins field'));
 					}
 
 					const type = data.type;
@@ -3963,10 +4009,10 @@
 					console.log('引脚创建完成');
 
 					eda.sys_IFrame.hideIFrame('symbol');
-					eda.sys_ToastMessage.showMessage('符号创建成功，支持在菜单中通过点击“继续创建”选项以重新打开窗口', 3);
+					eda.sys_ToastMessage.showMessage(t('Symbol created successfully'), 3);
 				} catch (error) {
 					console.error('创建符号失败:', error);
-					eda.sys_ToastMessage.showMessage('创建符号失败，请检查控制台日志以获取详细信息', 0);
+					eda.sys_ToastMessage.showMessage(t('Create symbol failed, check console log for details'), 0);
 				}
 			}
 
@@ -3975,7 +4021,7 @@
 			 */
 			function createSymbolBoundingBox(type, pinCount) {
 				if (!pinCount || isNaN(pinCount) || pinCount <= 0) {
-					throw new Error('无效的引脚数量: ' + pinCount);
+					throw new Error(t('Invalid pin count: ${1}', pinCount));
 				}
 
 				let aspectRatio = 1.2;
@@ -4008,7 +4054,7 @@
 
 				// 验证 bbox 是否有效
 				if (bbox.some((value) => isNaN(value))) {
-					throw new Error('生成的边框坐标无效: ' + bbox);
+					throw new Error(t('Invalid bounding box coordinates: ${1}', bbox));
 				}
 
 				return bbox;
@@ -4041,11 +4087,11 @@
 			 */
 			function createSymbolPins(pins, bbox, type) {
 				if (!Array.isArray(pins) || pins.length === 0) {
-					throw new Error('无效的引脚数据: ' + pins);
+					throw new Error(t('Invalid pin data: ${1}', pins));
 				}
 
 				if (!Array.isArray(bbox) || bbox.length < 8 || bbox.some((value) => isNaN(value))) {
-					throw new Error('无效的边框数据: ' + bbox);
+					throw new Error(t('Invalid bounding box data: ${1}', bbox));
 				}
 				console.log('type1', type);
 				pins.forEach((pin, pinIndex) => {
@@ -4131,7 +4177,7 @@
 					}
 
 					if (isNaN(x) || isNaN(y)) {
-						throw new Error(`引脚坐标无效: pinNumber=${pinNumber}, pinName=${pinName}, x=${x}, y=${y}`);
+						throw new Error(t('Invalid pin coordinates: pinNumber=${1}, pinName=${2}, x=${3}, y=${4}', pinNumber, pinName, x, y));
 					}
 
 					console.log('创建引脚:', pinNumber, pinName, x, y, rotation, pinType);
@@ -4196,7 +4242,7 @@
 							// 显示预览
 							const currentImageData = currentImages[currentImageIndex];
 							previewImage.src = currentImageData.src;
-							previewInfo.textContent = currentImageData.name || `页面 ${currentImageIndex + 1}`;
+							previewInfo.textContent = currentImageData.name || t('Page ${1}', currentImageIndex + 1);
 							imagePreviewModal.style.display = 'flex';
 						});
 					}
