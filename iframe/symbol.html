@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<script src="/iframe/assets/jszip.min.js"></script>
 		<script src="/iframe/assets/pdf.min.js"></script>
-		<title id="pageTitle" data-i18n="symbol_extractor"></title>
+		<title id="pageTitle" data-i18n="symbol_extractor">符号提取助手</title>
 		<style>
 			body {
 				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -880,15 +880,15 @@
 					<button class="close-btn" id="close-settings">×</button>
 				</div>
 				<div class="form-group">
-					<label for="provider-select" id="labelProvider" data-i18n="model_provider"></label>
+					<label for="provider-select" id="labelProvider" data-i18n="model_provider">模型厂商</label>
 					<select id="provider-select">
-						<option value="qwen" id="optQwen" data-i18n="tongyi_qianwen"></option>
-						<option value="zhipu" id="optZhipu" data-i18n="zhipu_ai"></option>
-						<option value="custom" id="optCustom" data-i18n="custom"></option>
+						<option value="qwen" id="optQwen" data-i18n="tongyi_qianwen">通义千问</option>
+						<option value="zhipu" id="optZhipu" data-i18n="zhipu_ai">智谱AI</option>
+						<option value="custom" id="optCustom" data-i18n="custom">自定义</option>
 					</select>
 				</div>
 				<div class="form-group" id="model-group">
-					<label for="model-select" id="labelModel" data-i18n="select_model"></label>
+					<label for="model-select" id="labelModel" data-i18n="select_model">选择模型</label>
 					<select id="model-select">
 						<option value="qwen3-vl-plus" selected>qwen3-vl-plus</option>
 						<option value="qwen-vl-max-latest">qwen-vl-max-latest</option>
@@ -899,20 +899,20 @@
 					</select>
 				</div>
 				<div class="form-group" id="api-key-group">
-					<label for="api-key" id="labelApiKey" data-i18n="api_key"></label>
-					<input type="text" id="api-key" data-i18n-placeholder="enter_api_key" />
+					<label for="api-key" id="labelApiKey" data-i18n="api_key">API密钥</label>
+					<input type="text" id="api-key" placeholder="请输入您的API密钥" data-i18n-placeholder="enter_api_key" />
 				</div>
 				<div class="form-group" id="api-url-group" style="display: none">
-					<label for="api-url" id="labelApiUrl" data-i18n="api_url"></label>
-					<input type="text" id="api-url" data-i18n-placeholder="enter_api_url" />
+					<label for="api-url" id="labelApiUrl" data-i18n="api_url">API地址</label>
+					<input type="text" id="api-url" placeholder="请输入API地址" data-i18n-placeholder="enter_api_url" />
 				</div>
 				<div class="form-group" id="custom-model-group" style="display: none">
-					<label for="custom-model" id="labelCustomModel" data-i18n="model_name"></label>
-					<input type="text" id="custom-model" data-i18n-placeholder="enter_model_name" />
+					<label for="custom-model" id="labelCustomModel" data-i18n="model_name">模型名称</label>
+					<input type="text" id="custom-model" placeholder="请输入模型名称" data-i18n-placeholder="enter_model_name" />
 				</div>
 				<div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px">
-					<button type="button" id="cancel-settings" style="background: #e9ecef; color: #495057" data-i18n="cancel"></button>
-					<button type="button" id="save-settings" class="btn-primary" data-i18n="save"></button>
+					<button type="button" id="cancel-settings" style="background: #e9ecef; color: #495057" data-i18n="cancel">取消</button>
+					<button type="button" id="save-settings" class="btn-primary" data-i18n="save">保存</button>
 				</div>
 			</div>
 		</div>
@@ -924,17 +924,17 @@
 				<div class="controls-section">
 					<div class="control-row single-row">
 						<div class="control-buttons">
-							<button id="search-position" class="btn-primary" disabled data-i18n="search_symbol_position"></button>
-							<button id="extract-params" class="btn-success" disabled data-i18n="extract_parameters"></button>
-							<button id="clear-selection" data-i18n="clear_selection"></button>
-							<button id="manual-select" data-i18n="manual_select"></button>
-							<button class="btn-secondary" id="hideButton" data-i18n="hide_window"></button>
-							<button class="settings-btn" id="open-settings" data-i18n="settings"></button>
+							<button id="search-position" class="btn-primary" disabled data-i18n="search_symbol_position">搜索符号位置</button>
+							<button id="extract-params" class="btn-success" disabled data-i18n="extract_parameters">提取参数</button>
+							<button id="clear-selection" data-i18n="clear_selection">清除框选</button>
+							<button id="manual-select" data-i18n="manual_select">手动框选</button>
+							<button class="btn-secondary" id="hideButton" data-i18n="hide_window">隐藏窗口</button>
+							<button class="settings-btn" id="open-settings" data-i18n="settings">设置</button>
 						</div>
-						<div class="timing-display" id="timing-display" data-i18n="elapsed_dash"></div>
+						<div class="timing-display" id="timing-display" data-i18n="elapsed_dash">耗时: --</div>
 					</div>
 					<div class="progress-container">
-						<div class="coordinate-display" id="coordinate-display" data-i18n="coordinates_no_selection"></div>
+						<div class="coordinate-display" id="coordinate-display" data-i18n="coordinates_no_selection">坐标信息: 未选择区域</div>
 						<div class="progress-bar" id="progress-bar">
 							<div class="progress-fill" id="progress-fill"></div>
 						</div>
@@ -946,16 +946,16 @@
 				<div class="image-display" id="image-display">
 					<div class="selection-overlay" id="selection-overlay"></div>
 					<div class="replace-pdf-overlay" id="replace-pdf-overlay">
-						<button id="replace-pdf-btn" data-i18n="replace_pdf"></button>
+						<button id="replace-pdf-btn" data-i18n="replace_pdf">替换PDF</button>
 					</div>
-					<div class="empty-state" id="emptyState" data-i18n="upload_prompt"></div>
+					<div class="empty-state" id="emptyState" data-i18n="upload_prompt">请上传PDF或图片文件</div>
 					<input type="file" id="file-input" multiple accept=".pdf,image/*" style="display: none" />
 				</div>
 
 				<!-- 图片导航区域 -->
 				<div class="image-navigation" id="image-navigation" style="display: none">
 					<div class="nav-controls">
-						<button id="prev-image" class="nav-btn" data-i18n="previous_image"></button>
+						<button id="prev-image" class="nav-btn" data-i18n="previous_image">上一张</button>
 						<input
 							type="number"
 							id="page-input"
@@ -964,6 +964,7 @@
 							value="1"
 							placeholder=""
 							title=""
+							placeholder="页面"
 							data-i18n-placeholder="page"
 							data-i18n-title="page_jump_hint"
 							style="
@@ -980,7 +981,7 @@
 						/>
 						<span> / </span>
 						<span id="total-pages">1</span>
-						<button id="next-image" class="nav-btn" data-i18n="next_image"></button>
+						<button id="next-image" class="nav-btn" data-i18n="next_image">下一张</button>
 					</div>
 					<div class="image-info" id="image-info"></div>
 				</div>
@@ -990,14 +991,14 @@
 			<div class="right-panel">
 				<div class="pin-table-section">
 					<div class="table-controls">
-						<button id="add-pin" data-i18n="add_pin"></button>
-						<button id="clear-table" data-i18n="clear_table"></button>
-						<button id="create-symbol" class="btn-success" data-i18n="create_symbol"></button>
-						<button id="copy-symbol-info" class="btn-secondary" disabled data-i18n="copy_symbol_info"></button>
+						<button id="add-pin" data-i18n="add_pin">添加引脚</button>
+						<button id="clear-table" data-i18n="clear_table">清空表格</button>
+						<button id="create-symbol" class="btn-success" data-i18n="create_symbol">创建符号</button>
+						<button id="copy-symbol-info" class="btn-secondary" disabled data-i18n="copy_symbol_info">复制符号信息</button>
 					</div>
 					<div class="pin-table-content">
 						<div id="pin-table-container">
-							<div class="empty-state" id="emptyPinState" data-i18n="no_pin_info"></div>
+							<div class="empty-state" id="emptyPinState" data-i18n="no_pin_info">暂无引脚信息</div>
 						</div>
 					</div>
 				</div>
@@ -1006,19 +1007,19 @@
 
 		<script>
 			// i18n initialization
-			var edaObj = (typeof eda !== 'undefined') ? eda : (window.parent && window.parent.eda);
+			var edaObj = typeof eda !== 'undefined' ? eda : window.parent && window.parent.eda;
 			function t(tag, ...args) {
 				if (edaObj && edaObj.sys_I18n) return edaObj.sys_I18n.text(tag, undefined, undefined, ...args);
 				return tag;
 			}
 			function applyI18n() {
-				document.querySelectorAll('[data-i18n]').forEach(function(el) {
+				document.querySelectorAll('[data-i18n]').forEach(function (el) {
 					el.textContent = t(el.getAttribute('data-i18n'));
 				});
-				document.querySelectorAll('[data-i18n-title]').forEach(function(el) {
+				document.querySelectorAll('[data-i18n-title]').forEach(function (el) {
 					el.setAttribute('title', t(el.getAttribute('data-i18n-title')));
 				});
-				document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
+				document.querySelectorAll('[data-i18n-placeholder]').forEach(function (el) {
 					el.setAttribute('placeholder', t(el.getAttribute('data-i18n-placeholder')));
 				});
 			}
