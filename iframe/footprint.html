@@ -5,6 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<script src="/iframe/assets/jszip.min.js"></script>
 		<script src="/iframe/assets/pdf.min.js"></script>
+		<script src="/iframe/assets/pdf.worker.min.js"></script>
 		<title id="pageTitle" data-i18n="footprint_generator">封装生成器</title>
 		<style>
 			body {
@@ -1070,8 +1071,7 @@
 			}
 			applyI18n();
 
-			// 设置PDF.js的worker路径
-			pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+			// 内置 worker 已通过静态 script 加载，PDF.js 自动使用其 WorkerMessageHandler。
 
 			// 全局变量
 			let uploadedFiles = [];
