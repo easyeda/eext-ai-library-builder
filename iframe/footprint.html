@@ -1072,6 +1072,7 @@
 			applyI18n();
 
 			// 内置 worker 已通过静态 script 加载，PDF.js 自动使用其 WorkerMessageHandler。
+			// EDA 的插件资源路径不能作为浏览器动态 workerSrc 使用。
 
 			// 全局变量
 			let uploadedFiles = [];
@@ -4806,7 +4807,7 @@
 						pinNumber.toString(),
 						x,
 						y,
-						1.57, // 90度旋转
+						90, // EDA 使用角度制，上下焊盘旋转 90°
 						[EPCB_PrimitivePadShapeType.RECTANGLE, pinLengthMil, pinWidthMil, 0],
 					);
 					pinNumber++;
@@ -4834,7 +4835,7 @@
 						pinNumber.toString(),
 						x,
 						y,
-						1.57, // 90度旋转
+						90, // EDA 使用角度制，上下焊盘旋转 90°
 						[EPCB_PrimitivePadShapeType.RECTANGLE, pinLengthMil, pinWidthMil, 0],
 					);
 					pinNumber++;
@@ -4940,7 +4941,7 @@
 						pinNumber.toString(),
 						x,
 						y,
-						1.57, // 90度旋转
+						90, // EDA 使用角度制，上下焊盘旋转 90°
 						[EPCB_PrimitivePadShapeType.RECTANGLE, pinLengthMil, pinWidthMil, 0],
 					);
 					pinNumber++;
@@ -4968,7 +4969,7 @@
 						pinNumber.toString(),
 						x,
 						y,
-						1.57, // 90度旋转
+						90, // EDA 使用角度制，上下焊盘旋转 90°
 						[EPCB_PrimitivePadShapeType.RECTANGLE, pinLengthMil, pinWidthMil, 0],
 					);
 					pinNumber++;
@@ -5011,7 +5012,7 @@
 				const dotX = -outlineX + silkLength / 2;
 				const dotY = outlineY - silkLength / 2;
 				const dotRadius = 3; // 小圆点半径(mil)
-				const dotCircle = eda.pcb_MathPolygon.createPolygon([dotX, dotY, 'A', dotX + dotRadius, dotY, dotX, dotY]);
+				const dotCircle = eda.pcb_MathPolygon.createPolygon(['CIRCLE', dotX, dotY, dotRadius]);
 				eda.pcb_PrimitivePolyline.create('line', EPCB_LayerId.TOP_SILKSCREEN, dotCircle, 6);
 
 				console.log('QFP封装创建完成，总引脚数:', pinNumber - 1);

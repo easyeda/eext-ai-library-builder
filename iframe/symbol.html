@@ -1027,6 +1027,7 @@
 			applyI18n();
 
 			// 内置 worker 已通过静态 script 加载，PDF.js 自动使用其 WorkerMessageHandler。
+			// EDA 的插件资源路径不能作为浏览器动态 workerSrc 使用。
 
 			// 全局变量
 			let uploadedFiles = [];
